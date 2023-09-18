@@ -1,0 +1,19 @@
+{
+  "name": "bluespec",
+  "displayName": "bluespec",
+  "description": "Syntax highlighting for Bluespec SystemVerilog",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [{
+      "language": "bluespec",
+      "scopeName": "source.bsv",
+      "path": "./syntaxes/bluespec.tmLanguage.json"
+    }]
+  }
+}
