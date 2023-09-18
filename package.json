@@ -10,6 +10,12 @@
     "Programming Languages"
   ],
   "contributes": {
+    "languages": [{
+      "id": "bluespec",
+      "aliases": ["Bluespec SystemVerilog", "bluespec"],
+      "extensions": [".bsv"],
+      "configuration": "./language-configuration.json"
+    }],
     "grammars": [{
       "language": "bluespec",
       "scopeName": "source.bsv",
