@@ -3,6 +3,7 @@ name: Bluespec SystemVerilog
 
 patterns:
   - include: '#whitespace'
+  - include: '#directives'
   - include: '#keyword'
   - include: '#literal'
   
@@ -15,10 +16,15 @@ repository:
 
   whitespace:  # Check macros.h
     patterns:
+      - include: '#ifdef' 
       - include: '#block_comment'
       - include: '#single_comment'
+
+  directives:
+    patterns:
       - include: '#attribute'
-  
+      - include: '#define'
+
   keyword:
     patterns:
       - include: '#action'
@@ -52,14 +58,31 @@ repository:
       - include: '#lower_identifier'
 
 
+  ifdef:
+    begin: (`ifdef)(?:\s+)(ANY_IDENTIFIER)
+    end: (`endif)
+    beginCaptures:
+      1:
+        name: _CONTROL
+      2:
+        name: _DIRECTIVE
+    endCaptures:
+      1:
+        name: _CONTROL
+    patterns:
+      - include: '$self'
+
+  define:
+    name: _DIRECTIVE
+
   action:
     patterns:
-      - name: support.class.bluespec
-        match: (?:ActionValue\s*#?|Action)
+      - name: _ACTION
+        match: (?:ActionValue\s*#|Action)
 
   control:
     patterns:
-      - name: keyword.control.bluespec
+      - name: _CONTROL
         match: (?x)\b
           (?:case|matches|endcase|type|else|for|if|return|while)\b
   
@@ -70,8 +93,8 @@ repository:
           (?:function|instance|interface|method|module|package|
           rule|rules|typeclass|typedef|struct|tagged|union|enum|
           endfunction|endinstance|endinterface|endmethod|endmodule|
-          endpackage|endrule|endrules|endtypeclass|deriving|begin|end)\b
-
+          endpackage|endrule|endrules|endtypeclass|deriving|begin|end|
+          let|action|endaction)\b
 
   string:
     name: string.quoted.double.bluespec
@@ -86,12 +109,12 @@ repository:
     match: '//.*'
 
   block_comment:
-    name: comment.block.bluespec
+    name: _BLOCK_COMMENT
     begin: '/\*'
     end: '\*/'
 
   attribute:  # e.g. (* synthesize *)
-    name: keyword.control.bluespec
+    name: _DIRECTIVE
     match: '\(\* .* \*\)'
   
   type:

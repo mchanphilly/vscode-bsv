@@ -6,6 +6,9 @@
       "include": "#whitespace"
     },
     {
+      "include": "#directives"
+    },
+    {
       "include": "#keyword"
     },
     {
@@ -28,13 +31,23 @@
     "whitespace": {
       "patterns": [
         {
+          "include": "#ifdef"
+        },
+        {
           "include": "#block_comment"
         },
         {
           "include": "#single_comment"
-        },
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
         {
           "include": "#attribute"
+        },
+        {
+          "include": "#define"
         }
       ]
     },
@@ -109,11 +122,36 @@
         }
       ]
     },
+    "ifdef": {
+      "begin": "(`ifdef)(?:\\s+)((?:[\\p{Alpha}\\d\\$_])+)",
+      "end": "(`endif)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.bluespec"
+        },
+        "2": {
+          "name": "meta.preprocessor.bluespec"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "keyword.control.bluespec"
+        }
+      },
+      "patterns": [
+        {
+          "include": "$self"
+        }
+      ]
+    },
+    "define": {
+      "name": "meta.preprocessor.bluespec"
+    },
     "action": {
       "patterns": [
         {
-          "name": "support.class.bluespec",
-          "match": "(?:ActionValue\\s*#?|Action)"
+          "name": "constant.language.bluespec",
+          "match": "(?:ActionValue\\s*#|Action)"
         }
       ]
     },
@@ -129,7 +167,7 @@
       "patterns": [
         {
           "name": "storage.type.bluespec",
-          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end)\\b"
+          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end| let|action|endaction)\\b"
         }
       ]
     },
@@ -154,7 +192,7 @@
       "end": "\\*/"
     },
     "attribute": {
-      "name": "keyword.control.bluespec",
+      "name": "meta.preprocessor.bluespec",
       "match": "\\(\\* .* \\*\\)"
     },
     "type": {
