@@ -6,6 +6,8 @@ patterns:
   - include: '#keyword'
   - include: '#literal'
   
+  - include: "#declarations"
+
   - include: "#enum_detect"
   - include: "#action_detect"
   - include: '#identifier'
@@ -97,27 +99,27 @@ repository:
     match: (TYPE)  # wrap parentheses because first group non-capture
 
   lower_identifier_args:
-    name: FUNCTION
+    name: _FUNCTION
     match: ((LOWER_IDENTIFIER)\s*\()  
   
   lower_identifier:
-    name: VARIABLE
+    name: _VARIABLE
     match: ((LOWER_IDENTIFIER)\b)
   
   system_task:
-    name: SYSTEM_FUNCTION
+    name: _SYSTEM_FUNCTION
     match: \$(IDENTIFIER_CHAR)*\b
 
   integer:
     patterns:
-      - name: NUMBER
+      - name: _NUMBER
         match: \d*'(?:d[\d_]+|(h|x)[\h_]+|o[0-7_]+|b[01_]+)\b  # 32'd2424 kind
-      - name: NUMBER
+      - name: _NUMBER
         match: '\b\d+\b'  # normal kind
   
   real:
     patterns:
-      - name: NUMBER
+      - name: _NUMBER
         match: '\b\d[\d_]*(?:\.[\d_]+)?(?:[Ee][+-]?[\d_]+)?\b'
 
 scopeName: source.bsv

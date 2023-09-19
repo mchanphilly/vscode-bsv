@@ -12,6 +12,9 @@
       "include": "#literal"
     },
     {
+      "include": "#declarations"
+    },
+    {
       "include": "#enum_detect"
     },
     {
