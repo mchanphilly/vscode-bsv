@@ -2,7 +2,7 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 patterns:
   - include: '#whitespace'
-  - include: '#keywords'
+  - include: '#keyword'
   - include: '#literal'
   
   - include: '#identifier'
@@ -21,22 +21,42 @@ repository:
       - include: '#single_comment'
       - include: '#attribute'
 
-  identifier:
+  
+  keyword:
     patterns:
-      - include: '#system_task'
-      - include: '#type'
-      - include: '#lower_identifier'
+      - include: '#action'
+      - include: '#declare_keyword'
 
-  keywords:
-    patterns:
-      - name: keyword.control.bluespec,
-        match: \b(if|while|for|return)\b
+
 
   literal:
     patterns:
       - include: '#string'
       - include: '#real'
       - include: '#integer'
+
+
+  identifier:
+    patterns:
+      - include: '#system_task'
+      - include: '#type'
+      - include: '#lower_identifier'
+
+
+  action:
+    patterns:
+      - name: support.class.bluespec
+        match: (?:ActionValue#?|Action)
+
+  declare_keyword:
+    patterns:
+      - name: storage.type.bluespec
+        match: (?x)\b
+          (?:function|instance|interface|method|module|package|
+          rule|rules|typeclass|typedef|struct|tagged|union|enum|
+          endfunction|endinstance|endinterface|endmethod|endmodule|
+          endpackage|endrule|endrules|endtypeclass|deriving|begin|end)\b
+
 
   string:
     name: string.quoted.double.bluespec
@@ -58,16 +78,9 @@ repository:
   attribute:  # e.g. (* synthesize *)
     name: comment.line.preprocessor.bluespec
     match: '\(\* .* \*\)'
-
-
-
-
-  # upper_identifier:  # unused
-  #   name: entity.name.type.bluespec
-  #   match: (?:\b\p{Upper}[\p{Alpha}\d\$_]*\b) 
   
   type:
-    name: entity.name.type.bluespec
+    name: entity.name.class.bluespec
     match: (?:\b\p{Upper}[\p{Alpha}\d\$_]*\#?) 
   
   lower_identifier:
@@ -77,8 +90,6 @@ repository:
   system_task:
     name: support.function.bluespec
     match: (?:\$[\p{Alpha}\d\$_]*\b) 
-
-
 
   integer:
     patterns:

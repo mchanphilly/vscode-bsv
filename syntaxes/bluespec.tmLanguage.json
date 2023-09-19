@@ -6,7 +6,7 @@
       "include": "#whitespace"
     },
     {
-      "include": "#keywords"
+      "include": "#keyword"
     },
     {
       "include": "#literal"
@@ -29,24 +29,13 @@
         }
       ]
     },
-    "identifier": {
+    "keyword": {
       "patterns": [
         {
-          "include": "#system_task"
+          "include": "#action"
         },
         {
-          "include": "#type"
-        },
-        {
-          "include": "#lower_identifier"
-        }
-      ]
-    },
-    "keywords": {
-      "patterns": [
-        {
-          "name": "keyword.control.bluespec,",
-          "match": "\\b(if|while|for|return)\\b"
+          "include": "#declare_keyword"
         }
       ]
     },
@@ -60,6 +49,35 @@
         },
         {
           "include": "#integer"
+        }
+      ]
+    },
+    "identifier": {
+      "patterns": [
+        {
+          "include": "#system_task"
+        },
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#lower_identifier"
+        }
+      ]
+    },
+    "action": {
+      "patterns": [
+        {
+          "name": "support.class.bluespec",
+          "match": "(?:ActionValue#?|Action)"
+        }
+      ]
+    },
+    "declare_keyword": {
+      "patterns": [
+        {
+          "name": "storage.type.bluespec",
+          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end)\\b"
         }
       ]
     },
@@ -88,7 +106,7 @@
       "match": "\\(\\* .* \\*\\)"
     },
     "type": {
-      "name": "entity.name.type.bluespec",
+      "name": "entity.name.class.bluespec",
       "match": "(?:\\b\\p{Upper}[\\p{Alpha}\\d\\$_]*\\#?)"
     },
     "lower_identifier": {

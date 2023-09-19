@@ -7,14 +7,14 @@
     },
     // symbols used as brackets
     "brackets": [
-        ["begin", "end"],
+        // ["begin", "end"],
         ["{", "}"],
         ["[", "]"],
         ["(", ")"]
     ],
     // symbols that are auto closed when typing
     "autoClosingPairs": [
-        ["begin", "end"],
+        // ["begin", "end"],
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
@@ -23,11 +23,10 @@
     ],
     // symbols that can be used to surround a selection
     "surroundingPairs": [
-        ["begin", "end"],
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
         ["'", "'"]
-    ]
+    ],
 }
