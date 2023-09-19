@@ -3,10 +3,7 @@
   "name": "Bluespec SystemVerilog",
   "patterns": [
     {
-      "include": "#single_comment"
-    },
-    {
-      "include": "#block_comment"
+      "include": "#comments"
     },
     {
       "include": "#keywords"
@@ -16,6 +13,16 @@
     }
   ],
   "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "include": "#block_comment"
+        },
+        {
+          "include": "#single_comment"
+        }
+      ]
+    },
     "keywords": {
       "patterns": [
         {

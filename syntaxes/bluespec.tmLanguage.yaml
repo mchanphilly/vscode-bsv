@@ -1,11 +1,16 @@
 $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
 name: Bluespec SystemVerilog
 patterns:
-  - {include: '#single_comment'}
-  - {include: '#block_comment'}
-  - {include: '#keywords'}
-  - {include: '#strings'}
+  - include: '#comments'
+  - include: '#keywords'
+  - include: '#strings'
 repository:
+
+  # TOP LEVEL 
+  comments:
+    patterns:
+      - include: '#block_comment'
+      - include: '#single_comment'
 
   keywords:
     patterns:
