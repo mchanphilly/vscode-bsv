@@ -53,6 +53,10 @@ repository:
 
   keyword:
     patterns:
+      - name: punctuation.terminator.bluespec
+        match: ;
+      - name: constant.language.bluespec
+        match: \?
       - include: '#action'
       - include: '#control'
       - include: '#operator'
@@ -83,7 +87,7 @@ repository:
   operator:
     name: keyword.operator.bluespec
     match: (?x) (
-      (?:<-|<=|\.) |
+      (?:<-|<=|\.|,) |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=) |
       [\|&]{2} |
@@ -95,21 +99,20 @@ repository:
 
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|(?:method|rule).*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+      (?<=(?:if\s+|rule.*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
       (?:\()
     end: (?x)
       (?:\))
     patterns: # short-circuit from context
       - include: '#always'
-
       - name: variable.bluespec
         match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
       - name: variable.other.constant.bluespec
         match: (?<!tagged\s+)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
-    name: invalid.bluespec
-# 112 "bluespec.tmLanguageRaw.yaml"
-  type_argument_pair: # in signatures
+    name: invalid.bluespec # should be empty
+# 115 "bluespec.tmLanguageRaw.yaml"
+  type_argument_pair: # in signatures (UNUSED)
     match: ((?:((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(\s*#)?)(?:.*?)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
     captures:
       1:

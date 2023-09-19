@@ -96,6 +96,14 @@
     "keyword": {
       "patterns": [
         {
+          "name": "punctuation.terminator.bluespec",
+          "match": ";"
+        },
+        {
+          "name": "constant.language.bluespec",
+          "match": "\\?"
+        },
+        {
           "include": "#action"
         },
         {
@@ -153,10 +161,10 @@
     },
     "operator": {
       "name": "keyword.operator.bluespec",
-      "match": "(?x) ( (?:<-|<=|\\.) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+      "match": "(?x) ( (?:<-|<=|\\.|,) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "conditional": {
-      "begin": "(?x) (?<=(?:if\\s+|(?:method|rule).*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))) (?:\\()",
+      "begin": "(?x) (?<=(?:if\\s+|rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))) (?:\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {

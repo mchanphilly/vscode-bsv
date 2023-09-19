@@ -44,6 +44,10 @@ repository:
 
   keyword:
     patterns:
+      - name: punctuation.terminator.bluespec
+        match: ;
+      - name: _DONT_CARE
+        match: \?
       - include: '#action'
       - include: '#control'
       - include: '#operator'
@@ -74,7 +78,7 @@ repository:
   operator:
     name: _OPERATOR
     match: (?x) (
-      (?:<-|<=|\.)        |
+      (?:<-|<=|\.|,)      |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=)         |
       [\|&]{2}            |
@@ -86,24 +90,23 @@ repository:
 
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|(?:method|rule).*(LOWER_IDENTIFIER)))
+      (?<=(?:if\s+|rule.*(LOWER_IDENTIFIER)))
       (?:\()
     end: (?x)
       (?:\))
     patterns:  # short-circuit from context
       - include: '#always'
-      # - include: '#type_argument_pair'
       - name: _VARIABLE
         match: (DOT_ACCESS)
       - name: _ENUM
         match: (?<!tagged\s+)(UPPER_IDENTIFIER)(?!\s+(LOWER_IDENTIFIER))
       - include: '#remainder'
-    name: _INVALID
+    name: _INVALID  # should be empty
 
   # argument_list:
   #   begin: (?x)
-  #     (?<=(LOWER_IDENTIFIER)\s*)
-  #     (?:\()
+  #     (LOWER_IDENTIFIER)
+  #     (?:\s*\()
   #   end: (?x)
   #     (?:\))
   #   patterns:

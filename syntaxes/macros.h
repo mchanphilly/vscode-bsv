@@ -7,6 +7,7 @@
 
 #define _NUMBER           constant.numeric.bluespec
 #define _ACTION           constant.language.bluespec
+#define _DONT_CARE        constant.language.bluespec
 
 #define _FUNCTION         entity.name.function.bluespec
 #define _CLASS            entity.name.class.bluespec
