@@ -1,13 +1,16 @@
 $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
 name: Bluespec SystemVerilog
 patterns:
+  - {include: '#single_comment'}
   - {include: '#keywords'}
   - {include: '#strings'}
 repository:
+
   keywords:
     patterns:
       - name: keyword.control.bluespec,
         match: \b(if|while|for|return)\b
+
   strings:
     name: string.quoted.double.bluespec
     begin: '"'
@@ -15,4 +18,10 @@ repository:
     patterns:
       - name: constant.character.escape.bluespec
         match: '\\.'
+
+  single_comment:
+    patterns:
+      - name: comment.line.double-slash.bluespec
+        match: '//.*'
+
 scopeName: source.bsv
