@@ -46,7 +46,7 @@ repository:
     patterns:
       - include: '#parameter' # follows a #; e.g. Bit#(4)
       - include: '#conditional' # if and if-less guard (&&&)
-      - include: '#argument_list' # in both signature and call
+      - include: '#argument_list' # in call only
       - include: '#enum_list' # typedef enum
       - include: '#case' # simple case
       - include: '#case_matches' # pattern matching
@@ -117,7 +117,7 @@ repository:
 
   argument_list:
     begin: (?x)
-      (?<!module.*)
+      (?<!(?:module|method|function|for|return|deriving).*)
       (?<=((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
       (?:\s*\()
     end: (?x)

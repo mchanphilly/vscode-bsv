@@ -184,7 +184,7 @@
       "name": "invalid.bluespec"
     },
     "argument_list": {
-      "begin": "(?x) (?<!module.*) (?<=((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
+      "begin": "(?x) (?<!(?:module|method|function|for|return|deriving).*) (?<=((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
