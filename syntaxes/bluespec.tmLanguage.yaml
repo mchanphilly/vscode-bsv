@@ -44,8 +44,9 @@ repository:
 
   brackets: # things behave differently in brackets
     patterns:
+      - include: '#parameter' # follows a #; e.g. Bit#(4)
       - include: '#conditional' # if and if-less guard (&&&)
-      - include: '#argument_list' # in a call
+      - include: '#argument_list' # in both signature and call
       - include: '#enum_list' # typedef enum
       - include: '#case' # simple case
       - include: '#case_matches' # pattern matching
@@ -54,6 +55,7 @@ repository:
     patterns:
       - include: '#action'
       - include: '#control'
+      - include: '#operator'
       - include: '#declare_keyword'
 
   literal:
@@ -78,31 +80,54 @@ repository:
 
 ###
 
+  operator:
+    name: keyword.operator.bluespec
+    match: (?x) (
+      (?:<-|<=|\.) |
+      (?:<<|>>|<=|>=|<|>) |
+      (?:[\!=]?=) |
+      [\|&]{2} |
+      &&& |
+      (?:~?[&\|\^]) |
+      \^~ |
+      [\+\-!~] |
+      [\*\/%] )
+
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|method.*(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+      (?<=(?:if\s+|(?:method|rule).*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
       (?:\()
     end: (?x)
       (?:\))
     patterns: # short-circuit from context
       - include: '#always'
+
       - name: variable.bluespec
-        match: (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+        match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
       - name: variable.other.constant.bluespec
-        match: (?<!tagged\s+)(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)
+        match: (?<!tagged\s+)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
+    name: invalid.bluespec
+# 112 "bluespec.tmLanguageRaw.yaml"
+  type_argument_pair: # in signatures
+    match: ((?:((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(\s*#)?)(?:.*?)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
+    captures:
+      1:
+        name: entity.name.class.bluespec
+      2:
+        name: variable.bluespec
 
   enum_detect: # very narrow <= Enum; case
     name: variable.other.constant.bluespec
-    match: (?<=(<=)\s*)(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)(?=\s*;)
+    match: (?<=(<=)\s*)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
 
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b))(?=\s*((\[.*\]\s*)*)<=)
+    match: (((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
 
   right_actionvalue: # e.g., Reg#(Bit#(4)) <- mkRegU
     name: entity.name.function.bluespec # but not method hosts ^^^^^^
-    match: (?<=<-)(?:\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b))(?!\.)
+    match: (?<=<-)(?:\s*)(((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))(?!\.)
 
 
 
@@ -117,27 +142,27 @@ repository:
     name: entity.name.function.bluespec # make sure not an arg
     match: (?x)
       (?<![\(\[\{].*)
-      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
 
   actionvalue_dot:
     name: entity.name.function.bluespec # on right side of <-; ActionValue
     match: (?x)
       (?<=(<-).*)
-      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
 
   assignment_dot: # imperfect for method m = e.m;
     name: variable.bluespec # on right side of =; assume struct access or read
     match: (?x)
       (?<=(=).*)
-      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
 
   generic_dot: # bug catcher
     name: invalid.bluespec
-    match: (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+    match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
 
   standalone_call: # ; do_this; or_this(arg);
     name: entity.name.function.bluespec
-    match: (?<=^\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)(?=\s*[;\(])
+    match: (?<=^\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*[;\(])
 
   ifdef:
     begin: (`ifdef)(?:\s+)((?:[\p{Alpha}\d\$_])+)
@@ -170,7 +195,7 @@ repository:
     patterns:
       - name: keyword.control.bluespec
         match: (?x)\b
-          (?:case|matches|endcase|type|else|for|if|return|while)\b
+          (?:case|matches|endcase|type|else|for|if|return|while|import)\b
 
   declare_keyword:
     patterns:
@@ -209,11 +234,11 @@ repository:
 
   type:
     name: entity.name.class.bluespec
-    match: (?:(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\s*#?) # wrap parentheses because first group non-capture
+    match: (?:((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(\s*#)?) # wrap parentheses because first group non-capture
 
   lower_identifier:
     name: variable.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)\b)
+    match: (((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)\b)
 
   system_task:
     name: support.function.bluespec
