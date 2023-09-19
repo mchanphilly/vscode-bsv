@@ -71,7 +71,7 @@ repository:
 
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|method.*))
+      (?<=(?:if\s+|method.*(LOWER_IDENTIFIER)))
       (?:\()
     end: (?x)
       (?:\))

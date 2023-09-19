@@ -80,7 +80,7 @@ repository:
 
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|method.*))
+      (?<=(?:if\s+|method.*(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
       (?:\()
     end: (?x)
       (?:\))

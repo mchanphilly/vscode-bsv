@@ -146,7 +146,7 @@
       ]
     },
     "conditional": {
-      "begin": "(?x) (?<=(?:if\\s+|method.*)) (?:\\()",
+      "begin": "(?x) (?<=(?:if\\s+|method.*(?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*\\b))) (?:\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
