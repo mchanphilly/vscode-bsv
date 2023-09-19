@@ -1,0 +1,1 @@
+Do all your editing in `bluespec.tmLanguageRaw.yaml` and `macros.h`

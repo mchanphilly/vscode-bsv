@@ -156,7 +156,7 @@
     },
     "type": {
       "name": "entity.name.class.bluespec",
-      "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\s*#?)"
+      "match": "(?:(?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\s*#?)"
     },
     "lower_identifier_args": {
       "name": "entity.name.function.bluespec",

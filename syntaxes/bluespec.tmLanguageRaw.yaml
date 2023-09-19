@@ -94,7 +94,7 @@ repository:
   
   type:
     name: entity.name.class.bluespec
-    match: ((UPPER_IDENTIFIER)\s*#?)  # wrap parentheses because first group non-capture
+    match: (TYPE)  # wrap parentheses because first group non-capture
 
   lower_identifier_args:
     name: entity.name.function.bluespec

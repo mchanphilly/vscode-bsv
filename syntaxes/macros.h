@@ -4,3 +4,4 @@
 #define IDENTIFIER_CHAR ?:[\p{Alpha}\d\$_]
 #define LOWER_IDENTIFIER ?:\b\p{Lower}(IDENTIFIER_CHAR)*
 #define UPPER_IDENTIFIER ?:\b\p{Upper}(IDENTIFIER_CHAR)*
+#define TYPE ?:(UPPER_IDENTIFIER)\s*#?  // excellent building block
