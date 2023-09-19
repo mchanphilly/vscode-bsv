@@ -145,13 +145,21 @@
       ]
     },
     "define": {
-      "name": "meta.preprocessor.bluespec"
+      "match": "(`define)(?:\\s+)((?:[\\p{Alpha}\\d\\$_])+)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.bluespec"
+        },
+        "2": {
+          "name": "meta.preprocessor.bluespec"
+        }
+      }
     },
     "action": {
       "patterns": [
         {
           "name": "constant.language.bluespec",
-          "match": "(?:ActionValue\\s*#|Action)"
+          "match": "(?:ActionValue\\s*#|Action|noAction)"
         }
       ]
     },
