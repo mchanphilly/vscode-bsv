@@ -5,6 +5,8 @@ patterns:
   - include: '#keyword'
   - include: '#literal'
   
+  - include: "#enum_detect"
+  - include: "#action_detect"
   - include: '#identifier'
 repository:
 
@@ -20,7 +22,6 @@ repository:
       - include: '#block_comment'
       - include: '#single_comment'
       - include: '#attribute'
-
   
   keyword:
     patterns:
@@ -34,6 +35,18 @@ repository:
       - include: '#real'
       - include: '#integer'
 
+  enum_detect:
+    patterns:
+      - include: '#enum_argument'
+      - include: '#enum_list'
+      - include: '#enum_conditional'
+      - include: '#enum_case'  # May also need to use the case endcase.
+
+  action_detect:
+    patterns:
+      - include: '#left_assignment'
+      - include: '#right_actionvalue'
+      - include: '#call'  # works for both methods and functions
 
   identifier:
     patterns:

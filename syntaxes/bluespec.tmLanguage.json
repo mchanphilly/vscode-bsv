@@ -12,6 +12,12 @@
       "include": "#literal"
     },
     {
+      "include": "#enum_detect"
+    },
+    {
+      "include": "#action_detect"
+    },
+    {
       "include": "#identifier"
     }
   ],
@@ -52,6 +58,35 @@
         },
         {
           "include": "#integer"
+        }
+      ]
+    },
+    "enum_detect": {
+      "patterns": [
+        {
+          "include": "#enum_argument"
+        },
+        {
+          "include": "#enum_list"
+        },
+        {
+          "include": "#enum_conditional"
+        },
+        {
+          "include": "#enum_case"
+        }
+      ]
+    },
+    "action_detect": {
+      "patterns": [
+        {
+          "include": "#left_assignment"
+        },
+        {
+          "include": "#right_actionvalue"
+        },
+        {
+          "include": "#call"
         }
       ]
     },
