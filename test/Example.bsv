@@ -23,6 +23,11 @@ String easy_string = "abcd";
 String string_with_escapes = "a\nb\nc";
 // String octal_string = ??? (Manual is unclear what it means by \OOO or \xHH)
 
+/*
+block comments
+work fine
+*/
+
 typedef Bit#(32) Word;
 
 typedef enum {
@@ -201,7 +206,7 @@ module mkPipelineScoreboard(Scoreboard#(size,t)) provisos (Bits#(t,tSz), Eq#(t))
     SFifo#(size, Maybe#(t), Maybe#(t)) f <- mkPipelineSFifo(isFound);
     interface lookup = map(getLookupIfc, genVector);  // implied return interface
     method insert = f.enq;  // implied return method
-    function Integer lookup_port = valueof(setReadyNum); // TODO lexer assumes state change
+    function Integer lookup_port = get_something(setReadyNum); // TODO lexer assumes state change
 
     // Several consecutive indexes with functional or method accesses
     sb[valid_dst.indx][setBusy_port(i)][those.and_that(these[nested(42)])] <= True;
