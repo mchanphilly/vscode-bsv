@@ -20,6 +20,9 @@
         },
         {
           "include": "#single_comment"
+        },
+        {
+          "include": "#attribute"
         }
       ]
     },
@@ -63,6 +66,10 @@
       "name": "comment.block.bluespec",
       "begin": "/\\*",
       "end": "\\*/"
+    },
+    "attribute": {
+      "name": "comment.line.preprocessor.bluespec",
+      "match": "\\(\\* .* \\*\\)"
     },
     "integer": {
       "patterns": [

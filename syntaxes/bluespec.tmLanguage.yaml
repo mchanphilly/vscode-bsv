@@ -13,6 +13,7 @@ repository:
       # - include: '\s+'
       - include: '#block_comment'
       - include: '#single_comment'
+      - include: '#attribute'
 
   keywords:
     patterns:
@@ -41,6 +42,10 @@ repository:
     name: comment.block.bluespec
     begin: '/\*'
     end: '\*/'
+
+  attribute:  # e.g. (* synthesize *)
+    name: comment.line.preprocessor.bluespec
+    match: '\(\* .* \*\)'
 
   # type:
   #   name: 
