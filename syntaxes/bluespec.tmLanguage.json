@@ -164,15 +164,14 @@
       "match": "(?x) ( (?:<-|<=|\\.|,) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "conditional": {
-      "begin": "(?x) (?<=(?:if\\s+|rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))) (?:\\()",
+      "begin": "(?x) (?<= (?:if | rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
           "include": "#always"
         },
         {
-          "name": "variable.bluespec",
-          "match": "(((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+          "include": "#dot_read_all"
         },
         {
           "name": "variable.other.constant.bluespec",
@@ -184,16 +183,32 @@
       ],
       "name": "invalid.bluespec"
     },
-    "type_argument_pair": {
-      "match": "((?:((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(\\s*#)?)(?:.*?)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))",
-      "captures": {
-        "1": {
-          "name": "entity.name.class.bluespec"
+    "argument_list": {
+      "begin": "(?x) (?<!module.*) (?<=((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
+      "end": "(?x) (?:\\))",
+      "patterns": [
+        {
+          "include": "#always"
         },
-        "2": {
-          "name": "variable.bluespec"
+        {
+          "include": "#dot_read_all"
+        },
+        {
+          "include": "#lower_identifier"
+        },
+        {
+          "name": "variable.other.constant.bluespec",
+          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?![#\\(\\{])"
+        },
+        {
+          "include": "#type"
         }
-      }
+      ],
+      "name": "invalid.bluespec"
+    },
+    "dot_read_all": {
+      "name": "variable.bluespec",
+      "match": "(((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
     },
     "enum_detect": {
       "name": "variable.other.constant.bluespec",

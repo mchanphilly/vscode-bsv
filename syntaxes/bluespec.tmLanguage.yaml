@@ -99,26 +99,41 @@ repository:
 
   conditional: # rather abstract rule
     begin: (?x)
-      (?<=(?:if\s+|rule.*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
-      (?:\()
+      (?<=
+        (?:if |
+        rule.*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+        )
+      )
+      (?:\s*\()
     end: (?x)
       (?:\))
     patterns: # short-circuit from context
       - include: '#always'
-      - name: variable.bluespec
-        match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+      - include: '#dot_read_all'
       - name: variable.other.constant.bluespec
         match: (?<!tagged\s+)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
     name: invalid.bluespec # should be empty
-# 115 "bluespec.tmLanguageRaw.yaml"
-  type_argument_pair: # in signatures (UNUSED)
-    match: ((?:((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(\s*#)?)(?:.*?)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
-    captures:
-      1:
-        name: entity.name.class.bluespec
-      2:
-        name: variable.bluespec
+
+  argument_list:
+    begin: (?x)
+      (?<!module.*)
+      (?<=((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
+      (?:\s*\()
+    end: (?x)
+      (?:\))
+    patterns:
+      - include: '#always'
+      - include: '#dot_read_all'
+      - include: '#lower_identifier'
+      - name: variable.other.constant.bluespec
+        match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?![#\(\{])
+      - include: '#type'
+    name: invalid.bluespec
+
+  dot_read_all:
+    name: variable.bluespec
+    match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
 
   enum_detect: # very narrow <= Enum; case
     name: variable.other.constant.bluespec
