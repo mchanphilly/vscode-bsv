@@ -25,6 +25,7 @@ repository:
 
   whitespace: # Check macros.h
     patterns:
+      - include: 'pure_whitespace'
       - include: '#ifdef'
       - include: '#block_comment'
       - include: '#single_comment'
@@ -57,15 +58,57 @@ repository:
     patterns:
       - include: '#left_assignment'
       - include: '#right_actionvalue'
-      - include: '#call' # works for both methods and functions
+      - include: '#dot_access' # later decompose into method and struct
+      - include: '#standalone_call' # functions
 
   identifier:
     patterns:
       - include: '#system_task'
       - include: '#type'
-      - include: '#lower_identifier_args'
       - include: '#lower_identifier'
 
+  left_assignment: # e.g., state <= True
+    name: entity.name.function.bluespec
+    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b))(?=\s*((\[.*\]\s*)*)<=)
+
+  right_actionvalue: # e.g., Reg#(Bit#(4)) <- mkRegU
+    name: entity.name.function.bluespec # but not method hosts ^^^^^^
+    match: (?<=<-)(?:\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b))(?!\.)
+
+
+
+  dot_access:
+    patterns:
+      - include: '#assignment_dot' # =
+      - include: '#actionvalue_dot' # <-
+      - include: '#lone_dot' # (not in brackets or case-case(imperfect))
+      - include: '#generic_dot' # leftover
+
+  lone_dot: # TODO fold into multiline rules
+    name: entity.name.function.bluespec # make sure not an arg
+    match: (?x)
+      (?<![\(\[\{].*)
+      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+
+  actionvalue_dot:
+    name: entity.name.function.bluespec # on right side of <-; ActionValue
+    match: (?x)
+      (?<=(<-).*)
+      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+
+  assignment_dot: # imperfect for method m = e.m;
+    name: variable.bluespec # on right side of =; assume struct access or read
+    match: (?x)
+      (?<=(=).*)
+      (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+
+  generic_dot: # bug catcher
+    name: invalid.bluespec
+    match: (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+
+  standalone_call: # ; do_this; or_this(arg);
+    name: entity.name.function.bluespec
+    match: (?<=^\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)(?=\s*[;\(])
 
   ifdef:
     begin: (`ifdef)(?:\s+)((?:[\p{Alpha}\d\$_])+)
@@ -92,7 +135,7 @@ repository:
   action:
     patterns:
       - name: constant.language.bluespec
-        match: (?:ActionValue\s*#|Action|noAction)
+        match: (?:ActionValue\s*#|Action)
 
   control:
     patterns:
@@ -109,6 +152,10 @@ repository:
           endfunction|endinstance|endinterface|endmethod|endmodule|
           endpackage|endrule|endrules|endtypeclass|deriving|begin|end|
           let|action|endaction)\b
+
+  pure_whitespace:
+    name: markup.whitespace.bluespec
+    match: \s+
 
   string:
     name: string.quoted.double.bluespec
@@ -135,13 +182,9 @@ repository:
     name: entity.name.class.bluespec
     match: (?:(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\s*#?) # wrap parentheses because first group non-capture
 
-  lower_identifier_args:
-    name: entity.name.function.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\s*\()
-
   lower_identifier:
     name: variable.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)\b)
 
   system_task:
     name: support.function.bluespec

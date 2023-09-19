@@ -16,6 +16,7 @@ repository:
 
   whitespace:  # Check macros.h
     patterns:
+      - include: 'pure_whitespace'
       - include: '#ifdef' 
       - include: '#block_comment'
       - include: '#single_comment'
@@ -48,15 +49,57 @@ repository:
     patterns:
       - include: '#left_assignment'
       - include: '#right_actionvalue'
-      - include: '#call'  # works for both methods and functions
+      - include: '#dot_access'  # later decompose into method and struct
+      - include: '#standalone_call'  # functions
 
   identifier:
     patterns:
       - include: '#system_task'
       - include: '#type'
-      - include: '#lower_identifier_args'
       - include: '#lower_identifier'
 
+  left_assignment:  # e.g., state <= True
+    name: _FUNCTION
+    match: ((LOWER_IDENTIFIER))(?=\s*(ARRAY_INDEXING)<=)
+
+  right_actionvalue:  # e.g., Reg#(Bit#(4)) <- mkRegU
+    name: _FUNCTION   # but not method hosts   ^^^^^^
+    match: (?<=<-)(?:\s*)((LOWER_IDENTIFIER))(?!\.)
+
+  # we need to handle inside (multiline) brackets separately
+  # very ambiguous: could be action, read, or struct_access
+  dot_access:
+    patterns:
+      - include: '#assignment_dot' # =
+      - include: '#actionvalue_dot' # <-
+      - include: '#lone_dot'  # (not in brackets or case-case(imperfect))
+      - include: '#generic_dot' # leftover
+
+  lone_dot:  # TODO fold into multiline rules
+    name: _FUNCTION  # make sure not an arg
+    match: (?x)
+      (?<![\(\[\{].*)
+      (DOT_ACCESS)
+
+  actionvalue_dot:
+    name: _FUNCTION  # on right side of <-; ActionValue
+    match: (?x)
+      (?<=(<-).*)
+      (DOT_ACCESS)
+
+  assignment_dot:  # imperfect for method m = e.m;
+    name: _VARIABLE  # on right side of =; assume struct access or read
+    match: (?x)
+      (?<=(=).*)
+      (DOT_ACCESS)
+
+  generic_dot:  # bug catcher
+    name: _INVALID
+    match: (DOT_ACCESS)
+
+  standalone_call:   # ; do_this; or_this(arg);
+    name: _FUNCTION
+    match: (?<=^\s*)(LOWER_IDENTIFIER)(?=\s*[;\(])
 
   ifdef:
     begin: (`ifdef)(?:\s+)(ANY_IDENTIFIER)
@@ -83,7 +126,7 @@ repository:
   action:
     patterns:
       - name: _ACTION
-        match: (?:ActionValue\s*#|Action|noAction)
+        match: (?:ActionValue\s*#|Action)
 
   control:
     patterns:
@@ -100,6 +143,10 @@ repository:
           endfunction|endinstance|endinterface|endmethod|endmodule|
           endpackage|endrule|endrules|endtypeclass|deriving|begin|end|
           let|action|endaction)\b
+
+  pure_whitespace:
+    name: markup.whitespace.bluespec
+    match: \s+
 
   string:
     name: _STRING_DOUBLE
@@ -125,10 +172,6 @@ repository:
   type:
     name: _CLASS
     match: (TYPE)  # wrap parentheses because first group non-capture
-
-  lower_identifier_args:
-    name: _FUNCTION
-    match: ((LOWER_IDENTIFIER)\s*\()  
   
   lower_identifier:
     name: _VARIABLE
