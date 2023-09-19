@@ -11,17 +11,24 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 
 patterns:
-  - include: '#whitespace'
-  - include: '#directives'
-  - include: '#keyword'
-  - include: '#literal'
-
-  - include: "#declarations"
-
-  - include: "#enum_detect"
-  - include: "#action_detect"
-  - include: '#identifier'
+  - include: '#always'
+  - include: '#remainder'
 repository:
+
+  always:
+    patterns:
+      - include: '#whitespace'
+      - include: '#directives'
+      - include: '#brackets'
+      - include: '#keyword'
+      - include: '#literal'
+
+  remainder:
+    patterns:
+      - include: "#declarations" # todo
+      - include: "#action_detect"
+      - include: '#enum_detect' # niche rule
+      - include: '#identifier'
 
   whitespace: # Check macros.h
     patterns:
@@ -35,6 +42,14 @@ repository:
       - include: '#attribute'
       - include: '#define'
 
+  brackets: # things behave differently in brackets
+    patterns:
+      - include: '#conditional' # if and if-less guard (&&&)
+      - include: '#argument_list' # in a call
+      - include: '#enum_list' # typedef enum
+      - include: '#case' # simple case
+      - include: '#case_matches' # pattern matching
+
   keyword:
     patterns:
       - include: '#action'
@@ -46,13 +61,6 @@ repository:
       - include: '#string'
       - include: '#real'
       - include: '#integer'
-
-  enum_detect:
-    patterns:
-      - include: '#enum_argument'
-      - include: '#enum_list'
-      - include: '#enum_conditional'
-      - include: '#enum_case' # May also need to use the case endcase.
 
   action_detect:
     patterns:
@@ -66,6 +74,27 @@ repository:
       - include: '#system_task'
       - include: '#type'
       - include: '#lower_identifier'
+
+
+###
+
+  conditional: # rather abstract rule
+    begin: (?x)
+      (?<=(?:if\s+|method.*))
+      (?:\()
+    end: (?x)
+      (?:\))
+    patterns: # short-circuit from context
+      - include: '#always'
+      - name: variable.bluespec
+        match: (((?<=\.\s*)(?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*\b)))
+      - name: variable.other.constant.bluespec
+        match: (?<!tagged\s+)(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)
+      - include: '#remainder'
+
+  enum_detect: # very narrow <= Enum; case
+    name: variable.other.constant.bluespec
+    match: (?<=(<=)\s*)(?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)(?=\s*;)
 
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec

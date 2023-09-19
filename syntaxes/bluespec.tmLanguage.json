@@ -3,31 +3,48 @@
   "name": "Bluespec SystemVerilog",
   "patterns": [
     {
-      "include": "#whitespace"
+      "include": "#always"
     },
     {
-      "include": "#directives"
-    },
-    {
-      "include": "#keyword"
-    },
-    {
-      "include": "#literal"
-    },
-    {
-      "include": "#declarations"
-    },
-    {
-      "include": "#enum_detect"
-    },
-    {
-      "include": "#action_detect"
-    },
-    {
-      "include": "#identifier"
+      "include": "#remainder"
     }
   ],
   "repository": {
+    "always": {
+      "patterns": [
+        {
+          "include": "#whitespace"
+        },
+        {
+          "include": "#directives"
+        },
+        {
+          "include": "#brackets"
+        },
+        {
+          "include": "#keyword"
+        },
+        {
+          "include": "#literal"
+        }
+      ]
+    },
+    "remainder": {
+      "patterns": [
+        {
+          "include": "#declarations"
+        },
+        {
+          "include": "#action_detect"
+        },
+        {
+          "include": "#enum_detect"
+        },
+        {
+          "include": "#identifier"
+        }
+      ]
+    },
     "whitespace": {
       "patterns": [
         {
@@ -54,6 +71,25 @@
         }
       ]
     },
+    "brackets": {
+      "patterns": [
+        {
+          "include": "#conditional"
+        },
+        {
+          "include": "#argument_list"
+        },
+        {
+          "include": "#enum_list"
+        },
+        {
+          "include": "#case"
+        },
+        {
+          "include": "#case_matches"
+        }
+      ]
+    },
     "keyword": {
       "patterns": [
         {
@@ -77,22 +113,6 @@
         },
         {
           "include": "#integer"
-        }
-      ]
-    },
-    "enum_detect": {
-      "patterns": [
-        {
-          "include": "#enum_argument"
-        },
-        {
-          "include": "#enum_list"
-        },
-        {
-          "include": "#enum_conditional"
-        },
-        {
-          "include": "#enum_case"
         }
       ]
     },
@@ -124,6 +144,30 @@
           "include": "#lower_identifier"
         }
       ]
+    },
+    "conditional": {
+      "begin": "(?x) (?<=(?:if\\s+|method.*)) (?:\\()",
+      "end": "(?x) (?:\\))",
+      "patterns": [
+        {
+          "include": "#always"
+        },
+        {
+          "name": "variable.bluespec",
+          "match": "(((?<=\\.\\s*)(?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*\\b)))"
+        },
+        {
+          "name": "variable.other.constant.bluespec",
+          "match": "(?<!tagged\\s+)(?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)"
+        },
+        {
+          "include": "#remainder"
+        }
+      ]
+    },
+    "enum_detect": {
+      "name": "variable.other.constant.bluespec",
+      "match": "(?<=(<=)\\s*)(?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)(?=\\s*;)"
     },
     "left_assignment": {
       "name": "entity.name.function.bluespec",
