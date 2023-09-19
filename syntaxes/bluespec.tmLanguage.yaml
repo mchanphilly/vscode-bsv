@@ -2,6 +2,7 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 patterns:
   - {include: '#single_comment'}
+  - {include: '#block_comment'}
   - {include: '#keywords'}
   - {include: '#strings'}
 repository:
@@ -23,5 +24,10 @@ repository:
     patterns:
       - name: comment.line.double-slash.bluespec
         match: '//.*'
+
+  block_comment:
+    name: comment.block.bluespec
+    begin: '/\*'
+    end: '\*/'
 
 scopeName: source.bsv

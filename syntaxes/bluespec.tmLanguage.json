@@ -6,6 +6,9 @@
       "include": "#single_comment"
     },
     {
+      "include": "#block_comment"
+    },
+    {
       "include": "#keywords"
     },
     {
@@ -39,6 +42,11 @@
           "match": "//.*"
         }
       ]
+    },
+    "block_comment": {
+      "name": "comment.block.bluespec",
+      "begin": "/\\*",
+      "end": "\\*/"
     }
   },
   "scopeName": "source.bsv"
