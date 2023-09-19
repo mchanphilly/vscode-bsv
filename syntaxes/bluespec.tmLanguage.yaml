@@ -4,8 +4,14 @@ patterns:
   - include: '#whitespace'
   - include: '#keywords'
   - include: '#literal'
-
+  
+  - include: '#identifier'
 repository:
+
+#  MACROS:
+# [\p{Alpha}\d\$_]  identifier character
+# (?:\b\p{Lower}[\p{Alpha}\d\$_]*\b)  LOWER_IDENTIFIER
+# (?:\b\p{Upper}[\p{Alpha}\d\$_]*\b)  UPPER_IDENTIFIER
 
   # TOP LEVEL 
   whitespace:
@@ -14,6 +20,12 @@ repository:
       - include: '#block_comment'
       - include: '#single_comment'
       - include: '#attribute'
+
+  identifier:
+    patterns:
+      - include: '#system_task'
+      - include: '#type'
+      - include: '#lower_identifier'
 
   keywords:
     patterns:
@@ -47,8 +59,26 @@ repository:
     name: comment.line.preprocessor.bluespec
     match: '\(\* .* \*\)'
 
-  # type:
-  #   name: 
+
+
+
+  # upper_identifier:  # unused
+  #   name: entity.name.type.bluespec
+  #   match: (?:\b\p{Upper}[\p{Alpha}\d\$_]*\b) 
+  
+  type:
+    name: entity.name.type.bluespec
+    match: (?:\b\p{Upper}[\p{Alpha}\d\$_]*\#?) 
+  
+  lower_identifier:
+    name: variable.bluespec
+    match: (?:\b\p{Lower}[\p{Alpha}\d\$_]*\b) 
+  
+  system_task:
+    name: support.function.bluespec
+    match: (?:\$[\p{Alpha}\d\$_]*\b) 
+
+
 
   integer:
     patterns:
