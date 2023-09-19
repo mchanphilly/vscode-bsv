@@ -1,9 +1,8 @@
 {
     "version": "2.0.0",
     "tasks": [{
-        "label": "yaml-js",
-        // "command": "wsl npx js-yaml syntaxes/bluespec.tmLanguage.yaml > syntaxes/bluespec.tmLanguage.json",
-        "command": "${workspaceFolder}/convert.sh",
+        "label": "build",
+        "command": "${workspaceFolder}/build.sh",
         // "args": ["test"],
         "type": "shell",
         "presentation": {

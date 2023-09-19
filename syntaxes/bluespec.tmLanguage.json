@@ -110,7 +110,7 @@
       "patterns": [
         {
           "name": "support.class.bluespec",
-          "match": "(?:ActionValue#?|Action)"
+          "match": "(?:ActionValue\\s*#?|Action)"
         }
       ]
     },
@@ -156,19 +156,19 @@
     },
     "type": {
       "name": "entity.name.class.bluespec",
-      "match": "(?:\\b\\p{Upper}[\\p{Alpha}\\d\\$_]*\\#?)"
+      "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\s*#?)"
     },
     "lower_identifier_args": {
       "name": "entity.name.function.bluespec",
-      "match": "(?:\\b\\p{Lower}[\\p{Alpha}\\d\\$_]*\\s*\\()"
+      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\s*\\()"
     },
     "lower_identifier": {
       "name": "variable.bluespec",
-      "match": "(?:\\b\\p{Lower}[\\p{Alpha}\\d\\$_]*\\b)"
+      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
     },
     "system_task": {
       "name": "support.function.bluespec",
-      "match": "(?:\\$[\\p{Alpha}\\d\\$_]*\\b)"
+      "match": "\\$(?:[\\p{Alpha}\\d\\$_])*\\b"
     },
     "integer": {
       "patterns": [
