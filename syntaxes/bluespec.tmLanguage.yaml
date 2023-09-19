@@ -25,9 +25,8 @@ repository:
   keyword:
     patterns:
       - include: '#action'
+      - include: '#control'
       - include: '#declare_keyword'
-
-
 
   literal:
     patterns:
@@ -49,6 +48,12 @@ repository:
       - name: support.class.bluespec
         match: (?:ActionValue#?|Action)
 
+  control:
+    patterns:
+      - name: keyword.control.bluespec
+        match: (?x)\b
+          (?:case|matches|endcase|type|else|for|if|return|while)\b
+  
   declare_keyword:
     patterns:
       - name: storage.type.bluespec
@@ -77,7 +82,7 @@ repository:
     end: '\*/'
 
   attribute:  # e.g. (* synthesize *)
-    name: comment.line.preprocessor.bluespec
+    name: keyword.control.bluespec
     match: '\(\* .* \*\)'
   
   type:

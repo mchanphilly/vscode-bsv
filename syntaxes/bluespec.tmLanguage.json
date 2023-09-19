@@ -35,6 +35,9 @@
           "include": "#action"
         },
         {
+          "include": "#control"
+        },
+        {
           "include": "#declare_keyword"
         }
       ]
@@ -76,6 +79,14 @@
         }
       ]
     },
+    "control": {
+      "patterns": [
+        {
+          "name": "keyword.control.bluespec",
+          "match": "(?x)\\b (?:case|matches|endcase|type|else|for|if|return|while)\\b"
+        }
+      ]
+    },
     "declare_keyword": {
       "patterns": [
         {
@@ -105,7 +116,7 @@
       "end": "\\*/"
     },
     "attribute": {
-      "name": "comment.line.preprocessor.bluespec",
+      "name": "keyword.control.bluespec",
       "match": "\\(\\* .* \\*\\)"
     },
     "type": {
