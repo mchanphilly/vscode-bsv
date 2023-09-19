@@ -40,6 +40,7 @@ repository:
     patterns:
       - include: '#system_task'
       - include: '#type'
+      - include: '#lower_identifier_args'
       - include: '#lower_identifier'
 
 
@@ -82,6 +83,10 @@ repository:
   type:
     name: entity.name.class.bluespec
     match: (?:\b\p{Upper}[\p{Alpha}\d\$_]*\#?) 
+
+  lower_identifier_args:
+    name: entity.name.function.bluespec
+    match: (?:\b\p{Lower}[\p{Alpha}\d\$_]*\s*\()
   
   lower_identifier:
     name: variable.bluespec
