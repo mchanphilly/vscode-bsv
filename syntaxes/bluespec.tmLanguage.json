@@ -175,6 +175,10 @@
         }
       ]
     },
+    "sole_unpack": {
+      "name": "variable.bluespec",
+      "match": "(?x) (?<=tagged\\s+((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)\\s+\\.\\s*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*:)"
+    },
     "operator": {
       "name": "keyword.operator.bluespec",
       "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
@@ -209,6 +213,9 @@
         {
           "name": "variable.other.constant.bluespec",
           "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*:)"
+        },
+        {
+          "include": "#sole_unpack"
         },
         {
           "include": "#remainder"

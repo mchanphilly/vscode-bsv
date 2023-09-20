@@ -51,8 +51,6 @@ repository:
       - include: '#case' # simple case
       - include: '#index' # e.g. arr[a.b][12]
 
-
-
   keyword:
     patterns:
       - name: punctuation.bluespec
@@ -98,6 +96,13 @@ repository:
 
 ###
 
+  sole_unpack:
+    name: variable.bluespec
+    match: (?x)
+      (?<=tagged\s+((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)\s+\.\s*)
+      ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+      (?=\s*:)
+
   operator:
     name: keyword.operator.bluespec
     match: (?x) (
@@ -130,6 +135,7 @@ repository:
       - include: '#always'
       - name: variable.other.constant.bluespec
         match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*:)
+      - include: '#sole_unpack'
       - include: '#remainder'
     captures:
       1:

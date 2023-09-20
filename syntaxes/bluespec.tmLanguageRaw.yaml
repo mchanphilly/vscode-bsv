@@ -41,8 +41,6 @@ repository:
       - include: '#curly_braces'
       - include: '#case'  # simple case
       - include: '#index'  # e.g. arr[a.b][12]
-      # - include: '#enum_list'  # typedef enum
-      # - include: '#case_matches'  # pattern matching
 
   keyword:
     patterns:
@@ -89,6 +87,13 @@ repository:
 
 ###
 
+  sole_unpack:
+    name: _VARIABLE
+    match: (?x)
+      (?<=tagged\s+(UPPER_IDENTIFIER)\s+\.\s*)
+      (LOWER_IDENTIFIER)
+      (?=\s*:)
+
   operator:
     name: _OPERATOR
     match: (?x) (
@@ -121,6 +126,7 @@ repository:
       - include: '#always'
       - name: _ENUM
         match: (ENUM)(?=\s*:)
+      - include: '#sole_unpack'
       - include: '#remainder'
     captures:
       1:
