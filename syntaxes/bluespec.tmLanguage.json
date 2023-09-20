@@ -26,14 +26,14 @@
         },
         {
           "include": "#literal"
+        },
+        {
+          "include": "#declarations"
         }
       ]
     },
     "remainder": {
       "patterns": [
-        {
-          "include": "#declarations"
-        },
         {
           "include": "#action_detect"
         },
@@ -127,6 +127,22 @@
         },
         {
           "include": "#integer"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "name": "entity.name.function.bluespec",
+          "match": "(?<=module\\s+)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(#?)"
+        },
+        {
+          "name": "entity.name.function.bluespec",
+          "match": "(?<=rule\\s+)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+        },
+        {
+          "name": "entity.name.function.bluespec",
+          "match": "(?x) (?<=(method|function).*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(]))"
         }
       ]
     },

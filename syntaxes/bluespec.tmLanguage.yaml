@@ -22,10 +22,10 @@ repository:
       - include: '#brackets'
       - include: '#keyword'
       - include: '#literal'
+      - include: "#declarations"
 
   remainder:
     patterns:
-      - include: "#declarations" # todo
       - include: "#action_detect"
       - include: '#enum_detect' # niche rule
       - include: '#identifier'
@@ -69,6 +69,18 @@ repository:
       - include: '#string'
       - include: '#real'
       - include: '#integer'
+
+  declarations:
+    patterns:
+      - name: entity.name.function.bluespec
+        match: (?<=module\s+)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(#?)
+      - name: entity.name.function.bluespec
+        match: (?<=rule\s+)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+      - name: entity.name.function.bluespec
+        match: (?x)
+          (?<=(method|function).*)
+          ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+          (?=(\s+if|\s*[;\(]))
 
   action_detect:
     patterns:

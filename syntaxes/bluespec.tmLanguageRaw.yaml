@@ -13,10 +13,10 @@ repository:
       - include: '#brackets'
       - include: '#keyword'
       - include: '#literal'
+      - include: "#declarations"
 
   remainder:
     patterns:
-      - include: "#declarations"  # todo
       - include: "#action_detect"
       - include: '#enum_detect'  # niche rule
       - include: '#identifier'
@@ -60,6 +60,18 @@ repository:
       - include: '#string'
       - include: '#real'
       - include: '#integer'
+
+  declarations:
+    patterns:
+      - name: _FUNCTION
+        match: (?<=module\s+)(LOWER_IDENTIFIER)(#?)
+      - name: _FUNCTION
+        match: (?<=rule\s+)(LOWER_IDENTIFIER)
+      - name: _FUNCTION
+        match: (?x)
+          (?<=(method|function).*)
+          (LOWER_IDENTIFIER)
+          (?=(\s+if|\s*[;\(]))
 
   action_detect:
     patterns:
