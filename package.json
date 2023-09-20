@@ -2,7 +2,7 @@
   "name": "bluespec",
   "displayName": "bluespec",
   "description": "Syntax highlighting for Bluespec SystemVerilog",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.82.0"
   },

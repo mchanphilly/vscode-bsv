@@ -163,6 +163,10 @@
         {
           "name": "entity.name.function.bluespec",
           "match": "(?x) (?<=(method|function).*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(=]))"
+        },
+        {
+          "name": "entity.name.function.bluespec",
+          "match": "(?<=interface\\s+)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         }
       ]
     },

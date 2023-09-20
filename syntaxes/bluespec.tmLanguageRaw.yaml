@@ -78,6 +78,8 @@ repository:
           (?<=(method|function).*)
           (LOWER_IDENTIFIER)
           (?=(\s+if|\s*[;\(=]))
+      - name: _FUNCTION
+        match: (?<=interface\s+)(LOWER_IDENTIFIER)
 
   action_detect:
     patterns:
