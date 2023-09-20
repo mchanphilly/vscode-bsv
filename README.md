@@ -1,24 +1,26 @@
 # Bluespec for VS Code
 
-This extension for VS Code offers sophisticated syntax highlighting for Bluespec and Minispec on par with syntax highlighting for mainstream languages.
+![tiny_market](C:\Users\marti\Files\Projects\bluespec-vsc\bsv\images\tiny_market.png)
+
+This extension for VS Code offers high-quality syntax highlighting for Bluespec and Minispec on par with syntax highlighting for mainstream languages.
+
+Whether you're using Bluespec for research, industry, or education, this extension is for you.
 
 ## Features
 
-> Examples use excerpts of the MIT RiscyOO/Bluespec Toooba open-source project. 
+> Examples below use excerpts of the MIT RiscyOO/Bluespec Toooba open-source project. 
 
 ### Sophisticated Highlighting
 
-Developers have become accustomed to the fantastic syntax highlighting available for mainstream languages like Python, C, Java, and TypeScript. It's about time that Bluespec developers have access to that too.
+Developers have become accustomed to the fantastic syntax highlighting available for mainstream languages like Python, C, Java, and TypeScript on VS Code. It's about time that Bluespec developers have access to that too.
 
 
 
-The syntax highlighting has been thoroughly tested against the most complex Bluespec available.
-
-Further, tokens have been carefully selected to be consistent with syntax highlighting standards across languages, allowing developers to bring in their general programming knowledge with them as they work in Bluespec. No matter what theme you use, writing and editing Bluespec code should be as smooth as writing any other programming language.
 
 
+The syntax highlighting has been thoroughly tested against the most complex Bluespec available. No matter how complex your Bluespec, this syntax highlighter should be able to handle it.
 
-For instructors using Bluespec or Minispec as a pedagogical tool, your students need no longer  
+Further, tokens have been carefully selected to be consistent with syntax highlighting standards across languages, allowing developers to bring in their general programming knowledge with them as they work in Bluespec.
 
 ### Action Analysis Engine
 
@@ -48,17 +50,21 @@ New to Bluespec? Check out the open-source Bluespec compiler
 
 I'm interested in hearing about syntax highlighting bugs, usability issues, and feature requests.
 
-If you find something wrong with syntax highlighting, or something that would be improved, please send me a sample of Bluespec that exhibits what you're seeing. If it's not self-explanatory, please also include a short description.
+If you find something wrong with syntax highlighting, or something that would be improved, please send me a sample of Bluespec that exhibits what you're seeing and a short description.
 
-Also, I'm looking for employment.
+## See Also
+
+- Check out my website at https://martinchan.org/
+- If you use Jekyll for site generation, check out my [Bluespec lexer](https://martinchan.org/projects/bluespec-lexer/) for Rouge, which is the syntax highlighting engine that Jekyll uses.
+- If you're an employer, I'm currently looking for employment, preferably somewhere in computer architecture or RTL. If you're an employer that uses Bluespec, count me as doubly interested.
 
 ## Release Notes
-
-Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
 Initial release:
+
+- Syntax highlighting
 
 
 ---

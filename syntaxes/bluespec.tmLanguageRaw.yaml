@@ -178,8 +178,8 @@ repository:
       (?:<-|<=|\.|,|:)    |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=)         |
-      [\|&]{2}            |
       &&&                 |
+      [\|&]{2}            |
       (?:~?[&\|\^])       |
       \^~                 |
       [\+\-!~]            |
@@ -298,6 +298,7 @@ repository:
     match: (?x)
       (?<=(<-).*)
       (LOWER_IDENTIFIER)
+      (?!\s*\.)
 
   interface_dot:  # bug catcher
     name: _VARIABLE
@@ -363,7 +364,7 @@ repository:
   action:
     patterns:
       - name: _ACTION
-        match: (?:ActionValue\s*#|Action)
+        match: (?:ActionValue\s*#|Action\b)
 
   control:
     patterns:

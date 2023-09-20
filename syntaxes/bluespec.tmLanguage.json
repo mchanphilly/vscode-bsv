@@ -222,7 +222,7 @@
       "name": "meta.assignment"
     },
     "short_action_actionvalue": {
-      "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
+      "begin": "(?x) (?<=(function|method|interface)\\s+(Action|((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
       "end": "(?:;)",
       "patterns": [
         {
@@ -283,7 +283,7 @@
     },
     "operator": {
       "name": "keyword.operator.bluespec",
-      "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+      "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "index": {
       "begin": "(\\[)",
@@ -444,7 +444,7 @@
     },
     "actionvalue": {
       "name": "entity.name.function.bluespec",
-      "match": "(?x) (?<=(<-).*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
+      "match": "(?x) (?<=(<-).*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) (?!\\s*\\.)"
     },
     "interface_dot": {
       "name": "variable.bluespec",
@@ -515,7 +515,7 @@
       "patterns": [
         {
           "name": "constant.language.bluespec",
-          "match": "(?:ActionValue\\s*#|Action)"
+          "match": "(?:ActionValue\\s*#|Action\\b)"
         }
       ]
     },
