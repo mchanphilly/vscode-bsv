@@ -22,6 +22,7 @@
 // no markup
 
 #define _DIRECTIVE        meta.preprocessor.bluespec  // Works fine for Java, but not yet BSV
+#define _SHORT_ASSIGNMENT meta.assignment
 
 #define _TYPE_PRIMITIVE   storage.type.bluespec
 

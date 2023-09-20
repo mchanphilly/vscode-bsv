@@ -2,6 +2,7 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 
 patterns:
+  - include: '#short_assignments'
   - include: '#always'
   - include: '#remainder'
   - name: _INVALID  # catch-all
@@ -15,10 +16,10 @@ repository:
       - include: '#brackets'
       - include: '#keyword'
       - include: '#literal'
-      - include: "#declarations"
 
   remainder:
     patterns:
+      - include: "#declarations"
       - include: "#action_detect"
       - include: '#enum_detect'  # niche rule
       - include: '#identifier'
@@ -76,10 +77,11 @@ repository:
         match: (?x)
           (?<=(method|function).*)
           (LOWER_IDENTIFIER)
-          (?=(\s+if|\s*[;\(]))
+          (?=(\s+if|\s*[;\(=]))
 
   action_detect:
     patterns:
+      - include: '#short_assignments'
       - include: '#left_assignment'
       - include: '#right_actionvalue'
       - include: '#dot_access'  # later decompose into method and struct
@@ -93,6 +95,33 @@ repository:
 
 
 ###
+
+  short_assignments:
+    patterns:
+      - include: '#short_action_actionvalue'
+      - include: '#short_pure_function'
+    name: _SHORT_ASSIGNMENT
+
+  # short_action_actionvalue:
+  #   begin: (?x)
+  #     (?<=(function|method)\s+Action.*)
+  #     (?:=)
+  #   end: (?:;)
+  #   patterns:
+  #     - include: '#always'
+  #     - include: '#standalone_call_action'  
+  #     - include: '#lone_dot'
+
+  short_pure_function:
+    begin: (?x)
+      (?<=(function|method).*)
+      (?:=)
+    end: (?:;)
+    patterns:
+      - include: '#always'
+      - include: '#standalone_call_pure'
+      - include: '#lower_identifier'
+      - include: '#dot_read_all'
 
   return_statement:  # Assumes no action
     begin: (return)
@@ -246,6 +275,14 @@ repository:
   generic_dot:  # bug catcher
     name: _INVALID
     match: (DOT_ACCESS)
+
+  standalone_call_action:
+    name: _FUNCTION
+    match: (LOWER_IDENTIFIER)(?=\s*\()
+
+  standalone_call_pure:
+    name: _VARIABLE
+    match: (LOWER_IDENTIFIER)(?=\s*\()
 
   standalone_call:   # ; do_this; or_this(arg);
     name: _FUNCTION

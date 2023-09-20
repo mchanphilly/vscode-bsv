@@ -11,6 +11,7 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 
 patterns:
+  - include: '#short_assignments'
   - include: '#always'
   - include: '#remainder'
   - name: invalid.bluespec # catch-all
@@ -24,10 +25,10 @@ repository:
       - include: '#brackets'
       - include: '#keyword'
       - include: '#literal'
-      - include: "#declarations"
 
   remainder:
     patterns:
+      - include: "#declarations"
       - include: "#action_detect"
       - include: '#enum_detect' # niche rule
       - include: '#identifier'
@@ -85,10 +86,11 @@ repository:
         match: (?x)
           (?<=(method|function).*)
           ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
-          (?=(\s+if|\s*[;\(]))
+          (?=(\s+if|\s*[;\(=]))
 
   action_detect:
     patterns:
+      - include: '#short_assignments'
       - include: '#left_assignment'
       - include: '#right_actionvalue'
       - include: '#dot_access' # later decompose into method and struct
@@ -102,6 +104,23 @@ repository:
 
 
 ###
+
+  short_assignments:
+    patterns:
+      - include: '#short_action_actionvalue'
+      - include: '#short_pure_function'
+    name: meta.assignment
+# 115 "bluespec.tmLanguageRaw.yaml"
+  short_pure_function:
+    begin: (?x)
+      (?<=(function|method).*)
+      (?:=)
+    end: (?:;)
+    patterns:
+      - include: '#always'
+      - include: '#standalone_call_pure'
+      - include: '#lower_identifier'
+      - include: '#dot_read_all'
 
   return_statement: # Assumes no action
     begin: (return)
@@ -255,6 +274,14 @@ repository:
   generic_dot: # bug catcher
     name: invalid.bluespec
     match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+
+  standalone_call_action:
+    name: entity.name.function.bluespec
+    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
+
+  standalone_call_pure:
+    name: variable.bluespec
+    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
 
   standalone_call: # ; do_this; or_this(arg);
     name: entity.name.function.bluespec

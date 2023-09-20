@@ -3,6 +3,9 @@
   "name": "Bluespec SystemVerilog",
   "patterns": [
     {
+      "include": "#short_assignments"
+    },
+    {
       "include": "#always"
     },
     {
@@ -30,14 +33,14 @@
         },
         {
           "include": "#literal"
-        },
-        {
-          "include": "#declarations"
         }
       ]
     },
     "remainder": {
       "patterns": [
+        {
+          "include": "#declarations"
+        },
         {
           "include": "#action_detect"
         },
@@ -159,12 +162,15 @@
         },
         {
           "name": "entity.name.function.bluespec",
-          "match": "(?x) (?<=(method|function).*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(]))"
+          "match": "(?x) (?<=(method|function).*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(=]))"
         }
       ]
     },
     "action_detect": {
       "patterns": [
+        {
+          "include": "#short_assignments"
+        },
         {
           "include": "#left_assignment"
         },
@@ -189,6 +195,35 @@
         },
         {
           "include": "#lower_identifier"
+        }
+      ]
+    },
+    "short_assignments": {
+      "patterns": [
+        {
+          "include": "#short_action_actionvalue"
+        },
+        {
+          "include": "#short_pure_function"
+        }
+      ],
+      "name": "meta.assignment"
+    },
+    "short_pure_function": {
+      "begin": "(?x) (?<=(function|method).*) (?:=)",
+      "end": "(?:;)",
+      "patterns": [
+        {
+          "include": "#always"
+        },
+        {
+          "include": "#standalone_call_pure"
+        },
+        {
+          "include": "#lower_identifier"
+        },
+        {
+          "include": "#dot_read_all"
         }
       ]
     },
@@ -382,6 +417,14 @@
     "generic_dot": {
       "name": "invalid.bluespec",
       "match": "(((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+    },
+    "standalone_call_action": {
+      "name": "entity.name.function.bluespec",
+      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
+    },
+    "standalone_call_pure": {
+      "name": "variable.bluespec",
+      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
     },
     "standalone_call": {
       "name": "entity.name.function.bluespec",
