@@ -108,6 +108,8 @@ repository:
           (?=(\s+if|\s*[;\(=]))
       - name: _FUNCTION
         match: (?<=interface\s+)(LOWER_IDENTIFIER)
+      - include: '#declare_enum_category'
+      ## - include: '#declare_struct' (rolled into enum category)
 
   action_detect:
     patterns:
@@ -124,6 +126,12 @@ repository:
 
 
 ##
+
+  ## Very careful heuristic; not strictly necessary by spec.
+  declare_enum_category:  ## captures both struct and enum now
+    name: _ENUM_CATEGORY
+    match: (ENUM)(?=\s+deriving)
+
   minispec:
     name: _TYPE_PRIMITIVE
     match: (input)

@@ -117,6 +117,8 @@ repository:
           (?=(\s+if|\s*[;\(=]))
       - name: entity.name.function.bluespec
         match: (?<=interface\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
+      - include: '#declare_enum_category'
+      ## - include: '#declare_struct' (rolled into enum category)
 
   action_detect:
     patterns:
@@ -133,6 +135,12 @@ repository:
 
 
 ##
+
+  ## Very careful heuristic; not strictly necessary by spec.
+  declare_enum_category: ## captures both struct and enum now
+    name: entity.name.class.enum_category_or_struct.bluespec
+    match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=\s+deriving)
+
   minispec:
     name: storage.type.bluespec
     match: (input)
@@ -297,7 +305,7 @@ repository:
       (?=\s*\()
 
   struct_instantiation:
-    name: invalid.struct.bluespec
+    name: entity.name.class.struct.bluespec
     match: (?x)
       ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*\{)

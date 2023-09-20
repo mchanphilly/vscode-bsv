@@ -180,6 +180,9 @@
         {
           "name": "entity.name.function.bluespec",
           "match": "(?<=interface\\s+)((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
+        },
+        {
+          "include": "#declare_enum_category"
         }
       ]
     },
@@ -211,6 +214,10 @@
           "include": "#lower_identifier"
         }
       ]
+    },
+    "declare_enum_category": {
+      "name": "entity.name.class.enum_category_or_struct.bluespec",
+      "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s+deriving)"
     },
     "minispec": {
       "name": "storage.type.bluespec",
@@ -436,7 +443,7 @@
       "match": "(?x) ((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*\\()"
     },
     "struct_instantiation": {
-      "name": "invalid.struct.bluespec",
+      "name": "entity.name.class.struct.bluespec",
       "match": "(?x) ((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*\\{)"
     },
     "dot_access": {

@@ -35,6 +35,8 @@
 
 #define _FUNCTION         entity.name.function.bluespec
 #define _CLASS            entity.name.class.bluespec
+#define _ENUM_CATEGORY    entity.name.class.enum_category_or_struct.bluespec  // captures struct too right now
+#define _STRUCT           entity.name.class.struct.bluespec  // see also typedef struct; is right now ENUM_CATEGORY
 
 #define _INVALID(n)       invalid.##n.bluespec
 #define _DEPRECATED       invalid.deprecated.bluespec
@@ -59,8 +61,6 @@
 #define _VARIABLE         variable.bluespec
 #define _ENUM             variable.other.constant.enum.bluespec
 #define _TAG              variable.other.constant.tag.bluespec
-#define _STRUCT           _INVALID(struct)
-// #define _TAG              variable.other.constant.tag.bluespec
 
 
 // Can't do this because we can't generate multiple lines.
