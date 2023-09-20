@@ -76,6 +76,8 @@ repository:
         match: '[;\(\)\{\}]'
       - name: _DONT_CARE
         match: \?
+      - name: _VOID
+        match: (void)
       - include: '#action'
       - include: '#return_statement'
       - include: '#control'

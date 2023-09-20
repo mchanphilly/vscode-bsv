@@ -85,6 +85,8 @@ repository:
         match: '[;\(\)\{\}]'
       - name: constant.language.bluespec
         match: \?
+      - name: constant.language.bluespec
+        match: (void)
       - include: '#action'
       - include: '#return_statement'
       - include: '#control'

@@ -117,6 +117,10 @@
           "match": "\\?"
         },
         {
+          "name": "constant.language.bluespec",
+          "match": "(void)"
+        },
+        {
           "include": "#action"
         },
         {
