@@ -83,13 +83,7 @@
           "include": "#argument_list"
         },
         {
-          "include": "#enum_list"
-        },
-        {
-          "include": "#case"
-        },
-        {
-          "include": "#case_matches"
+          "include": "#curly_braces"
         }
       ]
     },
@@ -161,7 +155,7 @@
     },
     "operator": {
       "name": "keyword.operator.bluespec",
-      "match": "(?x) ( (?:<-|<=|\\.|,) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+      "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "conditional": {
       "begin": "(?x) (?<= (?:if | rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",
@@ -204,6 +198,34 @@
           "include": "#type"
         }
       ],
+      "name": "invalid.bluespec"
+    },
+    "curly_braces": {
+      "begin": "(?x) (?<!(?:union\\s+tagged|struct)\\s*) \\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "#curly_braces"
+        },
+        {
+          "include": "#always"
+        },
+        {
+          "include": "#dot_read_all"
+        },
+        {
+          "include": "#lower_identifier"
+        },
+        {
+          "name": "variable.other.constant.bluespec",
+          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+        }
+      ],
+      "captures": {
+        "1": {
+          "name": "punctuation.bluespec"
+        }
+      },
       "name": "invalid.bluespec"
     },
     "dot_read_all": {

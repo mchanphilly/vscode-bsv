@@ -38,9 +38,10 @@ repository:
       - include: '#parameter'  # follows a #; e.g. Bit#(4)  
       - include: '#conditional'  # if and if-less guard (&&&)
       - include: '#argument_list'  # in call only
-      - include: '#enum_list'  # typedef enum
-      - include: '#case'  # simple case
-      - include: '#case_matches'  # pattern matching
+      - include: '#curly_braces'
+      # - include: '#enum_list'  # typedef enum
+      # - include: '#case'  # simple case
+      # - include: '#case_matches'  # pattern matching
 
   keyword:
     patterns:
@@ -78,7 +79,7 @@ repository:
   operator:
     name: _OPERATOR
     match: (?x) (
-      (?:<-|<=|\.|,)      |
+      (?:<-|<=|\.|,|:)    |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=)         |
       [\|&]{2}            |
@@ -120,6 +121,23 @@ repository:
       - name: _ENUM
         match: (ENUM)(?![#\(\{])
       - include: '#type'
+    name: _INVALID
+
+  curly_braces:  # typedef enum, match, tagged matching
+    begin: (?x)
+      (?<!(?:union\s+tagged|struct)\s*)
+      \{
+    end: \}
+    patterns:
+      - include: '#curly_braces'
+      - include: '#always'
+      - include: '#dot_read_all'
+      - include: '#lower_identifier'
+      - name: _ENUM
+        match: (ENUM)
+    captures:
+      1:
+        name: _PUNCTUATION
     name: _INVALID
 
   dot_read_all:

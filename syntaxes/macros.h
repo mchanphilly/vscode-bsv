@@ -4,6 +4,7 @@
 // The 11 big groups
 // Leading underscore for names
 #define _BLOCK_COMMENT    comment.block.bluespec
+#define _PUNCTUATION      punctuation.bluespec
 
 #define _NUMBER           constant.numeric.bluespec
 #define _ACTION           constant.language.bluespec
