@@ -110,7 +110,18 @@ repository:
       - include: '#short_action_actionvalue'
       - include: '#short_pure_function'
     name: meta.assignment
-# 115 "bluespec.tmLanguageRaw.yaml"
+
+  short_action_actionvalue:
+    begin: (?x)
+      (?<=(function|method)\s+(Action|((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)).*)
+      (?:=)
+    end: (?:;)
+    patterns:
+      - include: '#always'
+      - include: '#standalone_call_action'
+      - include: '#lone_dot'
+      - include: '#remainder'
+
   short_pure_function:
     begin: (?x)
       (?<=(function|method).*)

@@ -205,7 +205,7 @@ endfunction
 module mkPipelineScoreboard(Scoreboard#(size,t)) provisos (Bits#(t,tSz), Eq#(t));
     SFifo#(size, Maybe#(t), Maybe#(t)) f <- mkPipelineSFifo(isFound);
     interface lookup = map(getLookupIfc, genVector);  // implied return interface
-    method insert = f.enq;  // implied return method
+    method insert = d.enq;  // implied return method
     function Integer lookup_port = get_something(setReadyNum); // TODO lexer assumes state change
 
     // Several consecutive indexes with functional or method accesses
