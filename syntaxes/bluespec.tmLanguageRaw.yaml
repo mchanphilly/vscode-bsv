@@ -4,6 +4,8 @@ name: Bluespec SystemVerilog
 patterns:
   - include: '#always'
   - include: '#remainder'
+  - name: _INVALID  # catch-all
+    match: \w+
 repository:
 
   always:
@@ -52,6 +54,8 @@ repository:
       - include: '#control'
       - include: '#operator'
       - include: '#declare_keyword'
+      - name: _DEPRECATED
+        match: \b(SV_KEYWORDS)\b
 
   literal:
     patterns:

@@ -154,7 +154,7 @@ module mkSomeBuffer(SomeBufferInterface);
                 end 
             tagged SubUnion2 {some_other_member: .some} :
                 $display(some);
-            tagged SubUnion3 .veeeeee : $display(v); 
+            tagged SubUnion3 .v : $display(v); 
         endcase
 
         return item;
