@@ -222,7 +222,7 @@
       "name": "meta.assignment"
     },
     "short_action_actionvalue": {
-      "begin": "(?x) (?<=(function|method|interface)\\s+(Action|((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
+      "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
       "end": "(?:;)",
       "patterns": [
         {

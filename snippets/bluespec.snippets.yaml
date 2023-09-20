@@ -1,0 +1,66 @@
+
+## Copyright 2023 Martin Chan
+## 
+## Permission is hereby granted, free of charge, to any person
+## obtaining a copy of this software and associated documentation
+## files (the "Software"), to deal in the Software without
+## restriction, including without limitation the rights to use, copy,
+## modify, merge, publish, distribute, sublicense, and/or sell copies
+## of the Software, and to permit persons to whom the Software is
+## furnished to do so, subject to the following conditions:
+## 
+## The above copyright notice and this permission notice shall be
+## included in all copies or substantial portions of the Software.
+## 
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+## MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+## NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+## BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+## ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+## CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+## SOFTWARE.
+
+## TODO need to make it tab agnostic; right now it assumes 4 space tabs;
+## but some people might use 2 space tabs, or tab characters.
+
+for_loop:
+  prefix: for
+  body:
+    - for (${1:Integer i = $2}; $3; $4) begin
+    - "    $0"
+    - end
+  description: For loop (compile time)
+
+if_statement:
+  prefix: if
+  body:
+    - if ($1) begin
+    - "   $0"
+    - end
+  description: If statement (not for guards)
+
+begin_end:
+  prefix: begin
+  body:
+    - begin
+    - "    $0"
+    - end
+  description: Begin-end block
+
+# Looks like a bug with lookarounds; maybe they're not possible.
+# rule_guard:
+#   prefix: rule(.*)if
+#   body:
+#     - if ($1);
+#     - "    $0"
+#     - endrule
+#   description: Guard for rule
+
+# method_guard:
+#   prefix: method.*if
+#   body:
+#     - if ($1);
+#     - "    $0"
+#     - endmethod
+#   description: Guard for method

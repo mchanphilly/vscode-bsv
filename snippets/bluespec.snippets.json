@@ -1,0 +1,29 @@
+{
+  "for_loop": {
+    "prefix": "for",
+    "body": [
+      "for (${1:Integer i = $2}; $3; $4) begin",
+      "    $0",
+      "end"
+    ],
+    "description": "For loop (compile time)"
+  },
+  "if_statement": {
+    "prefix": "if",
+    "body": [
+      "if ($1) begin",
+      "   $0",
+      "end"
+    ],
+    "description": "If statement (not for guards)"
+  },
+  "begin_end": {
+    "prefix": "begin",
+    "body": [
+      "begin",
+      "    $0",
+      "end"
+    ],
+    "description": "Begin-end block"
+  }
+}

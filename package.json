@@ -8,7 +8,7 @@
   "displayName": "Bluespec",
   "description": "Syntax highlighting for the Bluespec SystemVerilog hardware design language",
   "categories": [
-    "Programming Languages"
+    "Programming Languages", "Snippets"
   ],
   "keywords": [
     "Bluespec", "Bluespec SystemVerilog", "bsv", "Minispec", "HDL"
@@ -61,6 +61,12 @@
         "language": "minispec",
         "scopeName": "source.bsv",
         "path": "./syntaxes/bluespec.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "bluespec",
+        "path": "./snippets/bluespec.snippets.json"
       }
     ]
   },

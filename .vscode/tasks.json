@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [{
         "label": "build",
-        "command": "${workspaceFolder}/build.sh",
+        "command": "cd snippets; ${workspaceFolder}/snippets/build.sh; cd ../syntaxes; ${workspaceFolder}/syntaxes/build.sh",
         // "args": ["test"],
         "type": "shell",
         "presentation": {
