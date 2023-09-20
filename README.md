@@ -114,6 +114,8 @@ I'm unlikely to fix any issues or add any features unless I become employed (eit
 - I'm not sure how to syntactically distinguish `?` the don't-care value with `?` the ternary operator yet. I need to come up with a good set of test cases.
 - There's no automatic indentation after a method signature. I would need to perform a check that the method signature is for a method definition, because a method signature may also happen in an interface definition, where we wouldn't want to indent.
 - Some issues with distinguishing between enums, interfaces, and structs in different contexts, especially nested conditionals. Should be a straightforward fix, as long as we come up with a decent list of test cases.
+  - Some are intractable without a language server.
+- It's difficult to deal with conditional compilation inside of a case statement (e.g., see RiscyOO's `src_Core/CPU/CsrFile.bsv`) because the engine "forgets" we're in a case statement if we're also in an `ifdef` chunk. Patched it by ignoring the middle.
 - Some issues with shorthand assignment (e.g., using `function Type identifier = [blah blah blah];` instead of `function/endfunction` pairs.) not properly rendering interfaces.
 
 ## Release Notes

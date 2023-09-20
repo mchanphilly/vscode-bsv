@@ -36,7 +36,7 @@ name: Bluespec SystemVerilog
 patterns:
   - include: '#always'
   - include: '#remainder'
-  - name: invalid.bluespec # catch-all
+  - name: invalid.catch_all.bluespec # catch-all
     match: \w+
 repository:
 
@@ -68,6 +68,9 @@ repository:
       - include: '#include'
       - include: '#attribute'
       - include: '#define'
+      - include: '#struct_instantiation'
+      - include: '#tagged_union_instantiation'
+      - include: '#tagged_tag'
 
   brackets: # things behave differently in brackets
     patterns:
@@ -104,16 +107,16 @@ repository:
   declarations:
     patterns:
       - name: entity.name.function.bluespec
-        match: (?<=module\s+)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(#?)
+        match: (?<=module\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)(#?)
       - name: entity.name.function.bluespec
-        match: (?<=rule\s+)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+        match: (?<=rule\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       - name: entity.name.function.bluespec
         match: (?x)
           (?<=(method|function).*)
-          ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+          ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
           (?=(\s+if|\s*[;\(=]))
       - name: entity.name.function.bluespec
-        match: (?<=interface\s+)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+        match: (?<=interface\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
 
   action_detect:
     patterns:
@@ -142,7 +145,7 @@ repository:
 
   short_action_actionvalue:
     begin: (?x)
-      (?<=(function|method)\s+(Action|((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)).*)
+      (?<=(function|method)\s+(Action|((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)).*)
       (?:=)
     end: (?:;)
     patterns:
@@ -176,8 +179,8 @@ repository:
   sole_unpack:
     name: variable.bluespec
     match: (?x)
-      (?<=tagged\s+((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)\s+\.\s*)
-      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+      (?<=tagged\s+((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)\s+\.\s*)
+      ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*:)
 
   operator:
@@ -210,8 +213,9 @@ repository:
     end: (endcase)
     patterns:
       - include: '#always'
-      - name: variable.other.constant.bluespec
-        match: (?<!:.*)((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?=[^;]*:?)
+      - include: '#tagged_tag'
+      - name: variable.other.constant.enum.bluespec
+        match: (?<!:.*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=[^;]*:?)
       - include: '#sole_unpack'
       - include: '#remainder'
     captures:
@@ -222,7 +226,7 @@ repository:
     begin: (?x)
       (?<=
         (?:if |
-        rule.*((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+        rule.*((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
         )
       )
       (?:\s*\()
@@ -231,14 +235,15 @@ repository:
     patterns: # short-circuit from context
       - include: '#always'
       - include: '#dot_read_all'
-      - name: variable.other.constant.bluespec
-        match: (?<!tagged\s+)((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))
+      - include: '#tagged_tag'
+      - name: variable.other.constant.enum.bluespec
+        match: (?<!tagged\s+)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
 
   argument_list:
     begin: (?x)
       (?<!(?:module|method|function|for|return|deriving).*)
-      (?<=((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))
+      (?<=((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))
       (?:\s*\()
     end: (?x)
       (?:\))
@@ -247,8 +252,9 @@ repository:
       - include: '#dot_read_all'
       - include: '#system_task'
       - include: '#lower_identifier'
-      - name: variable.other.constant.bluespec
-        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
+      - include: '#tagged_union_instantiation'
+      - name: variable.other.constant.enum.bluespec
+        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
       - include: '#type'
 
   curly_braces: # typedef enum, match, tagged matching
@@ -261,24 +267,40 @@ repository:
       - include: '#curly_braces'
       - include: '#dot_read_all'
       - include: '#lower_identifier'
-      - name: variable.other.constant.bluespec
-        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)
+      - name: variable.other.constant.enum.bluespec
+        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
     captures:
       1:
         name: punctuation.bluespec
-    ## name: invalid.bluespec
+    ## name: _INVALID
 
   dot_read_all:
     name: variable.bluespec
-    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
+    match: (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))
 
   enum_detect: # very narrow <=/= Enum; case
-    name: variable.other.constant.bluespec
-    match: (?<=(<?=)\s*)((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
+    name: variable.other.constant.enum.bluespec
+    match: (?<=(<?=)\s*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
 
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec
-    match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
+    match: (((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
+
+  tagged_tag:
+    name: variable.other.constant.tag.bluespec
+    match: (?<=tagged\s+)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
+
+  tagged_union_instantiation:
+    name: variable.other.constant.tag.bluespec
+    match: (?x)
+      ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
+      (?=\s*\()
+
+  struct_instantiation:
+    name: invalid.struct.bluespec
+    match: (?x)
+      ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
+      (?=\s*\{)
 
   ## we need to handle inside (multiline) brackets separately
   ## very ambiguous: could be action, read, or struct_access
@@ -294,62 +316,71 @@ repository:
   lone_dot: # TODO fold into multiline rules
     name: entity.name.function.bluespec # make sure not an arg
     match: (?x)
-      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?!.*=.*)
+      (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))(?!.*=.*)
 
   assign_to_dot:
     name: variable.bluespec
     match: (?x)
-      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?=.*=.*)
+      (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))(?=.*=.*)
 
   actionvalue:
     name: entity.name.function.bluespec # on right side of <-; ActionValue
     match: (?x)
       (?<=(<-).*)
-      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+      ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       (?!\s*\.)
 
   interface_dot: # bug catcher
     name: variable.bluespec
-    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?=\s*\.)
+    match: (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))(?=\s*\.)
 
   assignment_dot: # imperfect for method m = e.m;
     name: variable.bluespec # on right side of =; assume struct access or read
     match: (?x)
-      (?<=(=).*)
-      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
+      (?<=([=:]).*)
+      (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))
 
   generic_dot: # bug catcher
-    name: invalid.bluespec
-    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
+    name: _INVALID
+    match: (((?<=\.\s*)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)))
 
   standalone_call_action:
     name: entity.name.function.bluespec
-    match: ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
+    match: ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
 
   standalone_call_pure:
     name: variable.bluespec
-    match: ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
+    match: ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
 
   standalone_call: # ; do_this; or_this(arg);
     name: entity.name.function.bluespec
     match: (?x)
-      (?<=(^\s*|if\s*\(.*\).*)|interface.*)
-      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
+      (?<=(^\s*|if\s*\(.*\)[^=]*)|interface.*)
+      ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*[;\(])
 
   ifdef:
-    begin: (`ifdef)(?:\s+)((?:[\p{Alpha}\d\$_])+)
-    end: (`endif)
-    beginCaptures:
-      1:
-        name: keyword.control.bluespec
-      2:
-        name: meta.preprocessor.bluespec
-    endCaptures:
-      1:
-        name: keyword.control.bluespec
     patterns:
-      - include: $self
+      - match: (`ifdef)(?:\s+)((?:[\p{Alpha}\d\$_])+)
+        captures:
+          1:
+            name: keyword.control.bluespec
+          2:
+            name: meta.preprocessor.bluespec
+      - match: (`endif)
+        name: keyword.control.bluespec
+  ## begin: (`ifdef)(?:\s+)((?:[\p{Alpha}\d\$_])+)
+  ## end: (`endif)
+  ## beginCaptures:
+  ## 1:
+  ## name: keyword.control.bluespec
+  ## 2:
+  ## name: meta.preprocessor.bluespec
+  ## endCaptures:
+  ## 1:
+  ## name: keyword.control.bluespec
+  ## patterns:
+  ## - include: $self
 
   define:
     match: (`define)(?:\s+)((?:[\p{Alpha}\d\$_])+)
@@ -367,7 +398,7 @@ repository:
     name: support.class.bluespec
     match: (?x)
       (?<=import\s+)
-      ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)
+      ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
 
   action:
     patterns:
@@ -419,11 +450,11 @@ repository:
 
   type:
     name: entity.name.class.bluespec
-    match: (?:((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(\s*#)?) # wrap parentheses because first group non-capture
+    match: (?:((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(\s*#)?) # wrap parentheses because first group non-capture
 
   lower_identifier:
     name: variable.bluespec
-    match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)\b)
+    match: (((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)\b)
 
   system_task:
     name: support.function.bluespec

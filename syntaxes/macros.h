@@ -36,7 +36,7 @@
 #define _FUNCTION         entity.name.function.bluespec
 #define _CLASS            entity.name.class.bluespec
 
-#define _INVALID          invalid.bluespec
+#define _INVALID(n)       invalid.##n.bluespec
 #define _DEPRECATED       invalid.deprecated.bluespec
 
 #define _CONTROL          keyword.control.bluespec
@@ -57,7 +57,10 @@
 #define _SUPPORT          support.class.bluespec
 
 #define _VARIABLE         variable.bluespec
-#define _ENUM             variable.other.constant.bluespec
+#define _ENUM             variable.other.constant.enum.bluespec
+#define _TAG              variable.other.constant.tag.bluespec
+#define _STRUCT           _INVALID(struct)
+// #define _TAG              variable.other.constant.tag.bluespec
 
 
 // Can't do this because we can't generate multiple lines.
@@ -69,8 +72,8 @@
 // Invoke all these with parentheses around e.g. blah(IDENTIFIER_CHAR)blah
 // The leading ?: on each guarantee these are non-capturing.
 #define IDENTIFIER_CHAR ?:[\p{Alpha}\d\$_]
-#define LOWER_IDENTIFIER (?:\b[\p{Lower}_](IDENTIFIER_CHAR)*)\b
-#define UPPER_IDENTIFIER (?:\b[\p{Upper}_](IDENTIFIER_CHAR)*)\b
+#define LOWER_IDENTIFIER (?:\b_?[\p{Lower}](IDENTIFIER_CHAR)*)\b
+#define UPPER_IDENTIFIER (?:\b_?[\p{Upper}](IDENTIFIER_CHAR)*)\b
 #define ANY_IDENTIFIER (IDENTIFIER_CHAR)+
 #define ARRAY_INDEXING (\[.*\]\s*)*
 #define TYPE ?:(UPPER_IDENTIFIER)(\s*#)?  // excellent building block
