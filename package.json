@@ -2,26 +2,53 @@
   "name": "bluespec",
   "version": "1.0.0",
   "publisher": "Martin Chan",
-  "displayName": "bluespec",
-  "description": "Syntax highlighting for Bluespec SystemVerilog",
   "engines": {
     "vscode": "^1.82.0"
   },
+  "displayName": "Bluespec",
+  "description": "Syntax highlighting for the Bluespec SystemVerilog hardware design language",
   "categories": [
     "Programming Languages"
   ],
+  "keywords": [
+    "Bluespec", "Bluespec SystemVerilog", "bsv", "Minispec", "HDL"
+  ],
+  "galleryBanner": {
+    "color": "#1F1F1F",
+    "theme": "dark"
+  },
+  "preview": false,
   "contributes": {
     "languages": [
       {
         "id": "bluespec",
         "aliases": [
+          "Bluespec",
           "Bluespec SystemVerilog",
-          "bluespec"
+          "bsv"
         ],
         "extensions": [
           ".bsv"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "./images/minimal_icon_dark.png",
+          "light": "./images/minimal_icon_light.png"
+        }
+      },
+      {
+        "id": "minispec",
+        "aliases": [
+          "Minispec"
+        ],
+        "extensions": [
+          ".ms"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "./images/minimal_minispec_dark.png",
+          "light": "./images/minimal_minispec_light.png"
+        }
       }
     ],
     "grammars": [
@@ -29,10 +56,27 @@
         "language": "bluespec",
         "scopeName": "source.bsv",
         "path": "./syntaxes/bluespec.tmLanguage.json"
+      },
+      {
+        "language": "minispec",
+        "scopeName": "source.bsv",
+        "path": "./syntaxes/bluespec.tmLanguage.json"
       }
     ]
   },
+
   "devDependencies": {
     "js-yaml": "^4.1.0"
+  },
+  "icon": "./images/tiny_market.png",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://martinchan.org/vscode-bsv/",
+  "bugs": {
+    "url": "https://github.com/mchanphilly/vscode-bsv/issues",
+    "email": "martinch@mit.edu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mchanphilly/vscode-bsv.git"
   }
 }
