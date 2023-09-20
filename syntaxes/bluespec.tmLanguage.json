@@ -117,6 +117,9 @@
           "include": "#action"
         },
         {
+          "include": "#return_statement"
+        },
+        {
           "include": "#control"
         },
         {
@@ -188,6 +191,26 @@
           "include": "#lower_identifier"
         }
       ]
+    },
+    "return_statement": {
+      "begin": "(return)",
+      "end": "(?:;)",
+      "patterns": [
+        {
+          "include": "#always"
+        },
+        {
+          "include": "#dot_read_all"
+        },
+        {
+          "include": "#remainder"
+        }
+      ],
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.bluespec"
+        }
+      }
     },
     "sole_unpack": {
       "name": "variable.bluespec",
@@ -425,7 +448,7 @@
       "patterns": [
         {
           "name": "storage.type.bluespec",
-          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end| let|action|endaction|provisos)\\b"
+          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end| let|action|endaction|provisos|actionvalue|endactionvalue)\\b"
         }
       ]
     },

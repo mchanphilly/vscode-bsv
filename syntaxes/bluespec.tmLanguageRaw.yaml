@@ -53,6 +53,7 @@ repository:
       - name: _DONT_CARE
         match: \?
       - include: '#action'
+      - include: '#return_statement'
       - include: '#control'
       - include: '#operator'
       - include: '#declare_keyword'
@@ -92,6 +93,17 @@ repository:
 
 
 ###
+
+  return_statement:  # Assumes no action
+    begin: (return)
+    end: (?:;)
+    patterns:
+      - include: '#always'
+      - include: '#dot_read_all'
+      - include: '#remainder'
+    beginCaptures:
+      1:
+        name: _CONTROL
 
   sole_unpack:
     name: _VARIABLE
@@ -293,7 +305,7 @@ repository:
           rule|rules|typeclass|typedef|struct|tagged|union|enum|
           endfunction|endinstance|endinterface|endmethod|endmodule|
           endpackage|endrule|endrules|endtypeclass|deriving|begin|end|
-          let|action|endaction|provisos)\b
+          let|action|endaction|provisos|actionvalue|endactionvalue)\b
 
   pure_whitespace:
     name: markup.whitespace.bluespec
