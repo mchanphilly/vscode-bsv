@@ -90,8 +90,9 @@ repository:
       - include: '#control'
       - include: '#operator'
       - include: '#declare_keyword'
+      - include: '#minispec'
       - name: invalid.deprecated.bluespec
-        match: \b((?:alias|always|always_comb|always_ff|always_latch|and|assert|assert_strobe |assign|assume|automatic|before|begin|end|bind|bins|binsof|bit|break|buf |bufif0|bufif1|byte|casex|casez|cell|chandle|class|endclass |clocking|endclocking|cmos|config|endconfig|const|constraint|context|continue |cover|covergroup|endgroup|coverpoint|cross|deassign|default|defparam|design |disable|dist|do|edge|event|expect|export|extends|extern|final |first_match|force|foreach|forever|fork|forkjoin |generate|endgenerate|genvar|highz0|highz1|iff|ifnone|ignore_bins |illegal_bins|import|incdir|include|initial|inout|input|inside|instance |int|integer|intersect|join|join_any|join_none |large|liblist|library|local|localparam|logic|longint|macromodule |matches|medium|modport|nand|negedge|new|nmos|nor |noshowcancelled|not|notif0|notif1|null|or|output|package|endpackage |packed|parameter|pmos|posedge|primitive|endprimitive|priority|program |endprogram|property|endproperty|protected|pull0|pull1|pulldown|pullup |pulsestyle_onevent|pulsestyle_ondetect|pure|rand|randc|randcase|randsequence |rcmos|real|realtime|ref|reg|release|repeat|rnmos|rpmos|rtran |rtranif0|rtranif1|scalared|sequence|endsequence|shortint|shortreal |showcancelled|signed|small|solve|specify|endspecify|specparam|static |string|strong0|strong1|super|supply0|supply1|table|endtable |tagged|task|endtask|this|throughout|time|timeprecision|timeunit|tran |tranif0|tranif1|tri|tri0|tri1|triand|trior|trireg|type |union|unique|unsigned|use|var|vectored|virtual|void|wait|wait_order |wand|weak0|weak1|while|wildcard|wire|with|within|wor|xnor|xor))\b
+        match: \b((?:alias|always|always_comb|always_ff|always_latch|and|assert|assert_strobe |assign|assume|automatic|before|begin|end|bind|bins|binsof|bit|break|buf |bufif0|bufif1|byte|casex|casez|cell|chandle|class|endclass |clocking|endclocking|cmos|config|endconfig|const|constraint|context|continue |cover|covergroup|endgroup|coverpoint|cross|deassign|default|defparam|design |disable|dist|do|edge|event|expect|export|extends|extern|final |first_match|force|foreach|forever|fork|forkjoin |generate|endgenerate|genvar|highz0|highz1|iff|ifnone|ignore_bins |illegal_bins|import|incdir|include|initial|inout|inside|instance |int|integer|intersect|join|join_any|join_none |large|liblist|library|local|localparam|logic|longint|macromodule |matches|medium|modport|nand|negedge|new|nmos|nor |noshowcancelled|not|notif0|notif1|null|or|output|package|endpackage |packed|parameter|pmos|posedge|primitive|endprimitive|priority|program |endprogram|property|endproperty|protected|pull0|pull1|pulldown|pullup |pulsestyle_onevent|pulsestyle_ondetect|pure|rand|randc|randcase|randsequence |rcmos|real|realtime|ref|reg|release|repeat|rnmos|rpmos|rtran |rtranif0|rtranif1|scalared|sequence|endsequence|shortint|shortreal |showcancelled|signed|small|solve|specify|endspecify|specparam|static |string|strong0|strong1|super|supply0|supply1|table|endtable |tagged|task|endtask|this|throughout|time|timeprecision|timeunit|tran |tranif0|tranif1|tri|tri0|tri1|triand|trior|trireg|type |union|unique|unsigned|use|var|vectored|virtual|void|wait|wait_order |wand|weak0|weak1|while|wildcard|wire|with|within|wor|xnor|xor))\b
 
   literal:
     patterns:
@@ -128,6 +129,9 @@ repository:
 
 
 ##
+  minispec:
+    name: storage.type.bluespec
+    match: (input)
 
   short_assignments:
     patterns:

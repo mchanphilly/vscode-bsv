@@ -81,6 +81,7 @@ repository:
       - include: '#control'
       - include: '#operator'
       - include: '#declare_keyword'
+      - include: '#minispec'
       - name: _DEPRECATED
         match: \b(SV_KEYWORDS)\b
 
@@ -119,6 +120,9 @@ repository:
 
 
 ##
+  minispec:
+    name: _TYPE_PRIMITIVE
+    match: (input)
 
   short_assignments:
     patterns:

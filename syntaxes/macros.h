@@ -83,7 +83,7 @@
     |disable|dist|do|edge|event|expect|export|extends|extern|final\
     |first_match|force|foreach|forever|fork|forkjoin\
     |generate|endgenerate|genvar|highz0|highz1|iff|ifnone|ignore_bins\
-    |illegal_bins|import|incdir|include|initial|inout|input|inside|instance\
+    |illegal_bins|import|incdir|include|initial|inout|inside|instance\
     |int|integer|intersect|join|join_any|join_none\
     |large|liblist|library|local|localparam|logic|longint|macromodule\
     |matches|medium|modport|nand|negedge|new|nmos|nor\
