@@ -29,4 +29,18 @@
         ["\"", "\""],
         ["'", "'"]
     ],
+    "indentationRules": {
+        "increaseIndentPattern": "(?:begin$|(rule|module|function).*;)",
+        "decreaseIndentPattern": "(?:end$|(endrule|endmodule|endfunction).*;)",
+    },
+
+    "onEnterRules": [
+        {
+            "beforeText": "^\\s*(?:rule|module|function|begin|case).*?;\\s*$",
+            "action": {
+                "indent": "indent",
+                // "appendText": "endrule"  // TODO make this work
+            }
+        }
+    ]
 }
