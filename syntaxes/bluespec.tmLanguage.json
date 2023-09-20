@@ -314,7 +314,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*:)"
+          "match": "(?<!:.*)((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=[^;]*:?)"
         },
         {
           "include": "#sole_unpack"

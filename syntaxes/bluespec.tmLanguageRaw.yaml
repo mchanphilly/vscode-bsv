@@ -203,7 +203,7 @@ repository:
     patterns:
       - include: '#always'
       - name: _ENUM
-        match: (ENUM)(?=\s*:)
+        match: (?<!:.*)(ENUM)(?=[^;]*:?)
       - include: '#sole_unpack'
       - include: '#remainder'
     captures:
