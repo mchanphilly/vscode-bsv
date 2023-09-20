@@ -259,7 +259,7 @@ repository:
   standalone_call: # ; do_this; or_this(arg);
     name: entity.name.function.bluespec
     match: (?x)
-      (?<=(^\s*|if\s*\(.*\).*))
+      (?<=(^\s*|if\s*\(.*\).*)|interface.*)
       ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*[;\(])
 

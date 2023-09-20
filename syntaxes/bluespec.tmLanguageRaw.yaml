@@ -250,7 +250,7 @@ repository:
   standalone_call:   # ; do_this; or_this(arg);
     name: _FUNCTION
     match: (?x)
-      (?<=(^\s*|if\s*\(.*\).*))
+      (?<=(^\s*|if\s*\(.*\).*)|interface.*)
       (LOWER_IDENTIFIER)
       (?=\s*[;\(])
 
