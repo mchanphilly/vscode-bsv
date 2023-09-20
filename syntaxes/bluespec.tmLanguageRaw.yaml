@@ -224,7 +224,10 @@ repository:
 
   standalone_call:   # ; do_this; or_this(arg);
     name: _FUNCTION
-    match: (?<=^\s*)(LOWER_IDENTIFIER)(?=\s*[;\(])
+    match: (?x)
+      (?<=(^\s*|if\s*\(.*\).*))
+      (LOWER_IDENTIFIER)
+      (?=\s*[;\(])
 
   ifdef:
     begin: (`ifdef)(?:\s+)(ANY_IDENTIFIER)

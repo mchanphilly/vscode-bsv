@@ -338,7 +338,7 @@
     },
     "standalone_call": {
       "name": "entity.name.function.bluespec",
-      "match": "(?<=^\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*[;\\(])"
+      "match": "(?x) (?<=(^\\s*|if\\s*\\(.*\\).*)) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*[;\\(])"
     },
     "ifdef": {
       "begin": "(`ifdef)(?:\\s+)((?:[\\p{Alpha}\\d\\$_])+)",
