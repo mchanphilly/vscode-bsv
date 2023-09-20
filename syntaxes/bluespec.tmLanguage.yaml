@@ -275,7 +275,7 @@ repository:
     patterns:
       - name: keyword.control.bluespec
         match: (?x)\b
-          (?:case|matches|endcase|type|else|for|if|return|while|import)\b
+          (?:case|match|matches|endcase|type|else|for|if|return|while|import)\b
 
   declare_keyword:
     patterns:
