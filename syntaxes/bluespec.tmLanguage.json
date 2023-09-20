@@ -68,6 +68,12 @@
     "directives": {
       "patterns": [
         {
+          "include": "#import"
+        },
+        {
+          "include": "#include"
+        },
+        {
           "include": "#attribute"
         },
         {
@@ -265,6 +271,9 @@
           "include": "#dot_read_all"
         },
         {
+          "include": "#system_task"
+        },
+        {
           "include": "#lower_identifier"
         },
         {
@@ -388,6 +397,14 @@
         }
       }
     },
+    "include": {
+      "name": "keyword.control.bluespec",
+      "match": "(`include)"
+    },
+    "import": {
+      "name": "support.class.bluespec",
+      "match": "(?x) (?<=import\\s+) ((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+    },
     "action": {
       "patterns": [
         {
@@ -408,7 +425,7 @@
       "patterns": [
         {
           "name": "storage.type.bluespec",
-          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end| let|action|endaction)\\b"
+          "match": "(?x)\\b (?:function|instance|interface|method|module|package| rule|rules|typeclass|typedef|struct|tagged|union|enum| endfunction|endinstance|endinterface|endmethod|endmodule| endpackage|endrule|endrules|endtypeclass|deriving|begin|end| let|action|endaction|provisos)\\b"
         }
       ]
     },

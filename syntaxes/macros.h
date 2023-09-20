@@ -28,6 +28,7 @@
 #define _STRING_DOUBLE    string.quoted.double.bluespec
 
 #define _SYSTEM_FUNCTION  support.function.bluespec
+#define _SUPPORT          support.class.bluespec
 
 #define _VARIABLE         variable.bluespec
 #define _ENUM             variable.other.constant.bluespec
