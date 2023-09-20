@@ -92,7 +92,6 @@ repository:
     patterns:
       - include: '#short_assignments'
       - include: '#left_assignment'
-      - include: '#right_actionvalue'
       - include: '#dot_access' # later decompose into method and struct
       - include: '#standalone_call' # functions
 
@@ -250,12 +249,14 @@ repository:
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec
     match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
-# 255 "bluespec.tmLanguageRaw.yaml"
+
+
+
   dot_access:
     patterns:
       - include: '#interface_dot'
       - include: '#assignment_dot' # =
-      - include: '#actionvalue_dot' # <-
+      - include: '#actionvalue' # <- also covers func
       - include: '#lone_dot' # (not in brackets or case-case(imperfect))
       - include: '#assign_to_dot'
       - include: '#generic_dot' # leftover
@@ -270,11 +271,11 @@ repository:
     match: (?x)
       (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?=.*=.*)
 
-  actionvalue_dot:
+  actionvalue:
     name: entity.name.function.bluespec # on right side of <-; ActionValue
     match: (?x)
       (?<=(<-).*)
-      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
+      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
 
   interface_dot: # bug catcher
     name: variable.bluespec

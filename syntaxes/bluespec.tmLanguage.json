@@ -175,9 +175,6 @@
           "include": "#left_assignment"
         },
         {
-          "include": "#right_actionvalue"
-        },
-        {
           "include": "#dot_access"
         },
         {
@@ -409,7 +406,7 @@
           "include": "#assignment_dot"
         },
         {
-          "include": "#actionvalue_dot"
+          "include": "#actionvalue"
         },
         {
           "include": "#lone_dot"
@@ -430,9 +427,9 @@
       "name": "variable.bluespec",
       "match": "(?x) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))(?=.*=.*)"
     },
-    "actionvalue_dot": {
+    "actionvalue": {
       "name": "entity.name.function.bluespec",
-      "match": "(?x) (?<=(<-).*) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(?x) (?<=(<-).*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
     },
     "interface_dot": {
       "name": "variable.bluespec",

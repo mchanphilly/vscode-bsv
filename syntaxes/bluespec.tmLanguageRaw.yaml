@@ -83,7 +83,6 @@ repository:
     patterns:
       - include: '#short_assignments'
       - include: '#left_assignment'
-      - include: '#right_actionvalue'
       - include: '#dot_access'  # later decompose into method and struct
       - include: '#standalone_call'  # functions
 
@@ -242,21 +241,13 @@ repository:
     name: _FUNCTION
     match: ((LOWER_IDENTIFIER))(?=\s*(ARRAY_INDEXING)<=)
 
-  # right_actionvalue:  # e.g., Reg#(Bit#(4)) <- mkRegU
-  #   name: _FUNCTION   # but not method hosts   ^^^^^^
-  #   match: (?x)
-  #     (?<=<-)
-  #     (?:.*)
-  #     (LOWER_IDENTIFIER)
-  #     (?=\s*[\(;])
-
   # we need to handle inside (multiline) brackets separately
   # very ambiguous: could be action, read, or struct_access
   dot_access:
     patterns:
       - include: '#interface_dot'
       - include: '#assignment_dot' # =
-      - include: '#actionvalue_dot' # <-
+      - include: '#actionvalue' # <- also covers func
       - include: '#lone_dot'  # (not in brackets or case-case(imperfect))
       - include: '#assign_to_dot'
       - include: '#generic_dot' # leftover
@@ -271,11 +262,11 @@ repository:
     match: (?x)
       (DOT_ACCESS)(?=.*=.*)
 
-  actionvalue_dot:
+  actionvalue:
     name: _FUNCTION  # on right side of <-; ActionValue
     match: (?x)
       (?<=(<-).*)
-      (DOT_ACCESS)
+      (LOWER_IDENTIFIER)
 
   interface_dot:  # bug catcher
     name: _VARIABLE
