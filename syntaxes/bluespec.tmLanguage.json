@@ -90,8 +90,8 @@
     "keyword": {
       "patterns": [
         {
-          "name": "punctuation.terminator.bluespec",
-          "match": ";"
+          "name": "punctuation.bluespec",
+          "match": "[;\\(\\)\\{\\}]"
         },
         {
           "name": "constant.language.bluespec",
@@ -174,8 +174,7 @@
         {
           "include": "#remainder"
         }
-      ],
-      "name": "invalid.bluespec"
+      ]
     },
     "argument_list": {
       "begin": "(?x) (?<!(?:module|method|function|for|return|deriving).*) (?<=((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
@@ -197,18 +196,17 @@
         {
           "include": "#type"
         }
-      ],
-      "name": "invalid.bluespec"
+      ]
     },
     "curly_braces": {
-      "begin": "(?x) (?<!(?:union\\s+tagged|struct)\\s*) \\{",
-      "end": "\\}",
+      "begin": "(?x) (?<!(?:union\\s+tagged|struct)\\s*) (?:\\{)",
+      "end": "(?:\\})",
       "patterns": [
         {
-          "include": "#curly_braces"
+          "include": "#always"
         },
         {
-          "include": "#always"
+          "include": "#curly_braces"
         },
         {
           "include": "#dot_read_all"
@@ -225,8 +223,7 @@
         "1": {
           "name": "punctuation.bluespec"
         }
-      },
-      "name": "invalid.bluespec"
+      }
     },
     "dot_read_all": {
       "name": "variable.bluespec",

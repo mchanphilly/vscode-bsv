@@ -54,8 +54,8 @@ repository:
 
   keyword:
     patterns:
-      - name: punctuation.terminator.bluespec
-        match: ;
+      - name: punctuation.bluespec
+        match: '[;\(\)\{\}]'
       - name: constant.language.bluespec
         match: \?
       - include: '#action'
@@ -114,7 +114,6 @@ repository:
       - name: variable.other.constant.bluespec
         match: (?<!tagged\s+)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
-    name: invalid.bluespec # should be empty
 
   argument_list:
     begin: (?x)
@@ -130,27 +129,23 @@ repository:
       - name: variable.other.constant.bluespec
         match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?![#\(\{])
       - include: '#type'
-    name: invalid.bluespec
 
   curly_braces: # typedef enum, match, tagged matching
     begin: (?x)
       (?<!(?:union\s+tagged|struct)\s*)
-      \{
-    end: \}
+      (?:\{)
+    end: (?:\})
     patterns:
-      - include: '#curly_braces'
       - include: '#always'
+      - include: '#curly_braces'
       - include: '#dot_read_all'
       - include: '#lower_identifier'
       - name: variable.other.constant.bluespec
         match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)
-
-
-
     captures:
       1:
         name: punctuation.bluespec
-    name: invalid.bluespec
+
 
   dot_read_all:
     name: variable.bluespec
