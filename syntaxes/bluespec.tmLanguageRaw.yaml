@@ -240,7 +240,7 @@ repository:
       - include: '#system_task'
       - include: '#lower_identifier'
       - name: _ENUM
-        match: (ENUM)(?![#\(\{])
+        match: (ENUM)(?!\s+[#\(\{])
       - include: '#type'
 
   curly_braces:  # typedef enum, match, tagged matching
@@ -386,12 +386,14 @@ repository:
     match: \s+
 
   string:
-    name: _STRING_DOUBLE
     begin: '"'
     end: '"'
     patterns:
-      - name: constant.character.escape.bluespec
+      - name: _ESCAPE
         match: '\\.'
+      - name: _FORMAT
+        match: (%[0-9]*[dxhob])
+    name: _STRING_DOUBLE
 
   single_comment:
     name: comment.line.double-slash.bluespec

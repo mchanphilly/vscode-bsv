@@ -50,6 +50,8 @@
 #define _TYPE_PRIMITIVE   storage.type.bluespec
 
 #define _STRING_DOUBLE    string.quoted.double.bluespec
+#define _ESCAPE           constant.character.escape.bluespec
+#define _FORMAT           constant.other.placeholder.bluespec
 
 #define _SYSTEM_FUNCTION  support.function.bluespec
 #define _SUPPORT          support.class.bluespec

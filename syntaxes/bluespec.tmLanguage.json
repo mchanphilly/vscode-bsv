@@ -366,7 +366,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?![#\\(\\{])"
+          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?!\\s+[#\\(\\{])"
         },
         {
           "include": "#type"
@@ -540,15 +540,19 @@
       "match": "\\s+"
     },
     "string": {
-      "name": "string.quoted.double.bluespec",
       "begin": "\"",
       "end": "\"",
       "patterns": [
         {
           "name": "constant.character.escape.bluespec",
           "match": "\\\\."
+        },
+        {
+          "name": "constant.other.placeholder.bluespec",
+          "match": "(%[0-9]*[dxhob])"
         }
-      ]
+      ],
+      "name": "string.quoted.double.bluespec"
     },
     "single_comment": {
       "name": "comment.line.double-slash.bluespec",

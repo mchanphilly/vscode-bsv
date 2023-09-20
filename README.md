@@ -1,35 +1,56 @@
-# bsv README
+# Bluespec for VS Code
 
-This is the README for your extension "bsv". After writing up a brief description, we recommend including the following sections.
+This extension for VS Code offers sophisticated syntax highlighting for Bluespec and Minispec on par with syntax highlighting for mainstream languages.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+> Examples use excerpts of the MIT RiscyOO/Bluespec Toooba open-source project. 
 
-For example if there is an image subfolder under your extension project workspace:
+### Sophisticated Highlighting
 
-\!\[feature X\]\(images/feature-x.png\)
+Developers have become accustomed to the fantastic syntax highlighting available for mainstream languages like Python, C, Java, and TypeScript. It's about time that Bluespec developers have access to that too.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+The syntax highlighting has been thoroughly tested against the most complex Bluespec available.
 
-## Extension Settings
+Further, tokens have been carefully selected to be consistent with syntax highlighting standards across languages, allowing developers to bring in their general programming knowledge with them as they work in Bluespec. No matter what theme you use, writing and editing Bluespec code should be as smooth as writing any other programming language.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
-For example:
 
-This extension contributes the following settings:
+For instructors using Bluespec or Minispec as a pedagogical tool, your students need no longer  
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### Action Analysis Engine
+
+This syntax highlighter takes it one step further and distinguishes between actions and functional pieces of code.
+
+You can easily pinpoint 
+
+Be aware that whether a method performs an `Action` is only one part of scheduling. Read-only methods may also have scheduling implications, and you would need to take a deeper look into 
+
+## Getting Started with Bluespec?
+
+New to Bluespec? Check out the open-source Bluespec compiler
+
+
+
+
+
+(Not affiliated with Bluespec Inc.)
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- The syntax highlighter isn't yet advanced enough to support Action Analysis for implicit returns, so it may currently assume methods and functions are performing actions even if the .
+
+
+
+## New Issue?
+
+I'm interested in hearing about syntax highlighting bugs, usability issues, and feature requests.
+
+If you find something wrong with syntax highlighting, or something that would be improved, please send me a sample of Bluespec that exhibits what you're seeing. If it's not self-explanatory, please also include a short description.
+
+Also, I'm looking for employment.
 
 ## Release Notes
 
@@ -37,15 +58,8 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
+Initial release:
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
 
 ---
 
