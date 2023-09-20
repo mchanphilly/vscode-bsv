@@ -84,6 +84,9 @@
         },
         {
           "include": "#curly_braces"
+        },
+        {
+          "include": "#case"
         }
       ]
     },
@@ -156,6 +159,27 @@
     "operator": {
       "name": "keyword.operator.bluespec",
       "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+    },
+    "case": {
+      "begin": "(case)",
+      "end": "(endcase)",
+      "patterns": [
+        {
+          "include": "#always"
+        },
+        {
+          "name": "variable.other.constant.bluespec",
+          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*:)"
+        },
+        {
+          "include": "#remainder"
+        }
+      ],
+      "captures": {
+        "1": {
+          "name": "keyword.control.bluespec"
+        }
+      }
     },
     "conditional": {
       "begin": "(?x) (?<= (?:if | rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",

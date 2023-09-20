@@ -39,8 +39,8 @@ repository:
       - include: '#conditional'  # if and if-less guard (&&&)
       - include: '#argument_list'  # in call only
       - include: '#curly_braces'
+      - include: '#case'  # simple case
       # - include: '#enum_list'  # typedef enum
-      # - include: '#case'  # simple case
       # - include: '#case_matches'  # pattern matching
 
   keyword:
@@ -88,6 +88,18 @@ repository:
       \^~                 |
       [\+\-!~]            |
       [\*\/%]             )
+
+  case:
+    begin: (case)
+    end: (endcase)
+    patterns:
+      - include: '#always'
+      - name: _ENUM
+        match: (ENUM)(?=\s*:)
+      - include: '#remainder'
+    captures:
+      1:
+        name: _CONTROL
 
   conditional: # rather abstract rule
     begin: (?x)

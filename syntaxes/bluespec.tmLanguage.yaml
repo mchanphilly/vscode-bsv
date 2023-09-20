@@ -48,7 +48,7 @@ repository:
       - include: '#conditional' # if and if-less guard (&&&)
       - include: '#argument_list' # in call only
       - include: '#curly_braces'
-
+      - include: '#case' # simple case
 
 
 
@@ -97,6 +97,18 @@ repository:
       \^~ |
       [\+\-!~] |
       [\*\/%] )
+
+  case:
+    begin: (case)
+    end: (endcase)
+    patterns:
+      - include: '#always'
+      - name: variable.other.constant.bluespec
+        match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*:)
+      - include: '#remainder'
+    captures:
+      1:
+        name: keyword.control.bluespec
 
   conditional: # rather abstract rule
     begin: (?x)
