@@ -44,8 +44,8 @@
 // Invoke all these with parentheses around e.g. blah(IDENTIFIER_CHAR)blah
 // The leading ?: on each guarantee these are non-capturing.
 #define IDENTIFIER_CHAR ?:[\p{Alpha}\d\$_]
-#define LOWER_IDENTIFIER (?:\b\p{Lower}(IDENTIFIER_CHAR)*)\b
-#define UPPER_IDENTIFIER (?:\b\p{Upper}(IDENTIFIER_CHAR)*)\b
+#define LOWER_IDENTIFIER (?:\b[\p{Lower}_](IDENTIFIER_CHAR)*)\b
+#define UPPER_IDENTIFIER (?:\b[\p{Upper}_](IDENTIFIER_CHAR)*)\b
 #define ANY_IDENTIFIER (IDENTIFIER_CHAR)+
 #define ARRAY_INDEXING (\[.*\]\s*)*
 #define TYPE ?:(UPPER_IDENTIFIER)(\s*#)?  // excellent building block

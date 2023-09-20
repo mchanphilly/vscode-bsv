@@ -234,9 +234,9 @@ repository:
     name: _VARIABLE
     match: (DOT_ACCESS)
 
-  enum_detect:  # very narrow <= Enum; case
+  enum_detect:  # very narrow <=/= Enum; case
     name: _ENUM
-    match: (?<=(<=)\s*)(UPPER_IDENTIFIER)(?=\s*;)
+    match: (?<=(<?=)\s*)(UPPER_IDENTIFIER)(?=\s*;)
 
   left_assignment:  # e.g., state <= True
     name: _FUNCTION
@@ -253,13 +253,18 @@ repository:
       - include: '#assignment_dot' # =
       - include: '#actionvalue_dot' # <-
       - include: '#lone_dot'  # (not in brackets or case-case(imperfect))
+      - include: '#assign_to_dot'
       - include: '#generic_dot' # leftover
 
   lone_dot:  # TODO fold into multiline rules
     name: _FUNCTION  # make sure not an arg
     match: (?x)
-      (?<![\(\[\{].*)
-      (DOT_ACCESS)
+      (DOT_ACCESS)(?!.*=.*)
+
+  assign_to_dot:
+    name: _VARIABLE
+    match: (?x)
+      (DOT_ACCESS)(?=.*=.*)
 
   actionvalue_dot:
     name: _FUNCTION  # on right side of <-; ActionValue
@@ -333,7 +338,7 @@ repository:
     patterns:
       - name: _CONTROL
         match: (?x)\b
-          (?:case|match|matches|endcase|type|else|for|if|return|while|import)\b
+          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\b
   
   declare_keyword:
     patterns:

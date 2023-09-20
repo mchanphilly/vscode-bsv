@@ -79,13 +79,13 @@ repository:
   declarations:
     patterns:
       - name: entity.name.function.bluespec
-        match: (?<=module\s+)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(#?)
+        match: (?<=module\s+)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(#?)
       - name: entity.name.function.bluespec
-        match: (?<=rule\s+)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+        match: (?<=rule\s+)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
       - name: entity.name.function.bluespec
         match: (?x)
           (?<=(method|function).*)
-          ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+          ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
           (?=(\s+if|\s*[;\(=]))
 
   action_detect:
@@ -113,7 +113,7 @@ repository:
 
   short_action_actionvalue:
     begin: (?x)
-      (?<=(function|method)\s+(Action|((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)).*)
+      (?<=(function|method)\s+(Action|((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)).*)
       (?:=)
     end: (?:;)
     patterns:
@@ -147,8 +147,8 @@ repository:
   sole_unpack:
     name: variable.bluespec
     match: (?x)
-      (?<=tagged\s+((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)\s+\.\s*)
-      ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+      (?<=tagged\s+((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)\s+\.\s*)
+      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*:)
 
   operator:
@@ -182,7 +182,7 @@ repository:
     patterns:
       - include: '#always'
       - name: variable.other.constant.bluespec
-        match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*:)
+        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*:)
       - include: '#sole_unpack'
       - include: '#remainder'
     captures:
@@ -193,7 +193,7 @@ repository:
     begin: (?x)
       (?<=
         (?:if |
-        rule.*((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+        rule.*((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
         )
       )
       (?:\s*\()
@@ -203,13 +203,13 @@ repository:
       - include: '#always'
       - include: '#dot_read_all'
       - name: variable.other.constant.bluespec
-        match: (?<!tagged\s+)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
+        match: (?<!tagged\s+)((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
 
   argument_list:
     begin: (?x)
       (?<!(?:module|method|function|for|return|deriving).*)
-      (?<=((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))
+      (?<=((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))
       (?:\s*\()
     end: (?x)
       (?:\))
@@ -219,7 +219,7 @@ repository:
       - include: '#system_task'
       - include: '#lower_identifier'
       - name: variable.other.constant.bluespec
-        match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?![#\(\{])
+        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?![#\(\{])
       - include: '#type'
 
   curly_braces: # typedef enum, match, tagged matching
@@ -233,7 +233,7 @@ repository:
       - include: '#dot_read_all'
       - include: '#lower_identifier'
       - name: variable.other.constant.bluespec
-        match: ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)
+        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)
     captures:
       1:
         name: punctuation.bluespec
@@ -241,19 +241,19 @@ repository:
 
   dot_read_all:
     name: variable.bluespec
-    match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
 
-  enum_detect: # very narrow <= Enum; case
+  enum_detect: # very narrow <=/= Enum; case
     name: variable.other.constant.bluespec
-    match: (?<=(<=)\s*)((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
+    match: (?<=(<?=)\s*)((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
 
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec
-    match: (((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
+    match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
 
   right_actionvalue: # e.g., Reg#(Bit#(4)) <- mkRegU
     name: entity.name.function.bluespec # but not method hosts ^^^^^^
-    match: (?<=<-)(?:\s*)(((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b))(?!\.)
+    match: (?<=<-)(?:\s*)(((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?!\.)
 
 
 
@@ -262,43 +262,48 @@ repository:
       - include: '#assignment_dot' # =
       - include: '#actionvalue_dot' # <-
       - include: '#lone_dot' # (not in brackets or case-case(imperfect))
+      - include: '#assign_to_dot'
       - include: '#generic_dot' # leftover
 
   lone_dot: # TODO fold into multiline rules
     name: entity.name.function.bluespec # make sure not an arg
     match: (?x)
-      (?<![\(\[\{].*)
-      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?!.*=.*)
+
+  assign_to_dot:
+    name: variable.bluespec
+    match: (?x)
+      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?=.*=.*)
 
   actionvalue_dot:
     name: entity.name.function.bluespec # on right side of <-; ActionValue
     match: (?x)
       (?<=(<-).*)
-      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
 
   assignment_dot: # imperfect for method m = e.m;
     name: variable.bluespec # on right side of =; assume struct access or read
     match: (?x)
       (?<=(=).*)
-      (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+      (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
 
   generic_dot: # bug catcher
     name: invalid.bluespec
-    match: (((?<=\.\s*)((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)))
+    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
 
   standalone_call_action:
     name: entity.name.function.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
+    match: ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
 
   standalone_call_pure:
     name: variable.bluespec
-    match: ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
+    match: ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)(?=\s*\()
 
   standalone_call: # ; do_this; or_this(arg);
     name: entity.name.function.bluespec
     match: (?x)
       (?<=(^\s*|if\s*\(.*\).*)|interface.*)
-      ((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)
+      ((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)
       (?=\s*[;\(])
 
   ifdef:
@@ -331,7 +336,7 @@ repository:
     name: support.class.bluespec
     match: (?x)
       (?<=import\s+)
-      ((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)
+      ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)
 
   action:
     patterns:
@@ -342,7 +347,7 @@ repository:
     patterns:
       - name: keyword.control.bluespec
         match: (?x)\b
-          (?:case|match|matches|endcase|type|else|for|if|return|while|import)\b
+          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\b
 
   declare_keyword:
     patterns:
@@ -381,11 +386,11 @@ repository:
 
   type:
     name: entity.name.class.bluespec
-    match: (?:((?:\b\p{Upper}(?:[\p{Alpha}\d\$_])*)\b)(\s*#)?) # wrap parentheses because first group non-capture
+    match: (?:((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(\s*#)?) # wrap parentheses because first group non-capture
 
   lower_identifier:
     name: variable.bluespec
-    match: (((?:\b\p{Lower}(?:[\p{Alpha}\d\$_])*)\b)\b)
+    match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)\b)
 
   system_task:
     name: support.function.bluespec

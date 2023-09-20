@@ -154,15 +154,15 @@
       "patterns": [
         {
           "name": "entity.name.function.bluespec",
-          "match": "(?<=module\\s+)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(#?)"
+          "match": "(?<=module\\s+)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(#?)"
         },
         {
           "name": "entity.name.function.bluespec",
-          "match": "(?<=rule\\s+)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+          "match": "(?<=rule\\s+)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         },
         {
           "name": "entity.name.function.bluespec",
-          "match": "(?x) (?<=(method|function).*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(=]))"
+          "match": "(?x) (?<=(method|function).*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(=]))"
         }
       ]
     },
@@ -210,7 +210,7 @@
       "name": "meta.assignment"
     },
     "short_action_actionvalue": {
-      "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
+      "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
       "end": "(?:;)",
       "patterns": [
         {
@@ -267,7 +267,7 @@
     },
     "sole_unpack": {
       "name": "variable.bluespec",
-      "match": "(?x) (?<=tagged\\s+((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)\\s+\\.\\s*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*:)"
+      "match": "(?x) (?<=tagged\\s+((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)\\s+\\.\\s*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*:)"
     },
     "operator": {
       "name": "keyword.operator.bluespec",
@@ -302,7 +302,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*:)"
+          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*:)"
         },
         {
           "include": "#sole_unpack"
@@ -318,7 +318,7 @@
       }
     },
     "conditional": {
-      "begin": "(?x) (?<= (?:if | rule.*((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",
+      "begin": "(?x) (?<= (?:if | rule.*((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
@@ -329,7 +329,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "(?<!tagged\\s+)((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?!\\s+((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))"
+          "match": "(?<!tagged\\s+)((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?!\\s+((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b))"
         },
         {
           "include": "#remainder"
@@ -337,7 +337,7 @@
       ]
     },
     "argument_list": {
-      "begin": "(?x) (?<!(?:module|method|function|for|return|deriving).*) (?<=((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
+      "begin": "(?x) (?<!(?:module|method|function|for|return|deriving).*) (?<=((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
@@ -354,7 +354,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?![#\\(\\{])"
+          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?![#\\(\\{])"
         },
         {
           "include": "#type"
@@ -379,7 +379,7 @@
         },
         {
           "name": "variable.other.constant.bluespec",
-          "match": "((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+          "match": "((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         }
       ],
       "captures": {
@@ -390,19 +390,19 @@
     },
     "dot_read_all": {
       "name": "variable.bluespec",
-      "match": "(((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
     },
     "enum_detect": {
       "name": "variable.other.constant.bluespec",
-      "match": "(?<=(<=)\\s*)((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*;)"
+      "match": "(?<=(<?=)\\s*)((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*;)"
     },
     "left_assignment": {
       "name": "entity.name.function.bluespec",
-      "match": "(((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))(?=\\s*((\\[.*\\]\\s*)*)<=)"
+      "match": "(((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b))(?=\\s*((\\[.*\\]\\s*)*)<=)"
     },
     "right_actionvalue": {
       "name": "entity.name.function.bluespec",
-      "match": "(?<=<-)(?:\\s*)(((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b))(?!\\.)"
+      "match": "(?<=<-)(?:\\s*)(((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b))(?!\\.)"
     },
     "dot_access": {
       "patterns": [
@@ -416,37 +416,44 @@
           "include": "#lone_dot"
         },
         {
+          "include": "#assign_to_dot"
+        },
+        {
           "include": "#generic_dot"
         }
       ]
     },
     "lone_dot": {
       "name": "entity.name.function.bluespec",
-      "match": "(?x) (?<![\\(\\[\\{].*) (((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(?x) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))(?!.*=.*)"
+    },
+    "assign_to_dot": {
+      "name": "variable.bluespec",
+      "match": "(?x) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))(?=.*=.*)"
     },
     "actionvalue_dot": {
       "name": "entity.name.function.bluespec",
-      "match": "(?x) (?<=(<-).*) (((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(?x) (?<=(<-).*) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
     },
     "assignment_dot": {
       "name": "variable.bluespec",
-      "match": "(?x) (?<=(=).*) (((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(?x) (?<=(=).*) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
     },
     "generic_dot": {
       "name": "invalid.bluespec",
-      "match": "(((?<=\\.\\s*)((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+      "match": "(((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
     },
     "standalone_call_action": {
       "name": "entity.name.function.bluespec",
-      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
+      "match": "((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
     },
     "standalone_call_pure": {
       "name": "variable.bluespec",
-      "match": "((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
+      "match": "((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*\\()"
     },
     "standalone_call": {
       "name": "entity.name.function.bluespec",
-      "match": "(?x) (?<=(^\\s*|if\\s*\\(.*\\).*)|interface.*) ((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*[;\\(])"
+      "match": "(?x) (?<=(^\\s*|if\\s*\\(.*\\).*)|interface.*) ((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*[;\\(])"
     },
     "ifdef": {
       "begin": "(`ifdef)(?:\\s+)((?:[\\p{Alpha}\\d\\$_])+)",
@@ -487,7 +494,7 @@
     },
     "import": {
       "name": "support.class.bluespec",
-      "match": "(?x) (?<=import\\s+) ((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)"
+      "match": "(?x) (?<=import\\s+) ((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)"
     },
     "action": {
       "patterns": [
@@ -501,7 +508,7 @@
       "patterns": [
         {
           "name": "keyword.control.bluespec",
-          "match": "(?x)\\b (?:case|match|matches|endcase|type|else|for|if|return|while|import)\\b"
+          "match": "(?x)\\b (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\\b"
         }
       ]
     },
@@ -543,11 +550,11 @@
     },
     "type": {
       "name": "entity.name.class.bluespec",
-      "match": "(?:((?:\\b\\p{Upper}(?:[\\p{Alpha}\\d\\$_])*)\\b)(\\s*#)?)"
+      "match": "(?:((?:\\b[\\p{Upper}_](?:[\\p{Alpha}\\d\\$_])*)\\b)(\\s*#)?)"
     },
     "lower_identifier": {
       "name": "variable.bluespec",
-      "match": "(((?:\\b\\p{Lower}(?:[\\p{Alpha}\\d\\$_])*)\\b)\\b)"
+      "match": "(((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)\\b)"
     },
     "system_task": {
       "name": "support.function.bluespec",
