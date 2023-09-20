@@ -87,6 +87,9 @@
         },
         {
           "include": "#case"
+        },
+        {
+          "include": "#index"
         }
       ]
     },
@@ -159,6 +162,26 @@
     "operator": {
       "name": "keyword.operator.bluespec",
       "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | [\\|&]{2} | &&& | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+    },
+    "index": {
+      "begin": "(\\[)",
+      "end": "(\\])",
+      "patterns": [
+        {
+          "include": "#always"
+        },
+        {
+          "include": "#lower_identifier"
+        },
+        {
+          "include": "#dot_access"
+        }
+      ],
+      "captures": {
+        "1": {
+          "name": "punctuation.bluespec"
+        }
+      }
     },
     "case": {
       "begin": "(case)",

@@ -40,6 +40,7 @@ repository:
       - include: '#argument_list'  # in call only
       - include: '#curly_braces'
       - include: '#case'  # simple case
+      - include: '#index'  # e.g. arr[a.b][12]
       # - include: '#enum_list'  # typedef enum
       # - include: '#case_matches'  # pattern matching
 
@@ -88,6 +89,18 @@ repository:
       \^~                 |
       [\+\-!~]            |
       [\*\/%]             )
+
+  index:
+    begin: (\[)
+    end: (\])
+    patterns:
+      - include: '#always'
+      - include: '#lower_identifier'
+      - include: '#dot_access'
+      # - include: '#remainder'
+    captures:
+      1:
+        name: _PUNCTUATION
 
   case:
     begin: (case)

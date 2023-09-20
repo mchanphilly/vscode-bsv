@@ -49,6 +49,7 @@ repository:
       - include: '#argument_list' # in call only
       - include: '#curly_braces'
       - include: '#case' # simple case
+      - include: '#index' # e.g. arr[a.b][12]
 
 
 
@@ -97,6 +98,18 @@ repository:
       \^~ |
       [\+\-!~] |
       [\*\/%] )
+
+  index:
+    begin: (\[)
+    end: (\])
+    patterns:
+      - include: '#always'
+      - include: '#lower_identifier'
+      - include: '#dot_access'
+
+    captures:
+      1:
+        name: punctuation.bluespec
 
   case:
     begin: (case)
