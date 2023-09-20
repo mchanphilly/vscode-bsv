@@ -34,7 +34,6 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 
 patterns:
-  - include: '#short_assignments'
   - include: '#always'
   - include: '#remainder'
   - name: invalid.bluespec # catch-all
@@ -118,7 +117,7 @@ repository:
 
   action_detect:
     patterns:
-      - include: '#short_assignments'
+      - include: '#assignments'
       - include: '#left_assignment'
       - include: '#dot_access' # later decompose into method and struct
       - include: '#standalone_call' # functions
@@ -135,7 +134,7 @@ repository:
     name: storage.type.bluespec
     match: (input)
 
-  short_assignments:
+  assignments:
     patterns:
       - include: '#short_action_actionvalue'
       - include: '#short_pure_function'
@@ -249,7 +248,7 @@ repository:
       - include: '#system_task'
       - include: '#lower_identifier'
       - name: variable.other.constant.bluespec
-        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?!\s+[#\(\{])
+        match: ((?:\b[\p{Upper}_](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
       - include: '#type'
 
   curly_braces: # typedef enum, match, tagged matching
