@@ -1,8 +1,9 @@
 {
   "name": "bluespec",
+  "version": "1.0.0",
+  "publisher": "Martin Chan",
   "displayName": "bluespec",
   "description": "Syntax highlighting for Bluespec SystemVerilog",
-  "version": "1.0.0",
   "engines": {
     "vscode": "^1.82.0"
   },

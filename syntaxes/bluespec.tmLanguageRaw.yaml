@@ -1,3 +1,25 @@
+## Copyright 2023 Martin Chan
+## 
+## Permission is hereby granted, free of charge, to any person
+## obtaining a copy of this software and associated documentation
+## files (the "Software"), to deal in the Software without
+## restriction, including without limitation the rights to use, copy,
+## modify, merge, publish, distribute, sublicense, and/or sell copies
+## of the Software, and to permit persons to whom the Software is
+## furnished to do so, subject to the following conditions:
+## 
+## The above copyright notice and this permission notice shall be
+## included in all copies or substantial portions of the Software.
+## 
+## THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+## EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+## MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+## NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+## BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+## ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+## CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+## SOFTWARE.
+
 $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json'
 name: Bluespec SystemVerilog
 
@@ -95,7 +117,7 @@ repository:
       - include: '#lower_identifier'
 
 
-###
+##
 
   short_assignments:
     patterns:
@@ -163,7 +185,7 @@ repository:
       - include: '#always'
       - include: '#lower_identifier'
       - include: '#dot_access'
-      # - include: '#remainder'
+      ## - include: '#remainder'
     captures:
       1:
         name: _PUNCTUATION
@@ -229,7 +251,7 @@ repository:
     captures:
       1:
         name: _PUNCTUATION
-    # name: _INVALID
+    ## name: _INVALID
 
   dot_read_all:
     name: _VARIABLE
@@ -243,8 +265,8 @@ repository:
     name: _FUNCTION
     match: ((LOWER_IDENTIFIER))(?=\s*(ARRAY_INDEXING)<=)
 
-  # we need to handle inside (multiline) brackets separately
-  # very ambiguous: could be action, read, or struct_access
+  ## we need to handle inside (multiline) brackets separately
+  ## very ambiguous: could be action, read, or struct_access
   dot_access:
     patterns:
       - include: '#interface_dot'
