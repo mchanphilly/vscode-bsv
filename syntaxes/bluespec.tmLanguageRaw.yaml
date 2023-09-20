@@ -242,14 +242,19 @@ repository:
     name: _FUNCTION
     match: ((LOWER_IDENTIFIER))(?=\s*(ARRAY_INDEXING)<=)
 
-  right_actionvalue:  # e.g., Reg#(Bit#(4)) <- mkRegU
-    name: _FUNCTION   # but not method hosts   ^^^^^^
-    match: (?<=<-)(?:\s*)((LOWER_IDENTIFIER))(?!\.)
+  # right_actionvalue:  # e.g., Reg#(Bit#(4)) <- mkRegU
+  #   name: _FUNCTION   # but not method hosts   ^^^^^^
+  #   match: (?x)
+  #     (?<=<-)
+  #     (?:.*)
+  #     (LOWER_IDENTIFIER)
+  #     (?=\s*[\(;])
 
   # we need to handle inside (multiline) brackets separately
   # very ambiguous: could be action, read, or struct_access
   dot_access:
     patterns:
+      - include: '#interface_dot'
       - include: '#assignment_dot' # =
       - include: '#actionvalue_dot' # <-
       - include: '#lone_dot'  # (not in brackets or case-case(imperfect))
@@ -271,6 +276,10 @@ repository:
     match: (?x)
       (?<=(<-).*)
       (DOT_ACCESS)
+
+  interface_dot:  # bug catcher
+    name: _VARIABLE
+    match: (DOT_ACCESS)(?=\s*\.)
 
   assignment_dot:  # imperfect for method m = e.m;
     name: _VARIABLE  # on right side of =; assume struct access or read

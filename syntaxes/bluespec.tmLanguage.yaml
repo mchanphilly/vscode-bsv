@@ -250,15 +250,10 @@ repository:
   left_assignment: # e.g., state <= True
     name: entity.name.function.bluespec
     match: (((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
-
-  right_actionvalue: # e.g., Reg#(Bit#(4)) <- mkRegU
-    name: entity.name.function.bluespec # but not method hosts ^^^^^^
-    match: (?<=<-)(?:\s*)(((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b))(?!\.)
-
-
-
+# 255 "bluespec.tmLanguageRaw.yaml"
   dot_access:
     patterns:
+      - include: '#interface_dot'
       - include: '#assignment_dot' # =
       - include: '#actionvalue_dot' # <-
       - include: '#lone_dot' # (not in brackets or case-case(imperfect))
@@ -280,6 +275,10 @@ repository:
     match: (?x)
       (?<=(<-).*)
       (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))
+
+  interface_dot: # bug catcher
+    name: variable.bluespec
+    match: (((?<=\.\s*)((?:\b[\p{Lower}_](?:[\p{Alpha}\d\$_])*)\b)))(?=\s*\.)
 
   assignment_dot: # imperfect for method m = e.m;
     name: variable.bluespec # on right side of =; assume struct access or read

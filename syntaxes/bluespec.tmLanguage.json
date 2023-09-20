@@ -400,12 +400,11 @@
       "name": "entity.name.function.bluespec",
       "match": "(((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b))(?=\\s*((\\[.*\\]\\s*)*)<=)"
     },
-    "right_actionvalue": {
-      "name": "entity.name.function.bluespec",
-      "match": "(?<=<-)(?:\\s*)(((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b))(?!\\.)"
-    },
     "dot_access": {
       "patterns": [
+        {
+          "include": "#interface_dot"
+        },
         {
           "include": "#assignment_dot"
         },
@@ -434,6 +433,10 @@
     "actionvalue_dot": {
       "name": "entity.name.function.bluespec",
       "match": "(?x) (?<=(<-).*) (((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))"
+    },
+    "interface_dot": {
+      "name": "variable.bluespec",
+      "match": "(((?<=\\.\\s*)((?:\\b[\\p{Lower}_](?:[\\p{Alpha}\\d\\$_])*)\\b)))(?=\\s*\\.)"
     },
     "assignment_dot": {
       "name": "variable.bluespec",
