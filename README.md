@@ -36,11 +36,11 @@ The tokens have also been carefully selected to be consistent with syntax highli
 
 ### Action Analysis Engine
 
-This syntax highlighter takes it one step further and distinguishes between actions and functional pieces of code, helping you debug faster.
+This syntax highlighter takes it one step further and distinguishes between actions and functional pieces of code, helping you debug Bluespec faster.
 
 ![A few examples of Action indicator](./images/example_action.png)
 
-With one glance, you can see what portions of your Bluespec are responsible for state change, and which ones are only performing computation. I also discuss the concepts underlying this [in a post about my Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/#actions-and-state-changes).
+With one glance, you can see what portions of your Bluespec are responsible for state change, and which ones are purely functional. I also discuss the concepts underlying this [in a post about my Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/#actions-and-state-changes).
 
 <video src="./images/assignment_demo.mp4" controls title="Action Analysis Demo"></video>
 
@@ -52,13 +52,13 @@ Remember that whether a method performs an `Action` is [only one part of schedul
 
 ### Future Features
 
-I'm unlikely to add new features until I find employment, and only then if I'm working in Bluespec.
+I'm unlikely to add new features until I find employment, and only then if I'm working in Bluespec. Here are some ideas for future features, written in more detail in the [TODO](/TODO.md).
 
-Currently, there isn't much other than syntax highlighting. In terms of the future, VS Code provides a significant number of [contribution points](https://code.visualstudio.com/api/references/contribution-points) that allow an extension developer to tremendously boost the productivity of their users.
+Currently, there isn't much other than syntax highlighting. In terms of the possibilities, VS Code provides a significant number of [contribution points](https://code.visualstudio.com/api/references/contribution-points) that allow an extension developer to significantly boost the productivity of their users.
 
 #### Snippets
 
-Yes! We're missing many snippets beyond `for` and `if`. Send me snippets you want that aren't already in the [Snippets section of the TODO](./TODO.md/).
+Yes! We're missing many snippets beyond `for` and `if`. Send me snippets you want that aren't already in the Snippets section of the [TODO](./TODO.md/).
 
 #### Language Server
 
