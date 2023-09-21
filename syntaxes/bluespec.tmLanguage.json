@@ -214,6 +214,9 @@
           "include": "#left_writing"
         },
         {
+          "include": "#actionvalue"
+        },
+        {
           "include": "#dot_access"
         },
         {
@@ -457,7 +460,7 @@
       ]
     },
     "argument_list": {
-      "begin": "(?x) (?<!(?:module|method|function|for|return|deriving).*) (?<=((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
+      "begin": "(?x) (?<!\\b(?:module|method|function|for|return|deriving)\\b.*) (?<=((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
@@ -480,7 +483,7 @@
         },
         {
           "name": "variable.other.constant.enum.bluespec",
-          "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?!\\s*[#\\(\\{])"
+          "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?!\\s*[#\\(\\{];)"
         },
         {
           "include": "#type"
@@ -488,7 +491,8 @@
         {
           "include": "#catch_error"
         }
-      ]
+      ],
+      "name": "meta.storage.argument_list.bluespec"
     },
     "curly_braces": {
       "begin": "(?x) (?<!(?:union\\s+tagged|struct)\\s*) (?:\\{)",
@@ -558,9 +562,6 @@
         },
         {
           "include": "#assignment_dot"
-        },
-        {
-          "include": "#actionvalue"
         },
         {
           "include": "#lone_dot"

@@ -54,6 +54,7 @@
 #define _DIRECTIVE        meta.preprocessor.bluespec  // Works fine for Java, but not yet BSV
 #define _SHORT_ASSIGNMENT meta.assignment.bluespec
 #define _CURLY_BRACES     meta.storage.curly_braces.bluespec
+#define _ARGUMENT_LIST    meta.storage.argument_list.bluespec
 
 #define _TYPE_PRIMITIVE   storage.type.bluespec
 

@@ -132,6 +132,7 @@ repository:
       - include: '#standard_prelude_check'
       - include: '#special_assignments'
       - include: '#left_writing'
+      - include: '#actionvalue' # <- also covers func
       - include: '#dot_access' # later decompose into method and struct
       - include: '#standalone_call' # functions
 
@@ -351,7 +352,7 @@ repository:
 
   argument_list:
     begin: (?x)
-      (?<!(?:module|method|function|for|return|deriving).*)
+      (?<!\b(?:module|method|function|for|return|deriving)\b.*)
       (?<=((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))
       (?:\s*\()
     end: (?x)
@@ -364,9 +365,10 @@ repository:
       - include: '#tagged_union_instantiation'
       - include: '#dont_care_bare'
       - name: variable.other.constant.enum.bluespec
-        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
+        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{];)
       - include: '#type'
       - include: '#catch_error' # catch-all
+    name: meta.storage.argument_list.bluespec
 
   curly_braces: # typedef enum, match, tagged matching
     begin: (?x)
@@ -422,7 +424,6 @@ repository:
     patterns:
       - include: '#interface_dot'
       - include: '#assignment_dot' # =
-      - include: '#actionvalue' # <- also covers func
       - include: '#lone_dot' # (not in brackets or case-case(imperfect))
       - include: '#assign_to_dot'
       - include: '#generic_dot' # leftover
