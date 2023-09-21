@@ -155,15 +155,7 @@ repository:
       - include: '#prelude_pure'
       - include: '#prelude_action'
       - include: '#prelude_actionvalue'
-# 159 "bluespec.tmLanguageRaw.yaml"
-  prelude_module:
-    name: support.class.prelude_module.bluespec
-    match: (?x)\b
-      (?:openFile#?|hClose#? |
-
-      hGet(?:Char|Line)
-      )\b
-
+# 167 "bluespec.tmLanguageRaw.yaml"
   prelude_pure: ## can't seem to support {x,y} Verilog bit concatenate operator
     name: variable.prelude_pure.bluespec
     match: (?x)\b

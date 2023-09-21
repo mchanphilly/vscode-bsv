@@ -147,22 +147,22 @@ repository:
       - include: '#prelude_action'
       - include: '#prelude_actionvalue'
 
-  # prelude_system:
-  #   name: _PRELUDE_SYSTEM
-  #   match: (?x)
-  #     (?:(?:error|warning|message|)M?|
-  #     genC|genVerilog|genPackageName|genModuleName|
-  #     compilerVersion|buildVersion|date|epochTime|
-  #     hIs(?:EOF|Open|Closed|Readable|Writeable)|
-  #     )
+  ## prelude_system:
+  ##   name: _PRELUDE_SYSTEM
+  ##   match: (?x)\b
+  ##     (?:error|warning|message|)M?|
+  ##     genC|genVerilog|genPackageName|genModuleName|
+  ##     compilerVersion|buildVersion|date|epochTime|
+  ##     hIs(?:EOF|Open|Closed|Readable|Writeable)
+  ##     )\b
 
-  prelude_module:
-    name: _PRELUDE_MODULE
-    match: (?x)\b
-      (?:openFile#?|hClose#?  |
-      # hPut(Str|StrLn|Char)  |  ## some reason compilation doesn't like this line
-      hGet(?:Char|Line)
-      )\b
+  ## prelude_module:
+  ##   name: _PRELUDE_MODULE
+  ##   match: (?x)\b
+  ##     (?:openFile#?|hClose#?  |
+  ##     hPut(Str|StrLn|Char)  |  #### some reason compilation doesn't like this line
+  ##     hGet(?:Char|Line)
+  ##     )\b
 
   prelude_pure:  ## can't seem to support {x,y} Verilog bit concatenate operator
     name: _PRELUDE_PURE

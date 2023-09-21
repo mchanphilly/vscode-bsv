@@ -255,10 +255,6 @@
         }
       ]
     },
-    "prelude_module": {
-      "name": "support.class.prelude_module.bluespec",
-      "match": "(?x)\\b (?:openFile#?|hClose#? |\nhGet(?:Char|Line) )\\b"
-    },
     "prelude_pure": {
       "name": "variable.prelude_pure.bluespec",
       "match": "(?x)\\b (?:max|min|abs| (un)?signedMul|(un)?signedQuot| compose|composeM|id|constFn|flip| (un)?curry|parity| reverseBits|countOnes|countZeros[ML]SB|truncateLSB| gcd|lcm|while|when| (?:zeroE|signE|e)xtend|truncate| split| mod|quot|rem| strConcat| string(?:Length|Split|Head|Tail|Cons| ToCharList|ListToString|quote|doubleQuote)| charTo(?:String|Integer) integerToChar| is(?:Space|Lower|Upper|Alpha(Num)?|(Oct|Hex)?Digit)| to(?:Upper|Lower)| (?:hexD|d)igitTo(?:Integer|Bits)| (?:integer|bits)To(Hex)?Digit| fromMaybe|isValid| tuple[2-8]|tpl_[1-8] )\\b"
