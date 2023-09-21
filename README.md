@@ -1,6 +1,6 @@
 # Bluespec for VS Code
 
-![Banner that says Bluespec SystemVerilog for VS Code, and a link to my website at https://martinchan.org/bsv/](/images/display_short_banner.png)
+![Banner that says Bluespec SystemVerilog for VS Code, and a link to my website at https://martinchan.org/bsv/](./images/display_banner_short.png)
 
 This extension for VS Code offers high-quality syntax highlighting for Bluespec and Minispec on par with syntax highlighting for mainstream languages.
 
