@@ -38,7 +38,7 @@
           "include": "#declarations"
         },
         {
-          "include": "#action_detect"
+          "include": "#action_analysis"
         },
         {
           "include": "#enum_detect"
@@ -202,8 +202,11 @@
         }
       ]
     },
-    "action_detect": {
+    "action_analysis": {
       "patterns": [
+        {
+          "include": "#standard_prelude_check"
+        },
         {
           "include": "#special_assignments"
         },
@@ -232,6 +235,41 @@
           "match": "((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         }
       ]
+    },
+    "standard_prelude_check": {
+      "patterns": [
+        {
+          "include": "#prelude_system"
+        },
+        {
+          "include": "#prelude_module"
+        },
+        {
+          "include": "#prelude_pure"
+        },
+        {
+          "include": "#prelude_action"
+        },
+        {
+          "include": "#prelude_actionvalue"
+        }
+      ]
+    },
+    "prelude_module": {
+      "name": "support.class.prelude_module.bluespec",
+      "match": "(?x)\\b (?:openFile#?|hClose#? |\nhGet(?:Char|Line) )\\b"
+    },
+    "prelude_pure": {
+      "name": "variable.prelude_pure.bluespec",
+      "match": "(?x)\\b (?:max|min|abs| (un)?signedMul|(un)?signedQuot| compose|composeM|id|constFn|flip| (un)?curry|parity| reverseBits|countOnes|countZeros[ML]SB|truncateLSB| gcd|lcm|while|when| (?:zeroE|signE|e)xtend|truncate| split| mod|quot|rem| strConcat| string(?:Length|Split|Head|Tail|Cons| ToCharList|ListToString|quote|doubleQuote)| charTo(?:String|Integer) integerToChar| is(?:Space|Lower|Upper|Alpha(Num)?|(Oct|Hex)?Digit)| to(?:Upper|Lower)| (?:hexD|d)igitTo(?:Integer|Bits)| (?:integer|bits)To(Hex)?Digit| fromMaybe|isValid| tuple[2-8]|tpl_[1-8] )\\b"
+    },
+    "prelude_action": {
+      "name": "support.function.prelude_action.bluespec",
+      "match": "(?x)\\b (?:hFlush|hSetBuffering)\\b"
+    },
+    "prelude_actionvalue": {
+      "name": "support.function.prelude_action.bluespec",
+      "match": "(?x)\\b (?:hGetBuffering)\\b"
     },
     "probable_ternary_q": {
       "name": "keyword.operator.bluespec",
@@ -693,7 +731,7 @@
       "match": "(((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)\\b)"
     },
     "system_task": {
-      "name": "support.function.bluespec",
+      "name": "support.function.system.bluespec",
       "match": "\\$(?:[\\p{Alpha}\\d\\$_])*\\b"
     },
     "integer": {

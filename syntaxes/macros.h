@@ -59,12 +59,16 @@
 
 #define _STRING_DOUBLE    string.quoted.double.bluespec
 
-#define _SYSTEM_FUNCTION  support.function.bluespec
+#define _PRELUDE_ACTION   support.function.prelude_action.bluespec
+#define _PRELUDE_SYSTEM   support.function.prelude_system.bluespec
+#define _SYSTEM_FUNCTION  support.function.system.bluespec
 #define _SUPPORT          support.class.bluespec
 #define _EXPORT_INTERFACE support.class.export.bluespec
+#define _PRELUDE_MODULE   support.class.prelude_module.bluespec
 #define _EXPORT_MODULE    support.function.export.bluespec
 
 #define _CATCH_ALL_LOWER  variable.catch_all.bluespec
+#define _PRELUDE_PURE     variable.prelude_pure.bluespec
 #define _VARIABLE         variable.bluespec
 #define _ENUM             variable.other.constant.enum.bluespec
 #define _TAG              variable.other.constant.tag.bluespec
