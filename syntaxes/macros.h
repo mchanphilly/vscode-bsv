@@ -38,6 +38,7 @@
 
 #define _FUNCTION         entity.name.function.bluespec
 #define _CLASS            entity.name.class.bluespec
+#define _CATCH_ALL_UPPER  entity.name.class.catch_all.bluespec
 #define _ENUM_CATEGORY    entity.name.class.enum_category_or_struct.bluespec  // captures struct too right now
 #define _STRUCT           entity.name.class.struct.bluespec  // see also typedef struct; is right now ENUM_CATEGORY
 
@@ -63,6 +64,7 @@
 #define _EXPORT_INTERFACE support.class.export.bluespec
 #define _EXPORT_MODULE    support.function.export.bluespec
 
+#define _CATCH_ALL_LOWER  variable.catch_all.bluespec
 #define _VARIABLE         variable.bluespec
 #define _ENUM             variable.other.constant.enum.bluespec
 #define _TAG              variable.other.constant.tag.bluespec

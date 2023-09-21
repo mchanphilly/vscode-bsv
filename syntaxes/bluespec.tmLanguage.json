@@ -224,10 +224,12 @@
           "include": "#system_task"
         },
         {
-          "include": "#type"
+          "name": "entity.name.class.catch_all.bluespec",
+          "match": "(?:((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(\\s*#)?)"
         },
         {
-          "include": "#lower_identifier"
+          "name": "variable.catch_all.bluespec",
+          "match": "((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         }
       ]
     },
@@ -331,7 +333,7 @@
       "name": "constant.language.dont_care.bluespec",
       "match": "(\\?)"
     },
-    "dont_care_colons": {
+    "dont_care_colon": {
       "name": "constant.language.dont_care.bluespec",
       "match": "(?x) (?<=:\\s*) (\\?)"
     },
@@ -378,6 +380,9 @@
         },
         {
           "include": "#sole_unpack"
+        },
+        {
+          "include": "#dont_care_colon"
         },
         {
           "include": "#remainder"
@@ -472,7 +477,7 @@
           "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         },
         {
-          "include": "#dont_care_colons"
+          "include": "#dont_care_colon"
         },
         {
           "include": "#catch_error"

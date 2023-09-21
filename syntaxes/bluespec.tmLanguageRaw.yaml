@@ -128,8 +128,12 @@ repository:
   identifier:
     patterns:
       - include: '#system_task'
-      - include: '#type'
-      - include: '#lower_identifier'
+      ## - include: '#type'
+      ## - include: '#lower_identifier'
+      - name: _CATCH_ALL_UPPER
+        match: (TYPE)
+      - name: _CATCH_ALL_LOWER
+        match: (LOWER_IDENTIFIER)
 
 
 ##
@@ -215,7 +219,7 @@ repository:
     name: _DONT_CARE
     match: (\?)
 
-  dont_care_colons:  ## : ?
+  dont_care_colon:  ## : ?
     name: _DONT_CARE
     match: (?x)
       (?<=:\s*)
@@ -249,6 +253,7 @@ repository:
       - name: _ENUM
         match: (?<!:.*)(ENUM)(?=[^;]*:?)
       - include: '#sole_unpack'
+      - include: '#dont_care_colon'
       - include: '#remainder'
       - include: '#catch_error'  # catch-all
     captures:
@@ -305,7 +310,7 @@ repository:
       - include: '#lower_identifier'
       - name: _ENUM
         match: (ENUM)
-      - include: '#dont_care_colons'
+      - include: '#dont_care_colon'
       - include: '#catch_error'
     captures:
       1:

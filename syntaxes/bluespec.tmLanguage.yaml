@@ -137,8 +137,12 @@ repository:
   identifier:
     patterns:
       - include: '#system_task'
-      - include: '#type'
-      - include: '#lower_identifier'
+      ## - include: '#type'
+      ## - include: '#lower_identifier'
+      - name: entity.name.class.catch_all.bluespec
+        match: (?:((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(\s*#)?)
+      - name: variable.catch_all.bluespec
+        match: ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
 
 
 ##
@@ -224,7 +228,7 @@ repository:
     name: constant.language.dont_care.bluespec
     match: (\?)
 
-  dont_care_colons: ## : ?
+  dont_care_colon: ## : ?
     name: constant.language.dont_care.bluespec
     match: (?x)
       (?<=:\s*)
@@ -258,6 +262,7 @@ repository:
       - name: variable.other.constant.enum.bluespec
         match: (?<!:.*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=[^;]*:?)
       - include: '#sole_unpack'
+      - include: '#dont_care_colon'
       - include: '#remainder'
       - include: '#catch_error' # catch-all
     captures:
@@ -314,7 +319,7 @@ repository:
       - include: '#lower_identifier'
       - name: variable.other.constant.enum.bluespec
         match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
-      - include: '#dont_care_colons'
+      - include: '#dont_care_colon'
       - include: '#catch_error'
     captures:
       1:
