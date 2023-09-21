@@ -18,8 +18,7 @@ Developers have grown accustomed to the fantastic syntax highlighting available 
 
 For the first time, high-quality syntax highlighting has now come to Bluespec for VS Code. 
 
-
-
+<video src="./images/overall_demo_bluespec.mp4" controls title="Overview Demo"></video>
 
 
 The syntax highlighting has been thoroughly tested against the most complex Bluespec available and with a variety of programming styles.
@@ -33,6 +32,7 @@ If something's worth doing, it's worth doing right. I built this extension from 
 Further, tokens have been carefully selected to be consistent with syntax highlighting standards across languages, allowing developers to bring in their general programming knowledge with them as they move to Bluespec. I researched syntax highlighting in languages like Python, C, Java, and TypeScript to make sure that my extension tokenizes similarly to theirs, e.g., things like Bluespec interfaces look like classes, or Bluespec enums look like other enums, and that these are treated differently.
 
 
+<video src="./images/demo_enum.mp4" controls title="Enum Demo"></video>
 
 ### Action Analysis Engine
 
@@ -42,7 +42,7 @@ With one glance, you can see what portions of your Bluespec are responsible for 
 
 
 
-
+<video src="./images/assignment_demo.mp4" controls title="Action Analysis Demo"></video>
 
 
 
@@ -78,18 +78,7 @@ Can you imagine mousing over a module instance and being presented with its sche
 
 If you're using Bluespec (or Minispec) for class, congratulations! I was first introduced to Bluespec through Daniel Sanchez's [Minispec](https://github.com/minispec-hdl/minispec/) when I took 6.004 (now 6.191) as a sophomore at MIT in Fall 2021. Then I really got into Bluespec when I took 6.192 my senior year in Spring 2023 with Arvind and the spectacular Thomas Bourgeat, who's now teaching at EPFL.
 
-I made this extension because the syntax highlighting available for Bluespec on VS Code was [really bad](https://martinchan.org/projects/bluespec-lexer/#next-steps). I didn't even use VS Code for 6.004 because they had us doing old-fashioned command line business (gross), but I used VS Code for 6.192 and a [summer project afterward](https://martinchan.org/projects/processor/). The available syntax highlighting was one step above nothing, which is to say they only did keyword highlighting and VS Code-provided bracket matching.
-
-I think I know why it took so long before someone came to market with a decent VS Code extension for Bluespec.
-
-Right now, (according to Stack Overflow) [3 in 4 developers use VS Code](https://en.wikipedia.org/wiki/Visual_Studio_Code#Reception), just as it's been for the past 3 years. At MIT, the majority is so strong that 6.100 and 6.102, two of the three introductory programming classes, have now coalesced to recommending VS Code for students in need of code editors. When I took them not so long ago, 6.100 was recommending (of all things) Spyder, and 6.102 was recommending Eclipse. I don't know what 6.101 will recommend, since it's a spring class.
-
-But as recent as 2016, [only 7% of developers used VS Code](https://insights.stackoverflow.com/survey/2016#technology-development-environments). The majority then were Notepad++ and Visual Studio each at (not mutually exclusive) 35%.[^hold] I would guess that most people working in Bluespec have done so for years and years, and they've probably gotten accustomed to whatever they're using, whether it's Vim, Emacs, or Notepad++.
-
-I think if Bluespec wants to better appeal to people currently in college (or recently out of college), they should've built some tools for VS Code. But they didn't, so I did.
-
-[^hold]: You can imagine how big a hold VS Code has now that its majority *for several years running* is more than what those two were combined.
-
+I made this extension because the syntax highlighting available for Bluespec on VS Code was [really bad](https://martinchan.org/projects/bluespec-lexer/#next-steps). I didn't even use VS Code for 6.004 because they had us doing old-fashioned command line business (gross), but I used VS Code for 6.192 and a [summer project afterward](https://martinchan.org/projects/processor/), and it became clear to me . The available syntax highlighting was one step above nothing, which is to say they only did keyword highlighting and VS Code-provided bracket matching.
 ## Feedback
 
 I'm interested in hearing about syntax highlighting bugs, usability issues, and snippet and feature requests.
@@ -117,6 +106,9 @@ I'm unlikely to fix any issues or add any features unless I become employed (eit
   - Some are intractable without a language server.
 - It's difficult to deal with conditional compilation inside of a case statement (e.g., see RiscyOO's `src_Core/CPU/CsrFile.bsv`) because the engine "forgets" we're in a case statement if we're also in an `ifdef` chunk. Patched it by ignoring the middle.
 - Some issues with shorthand assignment (e.g., using `function Type identifier = [blah blah blah];` instead of `function/endfunction` pairs.) not properly rendering interfaces.
+- If the identifier names don't adhere to the casing convention (lowercase for variables especially), my extension has trouble understanding them as what they are. While it's nice to have a syntax highlighter in compliance with the language specification, it can be confusing to developers if the Bluespec compiler accepts their identifier but their code editor doesn't.
+- There are some patterns that don't get recognizes across lines. e.g., when you use a ternary operator but the `?` and the `:` are on separate lines. The underlying regex engine, while I have stretched it in other ways to permit a whole lot of features, is difficult to make recognize cases like these. So just be wary when that happens.
+- There are some functions in the Standard Prelude that I haven't hard-coded into the grammar. I suppose there's a world where we *know* `zeroExtend` is not an action, and we can highlight accordingly. I would need to investigate if there's a risk of these being redefined.
 
 ## Release Notes
 
