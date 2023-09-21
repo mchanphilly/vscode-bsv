@@ -1,4 +1,9 @@
 .vscode/**
 .vscode-test/**
 .gitignore
-vsc-extension-quickstart.md
+images
+test
+syntaxes/*
+!syntaxes/bluespec.tmLanguage.json
+snippets/*
+!snippets/bluespec.snippets.json
