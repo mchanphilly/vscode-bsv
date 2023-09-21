@@ -32,8 +32,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "dark": "./images/minimal_icon_dark.png",
-          "light": "./images/minimal_icon_light.png"
+          "dark": "./icons/minimal_icon_dark.png",
+          "light": "./icons/minimal_icon_light.png"
         }
       },
       {
@@ -46,8 +46,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "dark": "./images/minimal_minispec_dark.png",
-          "light": "./images/minimal_minispec_light.png"
+          "dark": "./icons/minimal_minispec_dark.png",
+          "light": "./icons/minimal_minispec_light.png"
         }
       }
     ],
@@ -74,7 +74,7 @@
   "devDependencies": {
     "js-yaml": "^4.1.0"
   },
-  "icon": "./images/tiny_market.png",
+  "icon": "./icons/tiny_market.png",
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://martinchan.org/vscode-bsv/",
   "bugs": {
