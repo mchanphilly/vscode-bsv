@@ -9,8 +9,7 @@
       "include": "#remainder"
     },
     {
-      "name": "invalid.catch_all.bluespec",
-      "match": "\\w+"
+      "include": "#catch_error"
     }
   ],
   "repository": {
@@ -46,6 +45,18 @@
         },
         {
           "include": "#identifier"
+        }
+      ]
+    },
+    "catch_error": {
+      "patterns": [
+        {
+          "name": "invalid.question.bluespec",
+          "match": "(\\?)"
+        },
+        {
+          "name": "invalid.catch_all.bluespec",
+          "match": "\\w+"
         }
       ]
     },
@@ -119,11 +130,7 @@
           "match": "[;\\(\\)\\{\\}]"
         },
         {
-          "name": "constant.language.bluespec",
-          "match": "\\?"
-        },
-        {
-          "name": "constant.language.bluespec",
+          "name": "constant.language.void.bluespec",
           "match": "(void)"
         },
         {
@@ -178,6 +185,12 @@
           "match": "(?x) (?<=(method|function).*) ((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=(\\s+if|\\s*[;\\(=]))"
         },
         {
+          "include": "#dont_care_equal"
+        },
+        {
+          "include": "#probable_ternary_q"
+        },
+        {
           "name": "entity.name.function.bluespec",
           "match": "(?<=interface\\s+)((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
         },
@@ -189,10 +202,10 @@
     "action_detect": {
       "patterns": [
         {
-          "include": "#assignments"
+          "include": "#special_assignments"
         },
         {
-          "include": "#left_assignment"
+          "include": "#left_writing"
         },
         {
           "include": "#dot_access"
@@ -215,6 +228,10 @@
         }
       ]
     },
+    "probable_ternary_q": {
+      "name": "keyword.operator.bluespec",
+      "match": "(?x) (\\?) (?=.*:)"
+    },
     "declare_enum_category": {
       "name": "entity.name.class.enum_category_or_struct.bluespec",
       "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s+deriving)"
@@ -223,7 +240,7 @@
       "name": "storage.type.bluespec",
       "match": "(input)"
     },
-    "assignments": {
+    "special_assignments": {
       "patterns": [
         {
           "include": "#short_action_actionvalue"
@@ -232,7 +249,7 @@
           "include": "#short_pure_function"
         }
       ],
-      "name": "meta.assignment"
+      "name": "meta.assignment.bluespec"
     },
     "short_action_actionvalue": {
       "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
@@ -249,6 +266,9 @@
         },
         {
           "include": "#remainder"
+        },
+        {
+          "include": "#catch_error"
         }
       ]
     },
@@ -267,6 +287,9 @@
         },
         {
           "include": "#dot_read_all"
+        },
+        {
+          "include": "#catch_error"
         }
       ]
     },
@@ -282,6 +305,9 @@
         },
         {
           "include": "#remainder"
+        },
+        {
+          "include": "#catch_error"
         }
       ],
       "beginCaptures": {
@@ -296,7 +322,15 @@
     },
     "operator": {
       "name": "keyword.operator.bluespec",
-      "match": "(?x) ( (?:<-|<=|\\.|,|:) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+      "match": "(?x) ( (?:<-|<=|[\\.,:]) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+    },
+    "dont_care_colons": {
+      "name": "constant.language.dont_care.bluespec",
+      "match": "(?x) (?<=:\\s*) (\\?)"
+    },
+    "dont_care_equal": {
+      "name": "constant.language.dont_care.bluespec",
+      "match": "(?x) (?<==\\s*) (\\?)"
     },
     "index": {
       "begin": "(\\[)",
@@ -310,6 +344,9 @@
         },
         {
           "include": "#dot_access"
+        },
+        {
+          "include": "#catch_error"
         }
       ],
       "captures": {
@@ -337,6 +374,9 @@
         },
         {
           "include": "#remainder"
+        },
+        {
+          "include": "#catch_error"
         }
       ],
       "captures": {
@@ -364,6 +404,9 @@
         },
         {
           "include": "#remainder"
+        },
+        {
+          "include": "#catch_error"
         }
       ]
     },
@@ -392,6 +435,9 @@
         },
         {
           "include": "#type"
+        },
+        {
+          "include": "#catch_error"
         }
       ]
     },
@@ -414,13 +460,20 @@
         {
           "name": "variable.other.constant.enum.bluespec",
           "match": "((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
+        },
+        {
+          "include": "#dont_care_colons"
+        },
+        {
+          "include": "#catch_error"
         }
       ],
       "captures": {
         "1": {
           "name": "punctuation.bluespec"
         }
-      }
+      },
+      "name": "meta.storage.curly_braces.bluespec"
     },
     "dot_read_all": {
       "name": "variable.bluespec",
@@ -428,9 +481,9 @@
     },
     "enum_detect": {
       "name": "variable.other.constant.enum.bluespec",
-      "match": "(?<=(<?=)\\s*)((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*;)"
+      "match": "(?<=(?:(<?=)|:)\\s*)((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)(?=\\s*;)"
     },
-    "left_assignment": {
+    "left_writing": {
       "name": "entity.name.function.bluespec",
       "match": "(((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b))(?=\\s*((\\[.*\\]\\s*)*)<=)"
     },
@@ -545,7 +598,7 @@
     "action": {
       "patterns": [
         {
-          "name": "constant.language.bluespec",
+          "name": "constant.language.action.bluespec",
           "match": "(?:ActionValue\\s*#|Action\\b)"
         }
       ]

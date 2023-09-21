@@ -36,8 +36,7 @@ name: Bluespec SystemVerilog
 patterns:
   - include: '#always'
   - include: '#remainder'
-  - name: invalid.catch_all.bluespec # catch-all
-    match: \w+
+  - include: '#catch_error' # catch-all
 repository:
 
   always:
@@ -54,6 +53,13 @@ repository:
       - include: "#action_detect"
       - include: '#enum_detect' # niche rule
       - include: '#identifier'
+
+  catch_error:
+    patterns:
+      - name: invalid.question.bluespec
+        match: (\?)
+      - name: invalid.catch_all.bluespec
+        match: \w+
 
   whitespace: # Check macros.h
     patterns:
@@ -85,9 +91,7 @@ repository:
     patterns:
       - name: punctuation.bluespec
         match: '[;\(\)\{\}]'
-      - name: constant.language.bluespec
-        match: \?
-      - name: constant.language.bluespec
+      - name: constant.language.void.bluespec
         match: (void)
       - include: '#action'
       - include: '#return_statement'
@@ -115,6 +119,8 @@ repository:
           (?<=(method|function).*)
           ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
           (?=(\s+if|\s*[;\(=]))
+      - include: '#dont_care_equal'
+      - include: '#probable_ternary_q'
       - name: entity.name.function.bluespec
         match: (?<=interface\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       - include: '#declare_enum_category'
@@ -122,8 +128,8 @@ repository:
 
   action_detect:
     patterns:
-      - include: '#assignments'
-      - include: '#left_assignment'
+      - include: '#special_assignments'
+      - include: '#left_writing'
       - include: '#dot_access' # later decompose into method and struct
       - include: '#standalone_call' # functions
 
@@ -136,6 +142,12 @@ repository:
 
 ##
 
+  probable_ternary_q:
+    name: keyword.operator.bluespec
+    match: (?x)
+      (\?)
+      (?=.*:)
+
   ## Very careful heuristic; not strictly necessary by spec.
   declare_enum_category: ## captures both struct and enum now
     name: entity.name.class.enum_category_or_struct.bluespec
@@ -145,11 +157,11 @@ repository:
     name: storage.type.bluespec
     match: (input)
 
-  assignments:
+  special_assignments:
     patterns:
       - include: '#short_action_actionvalue'
       - include: '#short_pure_function'
-    name: meta.assignment
+    name: meta.assignment.bluespec
 
   short_action_actionvalue:
     begin: (?x)
@@ -161,6 +173,7 @@ repository:
       - include: '#standalone_call_action'
       - include: '#lone_dot'
       - include: '#remainder'
+      - include: '#catch_error' # catch-all
 
   short_pure_function:
     begin: (?x)
@@ -172,6 +185,7 @@ repository:
       - include: '#standalone_call_pure'
       - include: '#lower_identifier'
       - include: '#dot_read_all'
+      - include: '#catch_error' # catch-all
 
   return_statement: # Assumes no action
     begin: (return)
@@ -180,6 +194,7 @@ repository:
       - include: '#always'
       - include: '#dot_read_all'
       - include: '#remainder'
+      - include: '#catch_error' # catch-all
     beginCaptures:
       1:
         name: keyword.control.bluespec
@@ -194,7 +209,7 @@ repository:
   operator:
     name: keyword.operator.bluespec
     match: (?x) (
-      (?:<-|<=|\.|,|:) |
+      (?:<-|<=|[\.,:]) |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=) |
       &&& |
@@ -204,6 +219,18 @@ repository:
       [\+\-!~] |
       [\*\/%] )
 
+  dont_care_colons: ## : ?
+    name: constant.language.dont_care.bluespec
+    match: (?x)
+      (?<=:\s*)
+      (\?)
+
+  dont_care_equal: ## = ?
+    name: constant.language.dont_care.bluespec
+    match: (?x)
+      (?<==\s*)
+      (\?)
+
   index:
     begin: (\[)
     end: (\])
@@ -212,6 +239,7 @@ repository:
       - include: '#lower_identifier'
       - include: '#dot_access'
       ## - include: '#remainder'
+      - include: '#catch_error' # catch-all
     captures:
       1:
         name: punctuation.bluespec
@@ -226,6 +254,7 @@ repository:
         match: (?<!:.*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=[^;]*:?)
       - include: '#sole_unpack'
       - include: '#remainder'
+      - include: '#catch_error' # catch-all
     captures:
       1:
         name: keyword.control.bluespec
@@ -247,6 +276,7 @@ repository:
       - name: variable.other.constant.enum.bluespec
         match: (?<!tagged\s+)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
+      - include: '#catch_error' # catch-all
 
   argument_list:
     begin: (?x)
@@ -264,6 +294,7 @@ repository:
       - name: variable.other.constant.enum.bluespec
         match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
       - include: '#type'
+      - include: '#catch_error' # catch-all
 
   curly_braces: # typedef enum, match, tagged matching
     begin: (?x)
@@ -277,10 +308,12 @@ repository:
       - include: '#lower_identifier'
       - name: variable.other.constant.enum.bluespec
         match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
+      - include: '#dont_care_colons'
+      - include: '#catch_error'
     captures:
       1:
         name: punctuation.bluespec
-    ## name: _INVALID
+    name: meta.storage.curly_braces.bluespec
 
   dot_read_all:
     name: variable.bluespec
@@ -288,9 +321,9 @@ repository:
 
   enum_detect: # very narrow <=/= Enum; case
     name: variable.other.constant.enum.bluespec
-    match: (?<=(<?=)\s*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
+    match: (?<=(?:(<?=)|:)\s*)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?=\s*;)
 
-  left_assignment: # e.g., state <= True
+  left_writing: # e.g., state <= True
     name: entity.name.function.bluespec
     match: (((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))(?=\s*((\[.*\]\s*)*)<=)
 
@@ -410,7 +443,7 @@ repository:
 
   action:
     patterns:
-      - name: constant.language.bluespec
+      - name: constant.language.action.bluespec
         match: (?:ActionValue\s*#|Action\b)
 
   control:

@@ -29,9 +29,12 @@
 #define _PUNCTUATION      punctuation.bluespec
 
 #define _NUMBER           constant.numeric.bluespec
-#define _ACTION           constant.language.bluespec
-#define _DONT_CARE        constant.language.bluespec
-#define _VOID             constant.language.bluespec
+#define _ACTION           constant.language.action.bluespec
+#define _VOID             constant.language.void.bluespec
+#define _DONT_CARE        constant.language.dont_care.bluespec
+
+#define _ESCAPE           constant.character.escape.bluespec
+#define _FORMAT           constant.other.placeholder.bluespec
 
 #define _FUNCTION         entity.name.function.bluespec
 #define _CLASS            entity.name.class.bluespec
@@ -43,17 +46,17 @@
 
 #define _CONTROL          keyword.control.bluespec
 #define _OPERATOR         keyword.operator.bluespec
+#define _TERNARY_Q        keyword.operator.bluespec
 
 // no markup
 
 #define _DIRECTIVE        meta.preprocessor.bluespec  // Works fine for Java, but not yet BSV
-#define _SHORT_ASSIGNMENT meta.assignment
+#define _SHORT_ASSIGNMENT meta.assignment.bluespec
+#define _CURLY_BRACES     meta.storage.curly_braces.bluespec
 
 #define _TYPE_PRIMITIVE   storage.type.bluespec
 
 #define _STRING_DOUBLE    string.quoted.double.bluespec
-#define _ESCAPE           constant.character.escape.bluespec
-#define _FORMAT           constant.other.placeholder.bluespec
 
 #define _SYSTEM_FUNCTION  support.function.bluespec
 #define _SUPPORT          support.class.bluespec
