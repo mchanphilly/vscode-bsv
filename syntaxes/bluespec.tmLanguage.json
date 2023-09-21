@@ -514,6 +514,9 @@
           "include": "#dont_care_colon"
         },
         {
+          "include": "#probable_ternary_q"
+        },
+        {
           "include": "#catch_error"
         }
       ],
