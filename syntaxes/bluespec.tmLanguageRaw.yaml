@@ -62,6 +62,7 @@ repository:
   directives:
     patterns:
       - include: '#import'
+      - include: '#export'
       - include: '#include'
       - include: '#attribute'
       - include: '#define'
@@ -210,6 +211,10 @@ repository:
       [\+\-!~]            |
       [\*\/%]             )
 
+  dont_care_bare:
+    name: _DONT_CARE
+    match: (\?)
+
   dont_care_colons:  ## : ?
     name: _DONT_CARE
     match: (?x)
@@ -282,6 +287,7 @@ repository:
       - include: '#system_task'
       - include: '#lower_identifier'
       - include: '#tagged_union_instantiation'
+      - include: '#dont_care_bare'
       - name: _ENUM
         match: (ENUM)(?!\s*[#\(\{])
       - include: '#type'
@@ -430,8 +436,25 @@ repository:
     name: _SUPPORT
     match: (?x)
       (?<=import\s+)
-      (UPPER_IDENTIFIER) 
+      (UPPER_IDENTIFIER)
 
+  export:
+    patterns:
+      - include: '#export_interface'
+      - include: '#export_module'
+
+  export_interface:
+    name: _EXPORT_INTERFACE
+    match: (?x)
+      (?<=export\s+)
+      (UPPER_IDENTIFIER)
+
+  export_module:
+    name: _EXPORT_MODULE
+    match: (?x)
+      (?<=export\s+)
+      (LOWER_IDENTIFIER)
+  
   action:
     patterns:
       - name: _ACTION
@@ -441,7 +464,7 @@ repository:
     patterns:
       - name: _CONTROL
         match: (?x)\b
-          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\b
+          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import|export)\b
   
   declare_keyword:
     patterns:

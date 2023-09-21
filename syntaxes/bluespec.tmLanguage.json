@@ -82,6 +82,9 @@
           "include": "#import"
         },
         {
+          "include": "#export"
+        },
+        {
           "include": "#include"
         },
         {
@@ -324,6 +327,10 @@
       "name": "keyword.operator.bluespec",
       "match": "(?x) ( (?:<-|<=|[\\.,:]) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
+    "dont_care_bare": {
+      "name": "constant.language.dont_care.bluespec",
+      "match": "(\\?)"
+    },
     "dont_care_colons": {
       "name": "constant.language.dont_care.bluespec",
       "match": "(?x) (?<=:\\s*) (\\?)"
@@ -428,6 +435,9 @@
         },
         {
           "include": "#tagged_union_instantiation"
+        },
+        {
+          "include": "#dont_care_bare"
         },
         {
           "name": "variable.other.constant.enum.bluespec",
@@ -595,6 +605,24 @@
       "name": "support.class.bluespec",
       "match": "(?x) (?<=import\\s+) ((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
     },
+    "export": {
+      "patterns": [
+        {
+          "include": "#export_interface"
+        },
+        {
+          "include": "#export_module"
+        }
+      ]
+    },
+    "export_interface": {
+      "name": "support.class.export.bluespec",
+      "match": "(?x) (?<=export\\s+) ((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
+    },
+    "export_module": {
+      "name": "support.function.export.bluespec",
+      "match": "(?x) (?<=export\\s+) ((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)"
+    },
     "action": {
       "patterns": [
         {
@@ -607,7 +635,7 @@
       "patterns": [
         {
           "name": "keyword.control.bluespec",
-          "match": "(?x)\\b (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\\b"
+          "match": "(?x)\\b (?:case|match|matches|endcase|default|type|else|for|if|return|while|import|export)\\b"
         }
       ]
     },

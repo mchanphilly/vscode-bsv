@@ -60,6 +60,8 @@
 
 #define _SYSTEM_FUNCTION  support.function.bluespec
 #define _SUPPORT          support.class.bluespec
+#define _EXPORT_INTERFACE support.class.export.bluespec
+#define _EXPORT_MODULE    support.function.export.bluespec
 
 #define _VARIABLE         variable.bluespec
 #define _ENUM             variable.other.constant.enum.bluespec

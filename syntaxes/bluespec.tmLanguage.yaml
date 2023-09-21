@@ -71,6 +71,7 @@ repository:
   directives:
     patterns:
       - include: '#import'
+      - include: '#export'
       - include: '#include'
       - include: '#attribute'
       - include: '#define'
@@ -219,6 +220,10 @@ repository:
       [\+\-!~] |
       [\*\/%] )
 
+  dont_care_bare:
+    name: constant.language.dont_care.bluespec
+    match: (\?)
+
   dont_care_colons: ## : ?
     name: constant.language.dont_care.bluespec
     match: (?x)
@@ -291,6 +296,7 @@ repository:
       - include: '#system_task'
       - include: '#lower_identifier'
       - include: '#tagged_union_instantiation'
+      - include: '#dont_care_bare'
       - name: variable.other.constant.enum.bluespec
         match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
       - include: '#type'
@@ -441,6 +447,23 @@ repository:
       (?<=import\s+)
       ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
 
+  export:
+    patterns:
+      - include: '#export_interface'
+      - include: '#export_module'
+
+  export_interface:
+    name: support.class.export.bluespec
+    match: (?x)
+      (?<=export\s+)
+      ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)
+
+  export_module:
+    name: support.function.export.bluespec
+    match: (?x)
+      (?<=export\s+)
+      ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
+
   action:
     patterns:
       - name: constant.language.action.bluespec
@@ -450,7 +473,7 @@ repository:
     patterns:
       - name: keyword.control.bluespec
         match: (?x)\b
-          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import)\b
+          (?:case|match|matches|endcase|default|type|else|for|if|return|while|import|export)\b
 
   declare_keyword:
     patterns:
