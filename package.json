@@ -6,7 +6,7 @@
     "vscode": "^1.82.0"
   },
   "displayName": "Bluespec",
-  "description": "Syntax highlighting for the Bluespec SystemVerilog hardware design language",
+  "description": "High-quality syntax highlighting for the Bluespec SystemVerilog hardware design language",
   "categories": [
     "Programming Languages",
     "Snippets"
