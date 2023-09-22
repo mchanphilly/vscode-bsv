@@ -91,4 +91,4 @@ And if you enjoy using this extension, please drop a review or send me a message
 
 I'm unlikely to fix any issues or add any features unless I become employed (either in academia or industry) somewhere that uses Bluespec. Nevertheless, I'm tracking them just in case.
 
-See the the [`TODO`](./TODO.md/).
+See the [`TODO`](./TODO.md/).
