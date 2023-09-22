@@ -43,7 +43,7 @@ repository:
     patterns:
       - include: '#whitespace'
       - include: '#directives'
-      - include: '#brackets'
+      - include: '#groupings'
       - include: '#keyword'
       - include: '#literal'
 
@@ -61,6 +61,8 @@ repository:
       - name: invalid.catch_all.bluespec
         match: \w+
 
+###
+
   whitespace: # Check macros.h
     patterns:
       - include: 'pure_whitespace'
@@ -75,11 +77,9 @@ repository:
       - include: '#include'
       - include: '#attribute'
       - include: '#define'
-      - include: '#struct_instantiation'
-      - include: '#tagged_union_instantiation'
       - include: '#tagged_tag'
 
-  brackets: # things behave differently in brackets
+  groupings: # things behave differently in groupings
     patterns:
       - include: '#parameter' # follows a #; e.g. Bit#(4)
       - include: '#conditional' # if and if-less guard (&&&)
@@ -87,6 +87,7 @@ repository:
       - include: '#curly_braces'
       - include: '#case' # simple case
       - include: '#index' # e.g. arr[a.b][12]
+      - include: '#equal_assignment' # not implemented
 
   keyword:
     patterns:
@@ -97,7 +98,6 @@ repository:
       - include: '#action'
       - include: '#return_statement'
       - include: '#control'
-      - include: '#operator'
       - include: '#declare_keyword'
       - include: '#minispec'
       - name: invalid.deprecated.bluespec
@@ -125,12 +125,10 @@ repository:
       - name: entity.name.function.bluespec
         match: (?<=interface\s+)((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
       - include: '#declare_enum_category'
-      ## - include: '#declare_struct' (rolled into enum category)
 
   action_analysis:
     patterns:
       - include: '#standard_prelude_check'
-      - include: '#special_assignments'
       - include: '#left_writing'
       - include: '#actionvalue' # <- also covers func
       - include: '#dot_access' # later decompose into method and struct
@@ -139,13 +137,12 @@ repository:
   identifier:
     patterns:
       - include: '#system_task'
-      ## - include: '#type'
-      ## - include: '#lower_identifier'
+      - include: '#operator' ## Down here so we can match the better stuff
+      - include: '#catch_miscase' ## TODO
       - name: entity.name.class.catch_all.bluespec
         match: (?:((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(\s*#)?)
       - name: variable.catch_all.bluespec
         match: ((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
-
 
 ##
 
@@ -224,48 +221,6 @@ repository:
     name: storage.type.bluespec
     match: (input)
 
-  special_assignments:
-    patterns:
-      - include: '#short_action_actionvalue'
-      - include: '#short_pure_function'
-    name: meta.assignment.bluespec
-
-  short_action_actionvalue:
-    begin: (?x)
-      (?<=(function|method)\s+(Action|((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)).*)
-      (?:=)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#standalone_call_action'
-      - include: '#lone_dot'
-      - include: '#remainder'
-      - include: '#catch_error' # catch-all
-
-  short_pure_function:
-    begin: (?x)
-      (?<=(function|method).*)
-      (?:=)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#standalone_call_pure'
-      - include: '#lower_identifier'
-      - include: '#dot_read_all'
-      - include: '#catch_error' # catch-all
-
-  return_statement: # Assumes no action
-    begin: (return)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#dot_read_all'
-      - include: '#remainder'
-      - include: '#catch_error' # catch-all
-    beginCaptures:
-      1:
-        name: keyword.control.bluespec
-
   sole_unpack:
     name: variable.bluespec
     match: (?x)
@@ -274,7 +229,7 @@ repository:
       (?=\s*:)
 
   operator:
-    name: keyword.operator.bluespec
+    name: _OPERATOR
     match: (?x) (
       (?:<-|<=|[\.,:]) |
       (?:<<|>>|<=|>=|<|>) |
@@ -302,7 +257,7 @@ repository:
       (?<==\s*)
       (\?)
 
-  index:
+  index: ## Good rule
     begin: (\[)
     end: (\])
     patterns:
@@ -314,6 +269,7 @@ repository:
     captures:
       1:
         name: punctuation.bluespec
+    name: meta.storage.index.bluespec
 
   case:
     begin: (case)
@@ -330,12 +286,14 @@ repository:
     captures:
       1:
         name: keyword.control.bluespec
+    name: meta.storage.case.bluespec
 
-  conditional: # rather abstract rule
+  conditional: ## great example of a good meta rule
     begin: (?x)
       (?<=
         (?:if |
-        rule.*((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b)
+        rule.*((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b) |
+        (<?=)
         )
       )
       (?:\s*\()
@@ -349,6 +307,7 @@ repository:
         match: (?<!tagged\s+)((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s+((?:\b_?[\p{Lower}](?:[\p{Alpha}\d\$_])*)\b))
       - include: '#remainder'
       - include: '#catch_error' # catch-all
+    name: meta.storage.conditional.bluespec
 
   argument_list:
     begin: (?x)

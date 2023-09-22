@@ -34,7 +34,7 @@ repository:
     patterns:
       - include: '#whitespace'
       - include: '#directives'
-      - include: '#brackets'
+      - include: '#groupings'
       - include: '#keyword'
       - include: '#literal'
 
@@ -52,6 +52,8 @@ repository:
       - name: _INVALID(catch_all) 
         match: \w+
 
+###
+
   whitespace:  # Check macros.h
     patterns:
       - include: 'pure_whitespace'
@@ -66,11 +68,9 @@ repository:
       - include: '#include'
       - include: '#attribute'
       - include: '#define'
-      - include: '#struct_instantiation'
-      - include: '#tagged_union_instantiation'
       - include: '#tagged_tag'
 
-  brackets:  # things behave differently in brackets
+  groupings:  # things behave differently in groupings
     patterns: 
       - include: '#parameter'  # follows a #; e.g. Bit#(4)  
       - include: '#conditional'  # if and if-less guard (&&&)
@@ -78,6 +78,7 @@ repository:
       - include: '#curly_braces'
       - include: '#case'  # simple case
       - include: '#index'  # e.g. arr[a.b][12]
+      - include: '#equal_assignment'  # not implemented
 
   keyword:
     patterns:
@@ -88,7 +89,6 @@ repository:
       - include: '#action'
       - include: '#return_statement'
       - include: '#control'
-      - include: '#operator'
       - include: '#declare_keyword'
       - include: '#minispec'
       - name: _DEPRECATED
@@ -116,12 +116,10 @@ repository:
       - name: _FUNCTION
         match: (?<=interface\s+)(LOWER_IDENTIFIER)
       - include: '#declare_enum_category'
-      ## - include: '#declare_struct' (rolled into enum category)
 
   action_analysis:
     patterns:
       - include: '#standard_prelude_check'
-      - include: '#special_assignments'
       - include: '#left_writing'
       - include: '#actionvalue' # <- also covers func
       - include: '#dot_access'  # later decompose into method and struct
@@ -130,13 +128,12 @@ repository:
   identifier:
     patterns:
       - include: '#system_task'
-      ## - include: '#type'
-      ## - include: '#lower_identifier'
+      - include: '#operator'  ## Down here so we can match the better stuff
+      - include: '#catch_miscase'  ## TODO
       - name: _CATCH_ALL_UPPER
         match: (TYPE)
       - name: _CATCH_ALL_LOWER
         match: (LOWER_IDENTIFIER)
-
 
 ##
 
@@ -215,48 +212,6 @@ repository:
     name: _TYPE_PRIMITIVE
     match: (input)
 
-  special_assignments:
-    patterns:
-      - include: '#short_action_actionvalue'
-      - include: '#short_pure_function'
-    name: _SHORT_ASSIGNMENT
-
-  short_action_actionvalue:
-    begin: (?x)
-      (?<=(function|method)\s+(Action|(LOWER_IDENTIFIER)).*)
-      (?:=)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#standalone_call_action'  
-      - include: '#lone_dot'
-      - include: '#remainder'
-      - include: '#catch_error'  # catch-all
-
-  short_pure_function:
-    begin: (?x)
-      (?<=(function|method).*)
-      (?:=)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#standalone_call_pure'
-      - include: '#lower_identifier'
-      - include: '#dot_read_all'
-      - include: '#catch_error'  # catch-all
-
-  return_statement:  # Assumes no action
-    begin: (return)
-    end: (?:;)
-    patterns:
-      - include: '#always'
-      - include: '#dot_read_all'
-      - include: '#remainder'
-      - include: '#catch_error'  # catch-all
-    beginCaptures:
-      1:
-        name: _CONTROL
-
   sole_unpack:
     name: _VARIABLE
     match: (?x)
@@ -293,7 +248,7 @@ repository:
       (?<==\s*)
       (\?)
 
-  index:
+  index:  ## Good rule
     begin: (\[)
     end: (\])
     patterns:
@@ -305,6 +260,7 @@ repository:
     captures:
       1:
         name: _PUNCTUATION
+    name: __INDEX
 
   case:
     begin: (case)
@@ -321,12 +277,14 @@ repository:
     captures:
       1:
         name: _CONTROL
+    name: __CASE
 
-  conditional: # rather abstract rule
+  conditional: ## great example of a good meta rule
     begin: (?x)
       (?<=
         (?:if                    |
-        rule.*(LOWER_IDENTIFIER)
+        rule.*(LOWER_IDENTIFIER) |
+        (<?=)
         )
       )
       (?:\s*\()
@@ -340,6 +298,7 @@ repository:
         match: (?<!tagged\s+)(UPPER_IDENTIFIER)(?!\s+(LOWER_IDENTIFIER))
       - include: '#remainder'
       - include: '#catch_error'  # catch-all
+    name: __CONDITIONAL
 
   argument_list:
     begin: (?x)
@@ -359,7 +318,7 @@ repository:
         match: (ENUM)(?!\s*[#\(\{])
       - include: '#type'
       - include: '#catch_error'  # catch-all
-    name: _ARGUMENT_LIST
+    name: __ARGUMENT_LIST
 
   curly_braces:  # typedef enum, match, tagged matching
     begin: (?x)

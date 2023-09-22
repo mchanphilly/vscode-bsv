@@ -22,7 +22,7 @@
           "include": "#directives"
         },
         {
-          "include": "#brackets"
+          "include": "#groupings"
         },
         {
           "include": "#keyword"
@@ -94,17 +94,11 @@
           "include": "#define"
         },
         {
-          "include": "#struct_instantiation"
-        },
-        {
-          "include": "#tagged_union_instantiation"
-        },
-        {
           "include": "#tagged_tag"
         }
       ]
     },
-    "brackets": {
+    "groupings": {
       "patterns": [
         {
           "include": "#parameter"
@@ -123,6 +117,9 @@
         },
         {
           "include": "#index"
+        },
+        {
+          "include": "#equal_assignment"
         }
       ]
     },
@@ -144,9 +141,6 @@
         },
         {
           "include": "#control"
-        },
-        {
-          "include": "#operator"
         },
         {
           "include": "#declare_keyword"
@@ -208,9 +202,6 @@
           "include": "#standard_prelude_check"
         },
         {
-          "include": "#special_assignments"
-        },
-        {
           "include": "#left_writing"
         },
         {
@@ -228,6 +219,12 @@
       "patterns": [
         {
           "include": "#system_task"
+        },
+        {
+          "include": "#operator"
+        },
+        {
+          "include": "#catch_miscase"
         },
         {
           "name": "entity.name.class.catch_all.bluespec",
@@ -282,88 +279,12 @@
       "name": "storage.type.bluespec",
       "match": "(input)"
     },
-    "special_assignments": {
-      "patterns": [
-        {
-          "include": "#short_action_actionvalue"
-        },
-        {
-          "include": "#short_pure_function"
-        }
-      ],
-      "name": "meta.assignment.bluespec"
-    },
-    "short_action_actionvalue": {
-      "begin": "(?x) (?<=(function|method)\\s+(Action|((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)).*) (?:=)",
-      "end": "(?:;)",
-      "patterns": [
-        {
-          "include": "#always"
-        },
-        {
-          "include": "#standalone_call_action"
-        },
-        {
-          "include": "#lone_dot"
-        },
-        {
-          "include": "#remainder"
-        },
-        {
-          "include": "#catch_error"
-        }
-      ]
-    },
-    "short_pure_function": {
-      "begin": "(?x) (?<=(function|method).*) (?:=)",
-      "end": "(?:;)",
-      "patterns": [
-        {
-          "include": "#always"
-        },
-        {
-          "include": "#standalone_call_pure"
-        },
-        {
-          "include": "#lower_identifier"
-        },
-        {
-          "include": "#dot_read_all"
-        },
-        {
-          "include": "#catch_error"
-        }
-      ]
-    },
-    "return_statement": {
-      "begin": "(return)",
-      "end": "(?:;)",
-      "patterns": [
-        {
-          "include": "#always"
-        },
-        {
-          "include": "#dot_read_all"
-        },
-        {
-          "include": "#remainder"
-        },
-        {
-          "include": "#catch_error"
-        }
-      ],
-      "beginCaptures": {
-        "1": {
-          "name": "keyword.control.bluespec"
-        }
-      }
-    },
     "sole_unpack": {
       "name": "variable.bluespec",
       "match": "(?x) (?<=tagged\\s+((?:\\b_?[\\p{Upper}](?:[\\p{Alpha}\\d\\$_])*)\\b)\\s+\\.\\s*) ((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b) (?=\\s*:)"
     },
     "operator": {
-      "name": "keyword.operator.bluespec",
+      "name": "_OPERATOR",
       "match": "(?x) ( (?:<-|<=|[\\.,:]) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "dont_care_bare": {
@@ -399,7 +320,8 @@
         "1": {
           "name": "punctuation.bluespec"
         }
-      }
+      },
+      "name": "meta.storage.index.bluespec"
     },
     "case": {
       "begin": "(case)",
@@ -432,10 +354,11 @@
         "1": {
           "name": "keyword.control.bluespec"
         }
-      }
+      },
+      "name": "meta.storage.case.bluespec"
     },
     "conditional": {
-      "begin": "(?x) (?<= (?:if | rule.*((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b) ) ) (?:\\s*\\()",
+      "begin": "(?x) (?<= (?:if | rule.*((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b) | (<?=) ) ) (?:\\s*\\()",
       "end": "(?x) (?:\\))",
       "patterns": [
         {
@@ -457,7 +380,8 @@
         {
           "include": "#catch_error"
         }
-      ]
+      ],
+      "name": "meta.storage.conditional.bluespec"
     },
     "argument_list": {
       "begin": "(?x) (?<!\\b(?:module|method|function|for|return|deriving)\\b.*) (?<=((?:\\b_?[\\p{Lower}](?:[\\p{Alpha}\\d\\$_])*)\\b)) (?:\\s*\\()",

@@ -47,14 +47,33 @@
 
 #define _CONTROL          keyword.control.bluespec
 #define _OPERATOR         keyword.operator.bluespec
+#define _OPERATOR(n)         keyword.operator.##n.bluespec
 #define _TERNARY_Q        keyword.operator.bluespec
 
 // no markup
 
 #define _DIRECTIVE        meta.preprocessor.bluespec  // Works fine for Java, but not yet BSV
-#define _SHORT_ASSIGNMENT meta.assignment.bluespec
+#define __SHORT_ASSIGNMENT meta.assignment.bluespec
 #define _CURLY_BRACES     meta.storage.curly_braces.bluespec
-#define _ARGUMENT_LIST    meta.storage.argument_list.bluespec
+#define __ARGUMENT_LIST    meta.storage.argument_list.bluespec
+#define __CASE             meta.storage.case.bluespec
+#define __INDEX            meta.storage.index.bluespec
+#define __CONDITIONAL     meta.storage.conditional.bluespec
+#define _RETURN_STATEMENT meta.storage.return_statement.bluespec
+#define _SHORT_PURE       meta.assignment.short_pure.bluespec
+#define _SHORT_AV         meta.assignment.short_av.bluespec
+
+// big meta cases
+#define __WHITESPACE      meta.whitespace.bluespec
+#define __DIRECTIVES      meta.directives.bluespec
+#define __BRACKETS        meta.brackets.bluespec
+#define __KEYWORD         meta.keyword.bluespec
+#define __LITERAL         meta.literal.bluespec
+#define __DECLARATIONS    meta.declarations.bluespec
+#define __ACTION_ANALYSIS meta.action_analysis.bluespec
+#define __ENUM_DETECT     meta.enum_detect.bluespec
+#define __IDENTIFIER      meta.identifier.bluespec
+
 
 #define _TYPE_PRIMITIVE   storage.type.bluespec
 
@@ -71,6 +90,7 @@
 #define _CATCH_ALL_LOWER  variable.catch_all.bluespec
 #define _PRELUDE_PURE     variable.prelude_pure.bluespec
 #define _VARIABLE         variable.bluespec
+// #define _VARIABLE         invalid.bluespec
 #define _ENUM             variable.other.constant.enum.bluespec
 #define _TAG              variable.other.constant.tag.bluespec
 
@@ -91,6 +111,7 @@
 #define TYPE ?:(UPPER_IDENTIFIER)(\s*#)?  // excellent building block
 #define ENUM UPPER_IDENTIFIER  // exactly the same
 #define DOT_ACCESS ((?<=\.\s*)(LOWER_IDENTIFIER))
+#define COMPARATOR (?:[<>]=?|[!=]=)
 
 #define SV_KEYWORDS \
     (?:alias|always|always_comb|always_ff|always_latch|and|assert|assert_strobe \
