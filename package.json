@@ -1,6 +1,6 @@
 {
   "name": "bluespec",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "MartinChan",
   "engines": {
     "vscode": "^1.82.0"
@@ -8,10 +8,15 @@
   "displayName": "Bluespec",
   "description": "Syntax highlighting for the Bluespec SystemVerilog hardware design language",
   "categories": [
-    "Programming Languages", "Snippets"
+    "Programming Languages",
+    "Snippets"
   ],
   "keywords": [
-    "Bluespec", "Bluespec SystemVerilog", "bsv", "Minispec", "HDL"
+    "Bluespec",
+    "Bluespec SystemVerilog",
+    "bsv",
+    "Minispec",
+    "HDL"
   ],
   "galleryBanner": {
     "color": "#1F1F1F",
@@ -70,7 +75,6 @@
       }
     ]
   },
-
   "devDependencies": {
     "js-yaml": "^4.1.0"
   },
