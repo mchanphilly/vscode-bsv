@@ -68,7 +68,7 @@ One thing I've been eyeing is using [Bluespec Compiler](https://github.com/B-Lan
 
 If you're using Bluespec (or Minispec) for class, congratulations! I was first introduced to Bluespec through Daniel Sanchez's [Minispec](https://github.com/minispec-hdl/minispec/) when I took 6.004 (now 6.191) as a sophomore at MIT in Fall 2021. Then I really got into Bluespec when I took 6.192 my senior year in Spring 2023 with Arvind and the spectacular Thomas Bourgeat, who's now teaching at EPFL.
 
-I made this extension because the available syntax highlighting for Bluespec on VS Code was [really bad](https://martinchan.org/projects/bluespec-lexer/#next-steps). I used VS Code to write Bluespec for 6.192 and a [summer project afterward](https://martinchan.org/projects/processor/).[^6.004] The syntax highlighting was only one step above nothing.
+I made this extension because the available syntax highlighting for Bluespec on VS Code was [really bad](https://martinchan.org/projects/bluespec-lexer/#next-steps). I used VS Code to write Bluespec for 6.192 and a [summer project afterward](https://martinchan.org/projects/processor/).[^6.004] The syntax highlighting at the time was only one step above nothing.
 
 [^6.004]: When I took 6.004, I didn't know I could `ssh` from VS Code. I was only learning about `ssh` that semester and they taught us to use it in a really archaic way, so I thought I had no choice but to do everything from inside a terminal (gross!). I couldn't even use my mouse. If that's you right now, it doesn't have to be like this!
 
