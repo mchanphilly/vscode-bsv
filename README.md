@@ -52,13 +52,13 @@ Remember that whether a method performs an `Action` is [only one part of schedul
 
 ### Future Features
 
-I'm unlikely to add new features until I find employment, and only then if I'm working in Bluespec. Here are some ideas for future features, written in more detail in the [TODO](/TODO.md).
+I'm unlikely to add new features until I find employment, and only then if I'm working in Bluespec. Here are some ideas for future features, written in more detail in the [`TODO`](/TODO.md).
 
 Currently, there isn't much other than syntax highlighting. In terms of the possibilities, VS Code provides a significant number of [contribution points](https://code.visualstudio.com/api/references/contribution-points) that allow an extension developer to significantly boost the productivity of their users.
 
 #### Snippets
 
-Yes! We're missing many snippets beyond `for` and `if`. Send me snippets you want that aren't already in the Snippets section of the [TODO](./TODO.md/).
+Yes! We're missing many snippets beyond `for` and `if`. Send me snippets you want that aren't already in the Snippets section of the [`TODO`](./TODO.md/).
 
 #### Language Server
 
