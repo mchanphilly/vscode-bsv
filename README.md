@@ -13,8 +13,8 @@ Not affiliated with Bluespec Inc.
 ## Features
 > All examples below use excerpts from the [MIT RiscyOO/Bluespec Toooba](https://github.com/bluespec/Toooba/) open-source project.
 
-![Scrolling through a Bluespec source file with syntax highlighting](./images/moving_demo.gif)
-<video src="./images/videos/overall_demo_bluespec.mp4" controls title="Overview Demo"></video>
+![Scrolling through a Bluespec source file with syntax highlighting](/images/moving_demo.gif)
+<video src="https://github.com/mchanphilly/vscode-bsv/tree/main/images/videos/overall_demo_bluespec.mp4" controls title="Overview Demo"></video>
 
 ### Sophisticated Highlighting
 
@@ -32,7 +32,7 @@ The tokens have also been carefully selected to be consistent with syntax highli
 
 ![Good looking method definition](./images/riscyoo_muldiv.png)
 
-<video src="./images/videos/demo_enum.mp4" controls title="Enum Demo"></video>
+<video src="https://github.com/mchanphilly/vscode-bsv/tree/main/images/videos/demo_enum.mp4" controls title="Enum Demo"></video>
 
 ### Action Analysis Engine
 
@@ -42,7 +42,7 @@ This syntax highlighter takes it one step further and distinguishes between acti
 
 With one glance, you can see what portions of your Bluespec are responsible for state change, and which ones are purely functional. I also discuss the concepts underlying this [in a post about my Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/#actions-and-state-changes).
 
-<video src="./images/videos/assignment_demo.mp4" controls title="Action Analysis Demo"></video>
+<video src="https://github.com/mchanphilly/vscode-bsv/tree/main/images/videos/assignment_demo.mp4" controls title="Action Analysis Demo"></video>
 
 ![Rule definition with a variety of actions and non-actions](./images/read_csr_rule.png)
 
