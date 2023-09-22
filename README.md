@@ -83,7 +83,7 @@ And if you enjoy using this extension, please drop a review or send me a message
 ## See Also
 
 - Check out my website at https://martinchan.org/
-- If you use Jekyll for site generation and want to put Bluespec excerpts on your website, check out my [Bluespec lexer](https://martinchan.org/projects/bluespec-lexer/) for Rouge. I use it to render Bluespec excerpts on my website.
+- If you use Jekyll for site generation and want to put Bluespec excerpts on your website, check out my [Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/). I use it to render Bluespec excerpts on my website.
 
 - If you work somewhere in the United States that uses Bluespec, please reach out and let me know what you think. I would like to hear from you.
 

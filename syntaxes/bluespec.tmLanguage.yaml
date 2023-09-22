@@ -365,7 +365,7 @@ repository:
       - include: '#tagged_union_instantiation'
       - include: '#dont_care_bare'
       - name: variable.other.constant.enum.bluespec
-        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{];)
+        match: ((?:\b_?[\p{Upper}](?:[\p{Alpha}\d\$_])*)\b)(?!\s*[#\(\{])
       - include: '#type'
       - include: '#catch_error' # catch-all
     name: meta.storage.argument_list.bluespec
