@@ -63,6 +63,16 @@
         "path": "./syntaxes/bluespec.tmLanguage.json"
       },
       {
+        "scopeName": "source.bsv",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.bluespec": "bluespec"
+        },
+        "path": "./syntaxes/bluespec.tmLanguage.json"
+      },
+      {
         "language": "minispec",
         "scopeName": "source.bsv",
         "path": "./syntaxes/bluespec.tmLanguage.json"
