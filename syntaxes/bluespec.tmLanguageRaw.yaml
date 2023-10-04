@@ -213,7 +213,7 @@ repository:
 
   minispec:
     name: _TYPE_PRIMITIVE
-    match: (input)
+    match: (\binput\b)
 
   sole_unpack:
     name: _VARIABLE
@@ -225,6 +225,7 @@ repository:
   operator:
     name: _OPERATOR
     match: (?x) (
+      (?:(\?(?=\s*$)))      |
       (?:<-|<=|[\.,:])   |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=)         |

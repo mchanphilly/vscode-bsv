@@ -222,7 +222,7 @@ repository:
 
   minispec:
     name: storage.type.bluespec
-    match: (input)
+    match: (\binput\b)
 
   sole_unpack:
     name: variable.bluespec
@@ -234,6 +234,7 @@ repository:
   operator:
     name: _OPERATOR
     match: (?x) (
+      (?:(\?(?=\s*$))) |
       (?:<-|<=|[\.,:]) |
       (?:<<|>>|<=|>=|<|>) |
       (?:[\!=]?=) |

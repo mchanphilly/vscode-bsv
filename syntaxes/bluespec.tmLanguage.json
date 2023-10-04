@@ -278,7 +278,7 @@
     },
     "minispec": {
       "name": "storage.type.bluespec",
-      "match": "(input)"
+      "match": "(\\binput\\b)"
     },
     "sole_unpack": {
       "name": "variable.bluespec",
@@ -286,7 +286,7 @@
     },
     "operator": {
       "name": "_OPERATOR",
-      "match": "(?x) ( (?:<-|<=|[\\.,:]) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
+      "match": "(?x) ( (?:(\\?(?=\\s*$))) | (?:<-|<=|[\\.,:]) | (?:<<|>>|<=|>=|<|>) | (?:[\\!=]?=) | &&& | [\\|&]{2} | (?:~?[&\\|\\^]) | \\^~ | [\\+\\-!~] | [\\*\\/%] )"
     },
     "dont_care_bare": {
       "name": "constant.language.dont_care.bluespec",
