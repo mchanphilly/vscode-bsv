@@ -1,6 +1,6 @@
 {
   "name": "bluespec",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "MartinChan",
   "engines": {
     "vscode": "^1.82.0"
@@ -61,11 +61,15 @@
         "language": "bluespec",
         "scopeName": "source.bsv",
         "path": "./syntaxes/bluespec.tmLanguage.json",
-        "injectTo": ["text.html.markdown"]
+        "injectTo": [
+          "text.html.markdown"
+        ]
       },
       {
         "scopeName": "source.bsv.injection",
-        "injectTo": ["text.html.markdown"],
+        "injectTo": [
+          "text.html.markdown"
+        ],
         "embeddedLanguages": {
           "meta.embedded.block.bluespec": "bluespec"
         },
