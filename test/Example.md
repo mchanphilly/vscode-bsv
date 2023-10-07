@@ -22,6 +22,28 @@ module mkExample(Example);
 endmodule
 ```
 
+But non-Bluespec should still be processed correctly.
+```yaml
+conditional: # rather abstract rule
+  begin: (?x)
+    (?<=
+      (?:if                    |
+      rule.*(LOWER_IDENTIFIER)
+      )
+    )
+    (?:\s*\()
+  end: (?x)
+    (?:\))
+  patterns:  # short-circuit from context
+    - include: '#always'
+    - include: '#dot_read_all'
+    - include: '#tagged_tag'
+    - name: _ENUM
+      match: (?<!tagged\s+)(UPPER_IDENTIFIER)(?!\s+(LOWER_IDENTIFIER))
+    - include: '#remainder'
+    - include: '#catch_error'  # catch-all
+```
+
 ## TODO
 However, we still have some issues with autoclosed brackets inside of the code blocks.
 

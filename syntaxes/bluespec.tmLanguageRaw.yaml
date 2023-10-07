@@ -25,7 +25,7 @@ $schema: 'https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlangu
 name: Bluespec SystemVerilog
 
 injectionSelector:
-  "L:markup.fenced_code.block.markdown"
+  "L:meta.embedded.block.bluespec"
 
 patterns:
   - include: '#always'

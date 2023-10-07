@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Bluespec SystemVerilog Injection",
+    "injectionSelector": "L:text.html.markdown",
+    "patterns": [
+      {
+        "include": "#injection"
+      }
+    ],
+    "repository": {
+      "injection": {
+        "begin": "(?<=```)(bsv|bluespec|minispec)",
+        "end": "(?=```)",
+        "contentName": "meta.embedded.block.bluespec"
+      }
+    },
+    "scopeName": "source.bsv.injection"
+  }
+  
