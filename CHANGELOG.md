@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.1.2] - 2023.10.06
+## [1.1.3] - 2023.10.07
 
 ### Fixed
 - Fixed Markdown Bluespec injection overriding other injected languages. Adjusted test case to cover.
+  - 1.1.1 and 1.1.2 were also meant to be this, but didn't end up working in production.
+  - Used [Matt Bierner's useful example](https://github.com/mjbvz/vscode-fenced-code-block-grammar-injection-example) to do it properly.
 
 ## [1.1.0] - 2023.10.04
 

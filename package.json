@@ -60,13 +60,10 @@
       {
         "language": "bluespec",
         "scopeName": "source.bsv",
-        "path": "./syntaxes/bluespec.tmLanguage.json",
-        "injectTo": [
-          "text.html.markdown"
-        ]
+        "path": "./syntaxes/bluespec.tmLanguage.json"
       },
       {
-        "scopeName": "source.bsv.injection",
+        "scopeName": "markdown.bluespec.codeblock",
         "injectTo": [
           "text.html.markdown"
         ],
