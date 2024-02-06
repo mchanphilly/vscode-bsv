@@ -20,7 +20,7 @@ Not affiliated with Bluespec Inc.
 
 Developers have long grown accustomed to the fantastic syntax highlighting available for mainstream languages like Python, C, Java, and TypeScript.
 
-If something's worth doing, it's worth doing right. I built this extension from the ground up with an intense eye for detail and rigor. For the first time, high-quality syntax highlighting is now available for Bluespec on VS Code.
+If something's worth doing, it's worth doing right. I built this extension from scratch. For the first time, high-quality syntax highlighting is now available for Bluespec on VS Code.
 
 ![Part of a complex module definition](./images/looks_plain_good.png)
 
@@ -52,17 +52,19 @@ Remember that whether a method performs an `Action` is [only one part of schedul
 
 ### Future Features
 
-I'm unlikely to add new features until I find employment, and only then if I'm working in Bluespec. Here are some ideas for future features, written in more detail in the [`TODO`](/TODO.md).
-
 Currently, there isn't much other than syntax highlighting. In terms of the possibilities, VS Code provides a significant number of [contribution points](https://code.visualstudio.com/api/references/contribution-points) that allow an extension developer to significantly boost the productivity of their users.
+
+Here are some ideas for future features, written in more detail in the [`TODO`](/TODO.md).
+
+#### Language Server
+
+One thing I've been eyeing is using [Bluespec Compiler](https://github.com/B-Lang-org/bsc) internals with the VS Code [language server extension framework](https://code.visualstudio.com/api/language-extensions/language-server-extension-guide) to provide useful information to the developer even before compilation. We could embed scheduling information directly into the editor, or implement traditional IDE features like `go-to-definition` or `hover-for-documentation`.
+
+Writing a high-quality Language Server for Bluespec is my MEng project. I'm starting it in Spring 2024 and hoping to get a good enough core where I can begin to take on UROPs in Fall 2024. I plan on writing it in Rust due to its community of language server developers.
 
 #### Snippets
 
 Yes! We're missing many snippets beyond `for` and `if`. Send me snippets you want that aren't already in the Snippets section of the [`TODO`](./TODO.md/).
-
-#### Language Server
-
-One thing I've been eyeing is using [Bluespec Compiler](https://github.com/B-Lang-org/bsc) internals with the VS Code [language server extension framework](https://code.visualstudio.com/api/language-extensions/language-server-extension-guide) to provide useful information to the developer even before compilation. We could embed scheduling information directly into the editor.
 
 ## Background
 
@@ -72,7 +74,7 @@ I made this extension because the available syntax highlighting for Bluespec on 
 
 [^6.004]: When I took 6.004, I didn't know I could `ssh` from VS Code. I was only learning about `ssh` that semester and they taught us to use it in a really archaic way, so I thought I had no choice but to do everything from inside a terminal (gross!). I couldn't even use my mouse. If that's you right now, it doesn't have to be like this!
 
-The Bluespec community is rather small, so once I gained some confidence from writing my [Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/), I took it upon myself to write a phenomenal extension for VS Code.
+The Bluespec community is rather small, so once I gained some confidence from writing my [Bluespec lexer for Rouge](https://martinchan.org/projects/bluespec-lexer/), I took it upon myself to try and write a phenomenal extension for VS Code.
 
 ## Feedback
 
@@ -88,7 +90,5 @@ And if you enjoy using this extension, please drop a review or send me a message
 - If you work somewhere in the United States that uses Bluespec, please reach out and let me know what you think. I would like to hear from you.
 
 ## Known Issues
-
-I'm unlikely to fix any issues or add any features unless I become employed (either in academia or industry) somewhere that uses Bluespec. Nevertheless, I'm tracking them just in case.
 
 See the [`TODO`](./TODO.md/).
